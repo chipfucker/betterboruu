@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Rule34 post</title>
+		<link rel="stylesheet" href="style.css">
+        <script src="api.js"></script>
+        <link rel="icon" type="image/x-icon" href="/r34/favicon.ico">
+    </head>
+    <body>
+        <div id="input">
+            <input type="text" id="url">
+            <button onclick="getData()" id="submit">GO</button>
+        </div>
+        
+        <div id="display" style="display: none">
+            <img id="imageDisplay">
+            <div class="card" id="tags" data-card="Tags">
+                <label>Tags</label>
+                <ul id="tagList"></ul>
+            </div>
+            <pre id="raw"></pre>
+        </div>
+    </body>
+</html>
