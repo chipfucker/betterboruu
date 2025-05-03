@@ -27,6 +27,10 @@ div.warning {
     justify-content: space-around;
 }
 
+img.logo {
+    width: 384px;
+}
+
 div.button {
     width: 256px;
     height: 128px;
@@ -42,6 +46,7 @@ div.button:hover {
     margin: -5px;
     border-color: #FFF2;
     border-radius: 17px;
+    box-shadow: 0 5px 15px 0 #0008;
 }
 
 div.rule34xxx {

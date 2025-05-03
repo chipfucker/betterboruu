@@ -1,7 +1,4 @@
-async function getData() {
-	// Hide display
-	document.getElementById("display").style.display = "none";
-	
+async function submitPost() {
 	// Assign input to variable
 	var input = document.getElementById("url").value;
 	if (input === "") {
@@ -14,8 +11,16 @@ async function getData() {
 	// Turn input into API link with RegEx
 	const apiurl = input.replace(regex, subst);
 	
+	getData(apiurl);
+}
+
+async function getData(url) {
+	display = document.getElementById("display");
+	// Hide display
+	display.style.display = "none";
+	
 	// Gather JSON info from API
-	const response = await fetch(apiurl); // https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&id=5823623
+	const response = await fetch(url); // https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&id=5823623
 	// Assign info to variable
 	const post = await response.json();
 	
@@ -107,6 +112,6 @@ async function getData() {
 	document.getElementById("raw").innerHTML = JSON.stringify(post, null, 2);
 	
 	// Reveal display
-	document.getElementById("display").style.display = "grid";
+	display.style.display = "grid";
 }
-window.onload = getData;
+window.onload = getData("5823623");
