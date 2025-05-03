@@ -1,4 +1,7 @@
 async function getData() {
+	// Hide display
+	document.getElementById("display").style.display = "none";
+	
 	// Assign input to variable
 	var input = document.getElementById("url").value;
 	if (input === "") {
@@ -64,10 +67,19 @@ async function getData() {
 	console.log("Has notes: "+has_notes);
 	console.log("Comment count: "+comment_count);
 	
-	document.getElementById("display").style.display = "grid";
-	// Set JSON info to display on element ID's
+	// Display image along with other cards
 	document.getElementById("imageDisplay").setAttribute("src", file_url);
+	/// UPDATE TO SUPPORT VIDEOS
 	
+	// Separate tags and list them in unordered list
+	const tag = tags.split(" ");
+	const tagList = document.getElementById("tagList");
+	tagList.innerHTML = ""; // Delete existing displayed tags
+	for (let x = 0; x < tag.length; x++) {
+		tagList.innerHTML += "<li>" + tag[x] + "</li>";
+	}
+	
+	// Set default JSON info to display on element ID's
 	// document.getElementById("preview_url").innerHTML = preview_url;
 	// document.getElementById("sample_url").innerHTML = sample_url;
 	// document.getElementById("file_url").innerHTML = file_url;
@@ -90,14 +102,11 @@ async function getData() {
 	// document.getElementById("has_notes").innerHTML = has_notes;
 	// document.getElementById("comment_count").innerHTML = comment_count;
 	
-	// Separate tags and list them in unordered list
-	const tag = tags.split(" ");
-	const tagList = document.getElementById("tagList");
-	for (let x = 0; x < tag.length; x++) {
-		tagList.innerHTML += "<li>" + tag[x] + "</li>";
-	}
-	
+	// Display JSON info raw
 	json = JSON.stringify(post, undefined, 2);
 	document.getElementById("raw").innerHTML = JSON.stringify(post, null, 2);
+	
+	// Reveal display
+	document.getElementById("display").style.display = "grid";
 }
 window.onload = getData;

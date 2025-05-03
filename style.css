@@ -9,6 +9,17 @@ body {
     padding: 100px 5%;
 }
 
+div.warning {
+    padding: 5px 20px;
+    margin: 30px auto;
+    width: fit-content;
+    background-color: hsl(0, 73%, 21%);
+    border: solid 1px #FFF1;
+    border-radius: 20px;
+    font-size: medium;
+    box-shadow: 0 3px 15px 0 #0004;
+}
+
 #buttons {
     width: 100%;
     display: flex;

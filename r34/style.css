@@ -3,6 +3,7 @@
     --accent-2: #152414;
     --accent-3: #20361e;
     --accent-4: #32552f;
+    --accent-5: #b1e7ac;
 }
 
 body {
@@ -74,15 +75,16 @@ body {
 #display {
     width: 100%;
     grid-template-areas:
-        "imageDisplay imageDisplay imageDisplay"
-        "tags . ."
+        "tags imageDisplay imageDisplay"
+        "tags imageDisplay imageDisplay"
         "raw raw raw";
     grid-gap: 10px;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 2fr 2fr;
 }
 
 #imageDisplay {
     width: 50%;
+    max-width: 500px;
     margin: auto;
     grid-area: imageDisplay;
     border-style: solid;
@@ -108,6 +110,10 @@ div.card {
 }
 div.card:hover {
     box-shadow: 0 3px 5px 3px #20361e44;
+}
+div.card *::selection {
+    color: var(--accent-1);
+    background-color: var(--accent-5);
 }
 
 div.card > label {
