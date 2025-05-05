@@ -5,8 +5,8 @@ async function submitPost() {
 		input = "5823623";
 	}
 	
-	const defaultUrl = "https://rule34.xxx/index.php?page=post&s=view&id="
-	const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&id="
+	const defaultUrl = "https://rule34.xxx/index.php?page=post&s=view&id=";
+	const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&id=";
 	const outputUrl = input.startsWith(defaultUrl)
 		? apiUrl + input.slice(defaultUrl.length)
 		: apiUrl + input;
@@ -174,7 +174,7 @@ function assignJson(post) {
 			desc: "Amount of comments under post",
 			data: post[0].comment_count
 		}
-	]
+	];
 	
 	for (let x = 0; x < postInfo.length; x++) {
 		console.log(
