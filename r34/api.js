@@ -9,9 +9,9 @@ async function submitPost() {
 	// Substitution to turn filtered input into API link
 	const subst = `https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&id=$<id>`;
 	// Turn input into API link with RegEx
-	const apiurl = input.replace(regex, subst);
+	const apiUrl = input.replace(regex, subst);
 	
-	getData(apiurl);
+	getData(apiUrl);
 }
 
 async function getData(url) {
@@ -72,70 +72,13 @@ async function getData(url) {
 	console.log("Status: "+status);
 	console.log("Has notes: "+has_notes);
 	console.log("Comment count: "+comment_count);
+
+	// Functions to set Display
+	getTagInfo(tags);
 	
 	// Display image along with other cards
 	document.getElementById("imageDisplay").setAttribute("src", file_url);
 	/// UPDATE TO SUPPORT VIDEOS
-	
-	/// REWORKING TO COLOR TAGS BASED ON TYPE
-	// Separate tags and list them in unordered list
-
-	// ORIGINAL CODE
-	const tag = tags.split(" ");
-	const tagList = document.getElementById("tagList");
-	tagList.innerHTML = ""; // Delete existing displayed tags
-	for (let x = 0; x < tag.length; x++) {
-		tagList.innerHTML += "<li>" + tag[x] + "</li>";
-	}
-
-	tagList.innerHTML += "<h3>Tag color testing</h3><p>Ignore this if it seems broken.</p>"
-
-	/// NEW CODE (AI-BASED)
-	// Base API URL
-	const apiBaseUrl = "https://api.rule34.xxx/index.php?page=dapi&s=tag&q=index&name=";
-
-	// Function to fetch tag info
-	async function fetchTagTypes(tagNames) {
-		const tagInfo = [];
-
-		for (const tag of tagNames) {
-			const response = await fetch(`${apiBaseUrl}${encodeURIComponent(tag)}`);
-			const text = await response.text();
-
-			// Parse the XML response
-			const parser = new DOMParser();
-			const xmlDoc = parser.parseFromString(text, "text/xml");
-
-			// Extract the tag element
-			const tagElement = xmlDoc.querySelector('tag');
-
-			if (tagElement) {
-			tagInfo.push({
-				name: tag,
-				type: tagElement.getAttribute('type'),
-				count: tagElement.getAttribute('count'),
-				id: tagElement.getAttribute('id'),
-				ambiguous: tagElement.getAttribute('ambiguous') === 'true'
-			});
-			} else {
-			tagInfo.push({
-				name: tag,
-				error: "Tag not found in response"
-			});
-			}
-		}
-		return tagInfo;
-	}
-
-	// Usage
-	fetchTagTypes(tags)
-	  .then(results => {
-		console.log("Tag information:", results);
-		// Do something with the results
-	  })
-	  .catch(error => {
-		console.error("Error fetching tags:", error);
-	  });
 	
 	// Set default JSON info to display on element ID's
 	// document.getElementById("preview_url").innerHTML = preview_url;
@@ -167,4 +110,67 @@ async function getData(url) {
 	// Reveal display
 	display.style.display = "grid";
 }
+
+async function getTagInfo(tags) {
+	// Separate tags and list them in unordered list
+	
+	// ORIGINAL CODE
+	const tag = tags.split(" ");
+	const tagList = document.getElementById("tagList");
+	tagList.innerHTML = ""; // Delete existing displayed tags
+	for (let x = 0; x < tag.length; x++) {
+		tagList.innerHTML += "<li>" + tag[x] + "</li>";
+	}
+
+	// Warn for errors in display
+	tagList.innerHTML += "<h3>Tag color testing</h3><p>Ignore this if it seems broken.</p>"
+
+	// Base API URL
+	const apiUrl = "https://api.rule34.xxx/index.php?page=dapi&s=tag&q=index&name=";
+
+	// Function to fetch tag info
+	async function fetchTagTypes(tags) {
+		const tagName = tags.split(" ");
+		const tagInfo = [];
+
+		for (let x = 0; x < tagName.length; x++) {
+			const response = await fetch(apiBaseUrl);
+			const text = await response.text();
+
+			// Parse the XML response
+			const parser = new DOMParser();
+			const xmlDoc = parser.parseFromString(text, "text/xml");
+
+			// Extract the tag element
+			const tagElement = xmlDoc.querySelector('tag');
+
+			if (tagElement) {
+			tagInfo.push({
+				name: tag,
+				type: tagElement.getAttribute('type'),
+				count: tagElement.getAttribute('count'),
+				id: tagElement.getAttribute('id'),
+				ambiguous: tagElement.getAttribute('ambiguous');
+			});
+			} else {
+			tagInfo.push({
+				name: tag,
+				error: "Tag not found in response"
+			});
+			}
+		}
+		return tagInfo;
+	}
+
+	// Usage
+	fetchTagTypes(tags)
+	  .then(results => {
+		console.log("Tag information:", results);
+		// Do something with the results
+	  })
+	  .catch(error => {
+		console.error("Error fetching tags:", error);
+	  });
+}
+
 window.onload = submitPost();

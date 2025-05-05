@@ -133,6 +133,10 @@ div.card * {
     grid-area: tags;
 }
 
+#tagCopyright {
+    color: hsl(123, 100%, 78%);
+}
+
 #raw {
     grid-area: raw;
     background-color: #10141f;
