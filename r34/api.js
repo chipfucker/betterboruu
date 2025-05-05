@@ -167,7 +167,7 @@ function assignJson(post) {
 			name: "Score",
 			desc: "Amount of upvotes this post has",
 			data: post[0].score
-		}, // Score
+		},
 		{
 			obj: "tags",
 			name: "Tags",
@@ -199,30 +199,41 @@ function assignJson(post) {
 			data: post[0].comment_count
 		}
 	]
+
+	const JSONpreview_url = postInfo[0];
+	const JSONsample_url = postInfo[1];
+	const JSONfile_url = postInfo[2];
+	const JSONdirectory = postInfo[3];
+	const JSONhash = postInfo[4];
+	const JSONwidth = postInfo[5];
+	const JSONheight = postInfo[6];
+	const JSONid = postInfo[7];
+	const JSONimage = postInfo[8];
+	const JSONchange = postInfo[9];
+	const JSONowner = postInfo[10];
+	const JSONparent_id = postInfo[11];
+	const JSONrating = postInfo[12];
+	const JSONsample = postInfo[13];
+	const JSONsample_height = postInfo[14];
+	const JSONsample_width = postInfo[15];
+	const JSONscore = postInfo[16];
+	const JSONtags = postInfo[17];
+	const JSONsource = postInfo[18];
+	const JSONstatus = postInfo[19];
+	const JSONhas_notes = postInfo[20];
+	const JSONcomment_count = postInfo[21];
 	
-	for (let x = 0; )
-	console.log("Preview URL: "+preview_url);
-	console.log("Sample URL: "+sample_url);
-	console.log("File URL: "+file_url);
-	console.log("Directory: "+directory);
-	console.log("Hash: "+hash);
-	console.log("Width: "+width);
-	console.log("Height: "+height);
-	console.log("ID: "+id); // Post ID
-	console.log("Image: "+image);
-	console.log("Change: "+change);
-	console.log("Owner: "+owner); // User who uploaded
-	console.log("Parent ID: "+parent_id); // ID of parent post
-	console.log("Rating: "+rating);
-	console.log("Sample: "+sample);
-	console.log("Sample height: "+sample_height);
-	console.log("Sample width: "+sample_width);
-	console.log("Score: "+score); // Score
-	console.log("Tags: "+tags); // Tags
-	console.log("Source: "+source); // Source
-	console.log("Status: "+status);
-	console.log("Has notes: "+has_notes);
-	console.log("Comment count: "+comment_count);
+	for (let x = 0; x < postInfo.length; x++) {
+		console.log(
+			postInfo[x].obj +
+			": " +
+			postInfo[x].name +
+			"\n (" +
+			postInfo[x].desc +
+			")\n\t= " +
+			postInfo[x].data
+		);
+	}
 }
 
 async function getTagInfo(tags) {
@@ -237,13 +248,15 @@ async function getTagInfo(tags) {
 	}
 
 	// Warn for errors in display
-	tagList.parentNode.innerHTML += "<h3>Tag color testing</h3><p>Ignore this if it seems broken.</p>"
+	tagList.parentNode.innerHTML += "<h3>Tag color testing</h3><p>Ignore this if it seems broken.</p>";
 
-	// Base API URL
-	const apiUrl = "https://api.rule34.xxx/index.php?page=dapi&s=tag&q=index&name=";
+	fetchTagTypes(tags);
 
 	// Function to fetch tag info
 	async function fetchTagTypes(tags) {
+		// Base API URL
+		const apiUrl = "https://api.rule34.xxx/index.php?page=dapi&s=tag&q=index&name=";
+
 		const tagName = tags.split(" ");
 		const tagInfo = [];
 
@@ -258,7 +271,7 @@ async function getTagInfo(tags) {
 
 			if (tagElement) {
 				tagInfo.push({
-					name: tag,
+					name: tagElement.getAttribute('name'),
 					type: tagElement.getAttribute('type'),
 					count: tagElement.getAttribute('count'),
 					id: tagElement.getAttribute('id'),
@@ -270,22 +283,21 @@ async function getTagInfo(tags) {
 					error: "Couldn't find tag info"
 				});
 			}
+		}
 
-			const tagType = {
-				0: getElementById("tagCopyright"),
-				1: getElementById("tagCharacter"),
-				2: getElementById("tagArtist"),
-				3: getElementById("tagGeneral"),
-				4: getElementById("tagMeta")
-			};
-			
-			for (let x = 0; x < tagInfo.length; x++) {
-				const element = tagType[tagInfo[x].type];
-				if (element) {
-					element.innerHTML += `<li title="(${tagInfo[x].count})">${tagInfo[x].name}</li>`;
-					// append <a> for searching for tag when applicable
-					// element.innerHTML +=  `<li title="(${tagInfo[x].count})"><a href"/search">${tagInfo[x].name}</a></li>`;
-				}
+		const tagType = {
+			0: getElementById("tagCopyright"),
+			1: getElementById("tagCharacter"),
+			2: getElementById("tagArtist"),
+			3: getElementById("tagGeneral"),
+			4: getElementById("tagMeta")
+		};
+		
+		for (let x = 0; x < tagInfo.length; x++) {
+			const element = tagType[tagInfo[x].type];
+			if (element) {
+				element.innerHTML += `<li title="(${tagInfo[x].count})">${tagInfo[x].name}</li>`;
+				// append <a> for searching for tag when applicable
 			}
 		}
 	}

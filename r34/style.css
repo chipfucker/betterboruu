@@ -135,19 +135,19 @@ div.card * {
 
 /* change depending on actual colors */
 #tagCopyright {
-    color: hsl(297, 100%, 78%);
+    color: #f0a0f0;
 }
 #tagCharacter {
-    color: hsl(123, 100%, 78%);
+    color: #b0e0b0;
 }
 #tagArtist {
-    color: hsl(0, 100%, 78%);
+    color: #f0a0a0;
 }
 #tagGeneral {
-    color: hsl(221, 100%, 78%);
+    color: #90D9ED;
 }
 #tagMeta {
-    color: hsl(49, 100%, 78%);
+    color: #f0f0a0;
 }
 
 #raw {
