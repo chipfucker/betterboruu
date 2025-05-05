@@ -133,30 +133,30 @@ div.card * {
     grid-area: tags;
 }
 
+/* change depending on actual colors */
 #tagCopyright {
+    color: hsl(297, 100%, 78%);
+}
+#tagCharacter {
     color: hsl(123, 100%, 78%);
+}
+#tagArtist {
+    color: hsl(0, 100%, 78%);
+}
+#tagGeneral {
+    color: hsl(221, 100%, 78%);
+}
+#tagMeta {
+    color: hsl(49, 100%, 78%);
 }
 
 #raw {
     grid-area: raw;
-    background-color: #10141f;
-    overflow: scroll;
-    scrollbar-width: thin;
-    padding: 10px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #FFF1;
-    color: white;
 }
-#raw::selection {
-    background-color: white;
-    color: #10141f;
-}
-
 #rawTags {
     grid-area: rawTags;
 }
-#rawTags > pre {
+#raw, #rawTags > pre {
     background-color: #10141f;
     overflow: scroll;
     scrollbar-width: thin;
@@ -166,7 +166,7 @@ div.card * {
     border-color: #FFF1;
     color: white;
 }
-#rawTags > pre::selection {
+#raw::selection, #rawTags > pre::selection {
     background-color: white;
     color: #10141f;
 }

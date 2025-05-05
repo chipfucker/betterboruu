@@ -4,14 +4,14 @@ async function submitPost() {
 	if (input === "") {
 		input = "5823623";
 	}
-	// RegEx code to search string for Rule34 post ID
-	const regex = /^(https:\/\/rule34\.xxx\/index\.php\?page=post&s=view&id=(?<id>\d{0,8}).*|(?<id>\d{0,8}).*)$/gm;
-	// Substitution to turn filtered input into API link
-	const subst = `https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&id=$<id>`;
-	// Turn input into API link with RegEx
-	const apiUrl = input.replace(regex, subst);
 	
-	getData(apiUrl);
+	const defaultUrl = "https://rule34.xxx/index.php?page=post&s=view&id="
+	const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&id="
+	const outputUrl = input.startsWith(defaultUrl)
+		? apiUrl + input.slice(defaultUrl.length)
+		: apiUrl + input;
+	
+	getData(outputUrl);
 }
 
 async function getData(url) {
@@ -119,11 +119,11 @@ async function getTagInfo(tags) {
 	const tagList = document.getElementById("tagList");
 	tagList.innerHTML = ""; // Delete existing displayed tags
 	for (let x = 0; x < tag.length; x++) {
-		tagList.innerHTML += "<li>" + tag[x] + "</li>";
+		tagList.innerHTML += `<li>${tag[x]}</li>`;
 	}
 
 	// Warn for errors in display
-	tagList.innerHTML += "<h3>Tag color testing</h3><p>Ignore this if it seems broken.</p>"
+	tagList.parentNode.innerHTML += "<h3>Tag color testing</h3><p>Ignore this if it seems broken.</p>"
 
 	// Base API URL
 	const apiUrl = "https://api.rule34.xxx/index.php?page=dapi&s=tag&q=index&name=";
@@ -134,43 +134,47 @@ async function getTagInfo(tags) {
 		const tagInfo = [];
 
 		for (let x = 0; x < tagName.length; x++) {
-			const response = await fetch(apiBaseUrl);
+			const response = await fetch(apiUrl + tagName[x]);
 			const text = await response.text();
 
-			// Parse the XML response
 			const parser = new DOMParser();
 			const xmlDoc = parser.parseFromString(text, "text/xml");
 
-			// Extract the tag element
 			const tagElement = xmlDoc.querySelector('tag');
 
 			if (tagElement) {
-			tagInfo.push({
-				name: tag,
-				type: tagElement.getAttribute('type'),
-				count: tagElement.getAttribute('count'),
-				id: tagElement.getAttribute('id'),
-				ambiguous: tagElement.getAttribute('ambiguous');
-			});
+				tagInfo.push({
+					name: tag,
+					type: tagElement.getAttribute('type'),
+					count: tagElement.getAttribute('count'),
+					id: tagElement.getAttribute('id'),
+					ambiguous: tagElement.getAttribute('ambiguous')
+				});
 			} else {
-			tagInfo.push({
-				name: tag,
-				error: "Tag not found in response"
-			});
+				tagInfo.push({
+					name: tag,
+					error: "Couldn't find tag info"
+				});
+			}
+
+			const tagType = {
+				0: getElementById("tagCopyright"),
+				1: getElementById("tagCharacter"),
+				2: getElementById("tagArtist"),
+				3: getElementById("tagGeneral"),
+				4: getElementById("tagMeta")
+			};
+			
+			for (let x = 0; x < tagInfo.length; x++) {
+				const element = tagType[tagInfo[x].type];
+				if (element) {
+					element.innerHTML += `<li title="(${tagInfo[x].count})">${tagInfo[x].name}</li>`;
+					// append <a> for searching for tag when applicable
+					// element.innerHTML +=  `<li title="(${tagInfo[x].count})"><a href"/search">${tagInfo[x].name}</a></li>`;
+				}
 			}
 		}
-		return tagInfo;
 	}
-
-	// Usage
-	fetchTagTypes(tags)
-	  .then(results => {
-		console.log("Tag information:", results);
-		// Do something with the results
-	  })
-	  .catch(error => {
-		console.error("Error fetching tags:", error);
-	  });
 }
 
 window.onload = submitPost();
