@@ -57,7 +57,6 @@ async function getData(url) {
 	// document.getElementById("comment_count").innerHTML = comment_count;
 	
 	// Display JSON info raw
-	json = JSON.stringify(post, undefined, 2);
 	document.getElementById("raw").innerHTML = JSON.stringify(post, null, 2);
 	
 	// Reveal display
