@@ -77,12 +77,73 @@ async function getData(url) {
 	/// UPDATE TO SUPPORT VIDEOS
 	
 	// Separate tags and list them in unordered list
+	/* REWORKING TO COLOR TAGS BASED ON TYPE
 	const tag = tags.split(" ");
 	const tagList = document.getElementById("tagList");
 	tagList.innerHTML = ""; // Delete existing displayed tags
 	for (let x = 0; x < tag.length; x++) {
 		tagList.innerHTML += "<li>" + tag[x] + "</li>";
 	}
+	*/
+	/* 
+	// EDIT TO FIT
+	const tagsString = "tag1 tag2 tag3";
+	const tags = tagsString.split(' ');
+
+	// Base API URL
+	const apiBaseUrl = "api.domain.tld/index.php?name=";
+
+	// Function to fetch tag info
+	async function fetchTagTypes(tagNames) {
+	  const results = [];
+
+	  for (const tag of tagNames) {
+		try {
+		  const response = await fetch(`${apiBaseUrl}${encodeURIComponent(tag)}`);
+		  const text = await response.text();
+
+		  // Parse the XML response
+		  const parser = new DOMParser();
+		  const xmlDoc = parser.parseFromString(text, "text/xml");
+
+		  // Extract the tag element
+		  const tagElement = xmlDoc.querySelector('tag');
+
+		  if (tagElement) {
+			results.push({
+			  name: tag,
+			  type: tagElement.getAttribute('type'),
+			  count: tagElement.getAttribute('count'),
+			  id: tagElement.getAttribute('id'),
+			  ambiguous: tagElement.getAttribute('ambiguous') === 'true'
+			});
+		  } else {
+			results.push({
+			  name: tag,
+			  error: "Tag not found in response"
+			});
+		  }
+		} catch (error) {
+		  results.push({
+			name: tag,
+			error: error.message
+		  });
+		}
+	  }
+
+	  return results;
+	}
+
+	// Usage
+	fetchTagTypes(tags)
+	  .then(results => {
+		console.log("Tag information:", results);
+		// Do something with the results
+	  })
+	  .catch(error => {
+		console.error("Error fetching tags:", error);
+	  });
+	*/
 	
 	// Set default JSON info to display on element ID's
 	// document.getElementById("preview_url").innerHTML = preview_url;
