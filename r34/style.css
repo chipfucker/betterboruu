@@ -77,7 +77,8 @@ body {
     grid-template-areas:
         "tags imageDisplay imageDisplay"
         "tags imageDisplay imageDisplay"
-        "raw raw raw";
+        "raw raw raw"
+        "rawTags rawTags rawTags";
     grid-gap: 10px;
     grid-template-columns: 1fr 2fr 2fr;
 }
@@ -144,6 +145,24 @@ div.card * {
     color: white;
 }
 #raw::selection {
+    background-color: white;
+    color: #10141f;
+}
+
+#rawTags {
+    grid-area: rawTags;
+}
+#rawTags > pre {
+    background-color: #10141f;
+    overflow: scroll;
+    scrollbar-width: thin;
+    padding: 10px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #FFF1;
+    color: white;
+}
+#rawTags > pre::selection {
     background-color: white;
     color: #10141f;
 }

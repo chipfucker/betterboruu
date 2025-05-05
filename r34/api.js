@@ -77,25 +77,26 @@ async function getData(url) {
 	document.getElementById("imageDisplay").setAttribute("src", file_url);
 	/// UPDATE TO SUPPORT VIDEOS
 	
+	/// REWORKING TO COLOR TAGS BASED ON TYPE
 	// Separate tags and list them in unordered list
-	/* REWORKING TO COLOR TAGS BASED ON TYPE
+
+	// ORIGINAL CODE
 	const tag = tags.split(" ");
 	const tagList = document.getElementById("tagList");
 	tagList.innerHTML = ""; // Delete existing displayed tags
 	for (let x = 0; x < tag.length; x++) {
 		tagList.innerHTML += "<li>" + tag[x] + "</li>";
 	}
-	*/
 
-	/* 
-	// EDIT TO FIT
+	tagList.innerHTML += "<h3>Tag color testing</h3><p>Ignore this if it seems broken.</p>"
 
+	/// NEW CODE (AI-BASED)
 	// Base API URL
-	const apiBaseUrl = "https://api.domain.tld/index.php?name=";
+	const apiBaseUrl = "https://api.rule34.xxx/index.php?page=dapi&s=tag&q=index&name=";
 
 	// Function to fetch tag info
 	async function fetchTagTypes(tagNames) {
-		const results = [];
+		const tagInfo = [];
 
 		for (const tag of tagNames) {
 			const response = await fetch(`${apiBaseUrl}${encodeURIComponent(tag)}`);
@@ -109,7 +110,7 @@ async function getData(url) {
 			const tagElement = xmlDoc.querySelector('tag');
 
 			if (tagElement) {
-			results.push({
+			tagInfo.push({
 				name: tag,
 				type: tagElement.getAttribute('type'),
 				count: tagElement.getAttribute('count'),
@@ -117,14 +118,13 @@ async function getData(url) {
 				ambiguous: tagElement.getAttribute('ambiguous') === 'true'
 			});
 			} else {
-			results.push({
+			tagInfo.push({
 				name: tag,
 				error: "Tag not found in response"
 			});
 			}
 		}
-
-		return results;
+		return tagInfo;
 	}
 
 	// Usage
@@ -136,7 +136,6 @@ async function getData(url) {
 	  .catch(error => {
 		console.error("Error fetching tags:", error);
 	  });
-	*/
 	
 	// Set default JSON info to display on element ID's
 	// document.getElementById("preview_url").innerHTML = preview_url;
