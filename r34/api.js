@@ -15,63 +15,16 @@ async function submitPost() {
 }
 
 async function getData(url) {
+	// hide display
 	display = document.getElementById("display");
-	// Hide display
 	display.style.display = "none";
 	
-	// Gather JSON info from API
+	// fetch JSON info from url
 	const response = await fetch(url);
-	// https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&id=5823623
-	// Assign info to variable
+	// assign info to variable
 	const post = await response.json();
-	
-	// JSON information assigned to variables
-	const preview_url = post[0].preview_url;
-	const sample_url = post[0].sample_url;
-	const file_url = post[0].file_url; // Image URL
-	const directory = post[0].directory;
-	const hash = post[0].hash;
-	const width = post[0].width;
-	const height = post[0].height;
-	const id = post[0].id; // Post ID
-	const image = post[0].image;
-	const change = post[0].change;
-	const owner = post[0].owner; // User who uploaded
-	const parent_id = post[0].parent_id; // ID of parent post
-	const rating = post[0].rating;
-	const sample = post[0].sample;
-	const sample_height = post[0].sample_height;
-	const sample_width = post[0].sample_width;
-	const score = post[0].score; // Score
-	const tags = post[0].tags; // Tags
-	const source = post[0].source; // Source
-	const status = post[0].status;
-	const has_notes = post[0].has_notes;
-	const comment_count = post[0].comment_count;
-	
-	// To ensure that access to the API works properly in case of an error
-	console.log("Preview URL: "+preview_url);
-	console.log("Sample URL: "+sample_url);
-	console.log("File URL: "+file_url);
-	console.log("Directory: "+directory);
-	console.log("Hash: "+hash);
-	console.log("Width: "+width);
-	console.log("Height: "+height);
-	console.log("ID: "+id); // Post ID
-	console.log("Image: "+image);
-	console.log("Change: "+change);
-	console.log("Owner: "+owner); // User who uploaded
-	console.log("Parent ID: "+parent_id); // ID of parent post
-	console.log("Rating: "+rating);
-	console.log("Sample: "+sample);
-	console.log("Sample height: "+sample_height);
-	console.log("Sample width: "+sample_width);
-	console.log("Score: "+score); // Score
-	console.log("Tags: "+tags); // Tags
-	console.log("Source: "+source); // Source
-	console.log("Status: "+status);
-	console.log("Has notes: "+has_notes);
-	console.log("Comment count: "+comment_count);
+
+	assignJson(post);
 
 	// Functions to set Display
 	getTagInfo(tags);
@@ -109,6 +62,167 @@ async function getData(url) {
 	
 	// Reveal display
 	display.style.display = "grid";
+}
+
+function assignJson(post) {
+	postInfo = [
+		{
+			obj: "preview_url",
+			name: "Preview URL",
+			desc: "'URL to thumbnail image?'",
+			data: post[0].preview_url
+		},
+		{
+			obj: "sample_url",
+			name: "Sample URL",
+			desc: "'URL to smaller version of image if File URL is too large?'",
+			data: post[0].sample_url
+		},
+		{
+			obj: "file_url",
+			name: "File URL",
+			desc: "URL to main media file",
+			data: post[0].file_url
+		},
+		{
+			obj: "directory",
+			name: "Directory",
+			desc: "Yet to be determined",
+			data: post[0].directory
+		},
+		{
+			obj: "hash",
+			name: "Hash",
+			desc: "Hash string associated with media",
+			data: post[0].hash
+		},
+		{
+			obj: "width",
+			name: "Width",
+			desc: "Width of media in pixels",
+			data: post[0].width
+		},
+		{
+			obj: "height",
+			name: "Height",
+			desc: "Height of media in pixels",
+			data: post[0].height
+		},
+		{
+			obj: "id",
+			name: "ID",
+			desc: "ID of post",
+			data: post[0].id
+		},
+		{
+			obj: "image",
+			name: "Image",
+			desc: "Name of image file",
+			data: post[0].image
+		},
+		{
+			obj: "change",
+			name: "Change",
+			desc: "Date of the last modification to the post, in Unix time",
+			data: post[0].change
+		},
+		{
+			obj: "owner",
+			name: "Owner",
+			desc: "User who created post, 'bot' if uploaded by a robot",
+			data: post[0].owner
+		},
+		{
+			obj: "parent_id",
+			name: "Parent ID",
+			desc: "ID of parent post, 0 if none exists",
+			data: post[0].parent_id
+		},
+		{
+			obj: "rating",
+			name: "Rating",
+			desc: "How suggestive or explicit the media is",
+			data: post[0].rating
+		},
+		{
+			obj: "sample",
+			name: "Sample",
+			desc: "Whether there is a sample attributed",
+			data: post[0].sample
+		},
+		{
+			obj: "sample_height",
+			name: "Sample Height",
+			desc: "'Height of sample?'",
+			data: post[0].sample_height
+		},
+		{
+			obj: "sample_width",
+			name: "Sample Width",
+			desc: "'Width of sample?'",
+			data: post[0].sample_width
+		},
+		{
+			obj: "score",
+			name: "Score",
+			desc: "Amount of upvotes this post has",
+			data: post[0].score
+		}, // Score
+		{
+			obj: "tags",
+			name: "Tags",
+			desc: "Tags that are associated with this post, separated by spaces",
+			data: post[0].tags
+		},
+		{
+			obj: "source",
+			name: "Source",
+			desc: "Source string associated with post, empty string if none",
+			data: post[0].source
+		},
+		{
+			obj: "status",
+			name: "Status",
+			desc: "'Whether the post is up?'",
+			data: post[0].status
+		},
+		{
+			obj: "has_notes",
+			name: "Has notes",
+			desc: "'Whether the post has notes?'",
+			data: post[0].has_notes
+		},
+		{
+			obj: "comment_count",
+			name: "Comment count",
+			desc: "Amount of comments under post",
+			data: post[0].comment_count
+		}
+	]
+	
+	for (let x = 0; )
+	console.log("Preview URL: "+preview_url);
+	console.log("Sample URL: "+sample_url);
+	console.log("File URL: "+file_url);
+	console.log("Directory: "+directory);
+	console.log("Hash: "+hash);
+	console.log("Width: "+width);
+	console.log("Height: "+height);
+	console.log("ID: "+id); // Post ID
+	console.log("Image: "+image);
+	console.log("Change: "+change);
+	console.log("Owner: "+owner); // User who uploaded
+	console.log("Parent ID: "+parent_id); // ID of parent post
+	console.log("Rating: "+rating);
+	console.log("Sample: "+sample);
+	console.log("Sample height: "+sample_height);
+	console.log("Sample width: "+sample_width);
+	console.log("Score: "+score); // Score
+	console.log("Tags: "+tags); // Tags
+	console.log("Source: "+source); // Source
+	console.log("Status: "+status);
+	console.log("Has notes: "+has_notes);
+	console.log("Comment count: "+comment_count);
 }
 
 async function getTagInfo(tags) {
