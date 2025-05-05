@@ -30,31 +30,8 @@ async function getData(url) {
 	getTagInfo(tags);
 	
 	// Display image along with other cards
-	document.getElementById("imageDisplay").setAttribute("src", file_url);
+	document.getElementById("imageDisplay").setAttribute("src", postInfo[2].data);
 	/// UPDATE TO SUPPORT VIDEOS
-	
-	// Set default JSON info to display on element ID's
-	// document.getElementById("preview_url").innerHTML = preview_url;
-	// document.getElementById("sample_url").innerHTML = sample_url;
-	// document.getElementById("file_url").innerHTML = file_url;
-	// document.getElementById("directory").innerHTML = directory;
-	// document.getElementById("hash").innerHTML = hash;
-	// document.getElementById("width").innerHTML = width;
-	// document.getElementById("height").innerHTML = height;
-	// document.getElementById("id").innerHTML = id;
-	// document.getElementById("image").innerHTML = image;
-	// document.getElementById("change").innerHTML = change;
-	// document.getElementById("owner").innerHTML = owner;
-	// document.getElementById("parent_id").innerHTML = parent_id;
-	// document.getElementById("rating").innerHTML = rating;
-	// document.getElementById("sample").innerHTML = sample;
-	// document.getElementById("sample_height").innerHTML = sample_height;
-	// document.getElementById("sample_width").innerHTML = sample_width;
-	// document.getElementById("tags").innerHTML = tags;
-	// document.getElementById("source").innerHTML = source;
-	// document.getElementById("status").innerHTML = status;
-	// document.getElementById("has_notes").innerHTML = has_notes;
-	// document.getElementById("comment_count").innerHTML = comment_count;
 	
 	// Display JSON info raw
 	document.getElementById("raw").innerHTML = JSON.stringify(post, null, 2);
@@ -198,29 +175,6 @@ function assignJson(post) {
 			data: post[0].comment_count
 		}
 	]
-
-	const JSONpreview_url = postInfo[0];
-	const JSONsample_url = postInfo[1];
-	const JSONfile_url = postInfo[2];
-	const JSONdirectory = postInfo[3];
-	const JSONhash = postInfo[4];
-	const JSONwidth = postInfo[5];
-	const JSONheight = postInfo[6];
-	const JSONid = postInfo[7];
-	const JSONimage = postInfo[8];
-	const JSONchange = postInfo[9];
-	const JSONowner = postInfo[10];
-	const JSONparent_id = postInfo[11];
-	const JSONrating = postInfo[12];
-	const JSONsample = postInfo[13];
-	const JSONsample_height = postInfo[14];
-	const JSONsample_width = postInfo[15];
-	const JSONscore = postInfo[16];
-	const JSONtags = postInfo[17];
-	const JSONsource = postInfo[18];
-	const JSONstatus = postInfo[19];
-	const JSONhas_notes = postInfo[20];
-	const JSONcomment_count = postInfo[21];
 	
 	for (let x = 0; x < postInfo.length; x++) {
 		console.log(

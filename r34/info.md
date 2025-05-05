@@ -7,26 +7,26 @@
 # JSON Info
 ## postInfo variables
 ```js
-const JSONpreview_url = postInfo[0];
-const JSONsample_url = postInfo[1];
-const JSONfile_url = postInfo[2];
-const JSONdirectory = postInfo[3];
-const JSONhash = postInfo[4];
-const JSONwidth = postInfo[5];
-const JSONheight = postInfo[6];
-const JSONid = postInfo[7];
-const JSONimage = postInfo[8];
-const JSONchange = postInfo[9];
-const JSONowner = postInfo[10];
-const JSONparent_id = postInfo[11];
-const JSONrating = postInfo[12];
-const JSONsample = postInfo[13];
-const JSONsample_height = postInfo[14];
-const JSONsample_width = postInfo[15];
-const JSONscore = postInfo[16];
-const JSONtags = postInfo[17];
-const JSONsource = postInfo[18];
-const JSONstatus = postInfo[19];
-const JSONhas_notes = postInfo[20];
-const JSONcomment_count = postInfo[21];
+preview_url = postInfo[0];
+sample_url = postInfo[1];
+file_url = postInfo[2];
+directory = postInfo[3];
+hash = postInfo[4];
+width = postInfo[5];
+height = postInfo[6];
+id = postInfo[7];
+image = postInfo[8];
+change = postInfo[9];
+owner = postInfo[10];
+parent_id = postInfo[11];
+rating = postInfo[12];
+sample = postInfo[13];
+sample_height = postInfo[14];
+sample_width = postInfo[15];
+score = postInfo[16];
+tags = postInfo[17];
+source = postInfo[18];
+status = postInfo[19];
+has_notes = postInfo[20];
+comment_count = postInfo[21];
 ```
