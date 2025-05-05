@@ -20,7 +20,8 @@ async function getData(url) {
 	display.style.display = "none";
 	
 	// Gather JSON info from API
-	const response = await fetch(url); // https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&id=5823623
+	const response = await fetch(url);
+	// https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&id=5823623
 	// Assign info to variable
 	const post = await response.json();
 	
@@ -85,53 +86,45 @@ async function getData(url) {
 		tagList.innerHTML += "<li>" + tag[x] + "</li>";
 	}
 	*/
+
 	/* 
 	// EDIT TO FIT
-	const tagsString = "tag1 tag2 tag3";
-	const tags = tagsString.split(' ');
 
 	// Base API URL
-	const apiBaseUrl = "api.domain.tld/index.php?name=";
+	const apiBaseUrl = "https://api.domain.tld/index.php?name=";
 
 	// Function to fetch tag info
 	async function fetchTagTypes(tagNames) {
-	  const results = [];
+		const results = [];
 
-	  for (const tag of tagNames) {
-		try {
-		  const response = await fetch(`${apiBaseUrl}${encodeURIComponent(tag)}`);
-		  const text = await response.text();
+		for (const tag of tagNames) {
+			const response = await fetch(`${apiBaseUrl}${encodeURIComponent(tag)}`);
+			const text = await response.text();
 
-		  // Parse the XML response
-		  const parser = new DOMParser();
-		  const xmlDoc = parser.parseFromString(text, "text/xml");
+			// Parse the XML response
+			const parser = new DOMParser();
+			const xmlDoc = parser.parseFromString(text, "text/xml");
 
-		  // Extract the tag element
-		  const tagElement = xmlDoc.querySelector('tag');
+			// Extract the tag element
+			const tagElement = xmlDoc.querySelector('tag');
 
-		  if (tagElement) {
+			if (tagElement) {
 			results.push({
-			  name: tag,
-			  type: tagElement.getAttribute('type'),
-			  count: tagElement.getAttribute('count'),
-			  id: tagElement.getAttribute('id'),
-			  ambiguous: tagElement.getAttribute('ambiguous') === 'true'
+				name: tag,
+				type: tagElement.getAttribute('type'),
+				count: tagElement.getAttribute('count'),
+				id: tagElement.getAttribute('id'),
+				ambiguous: tagElement.getAttribute('ambiguous') === 'true'
 			});
-		  } else {
+			} else {
 			results.push({
-			  name: tag,
-			  error: "Tag not found in response"
+				name: tag,
+				error: "Tag not found in response"
 			});
-		  }
-		} catch (error) {
-		  results.push({
-			name: tag,
-			error: error.message
-		  });
+			}
 		}
-	  }
 
-	  return results;
+		return results;
 	}
 
 	// Usage
