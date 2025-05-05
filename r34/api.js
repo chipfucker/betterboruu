@@ -175,4 +175,4 @@ async function getData(url) {
 	// Reveal display
 	display.style.display = "grid";
 }
-window.onload = getData("5823623");
+window.onload = submitPost();
