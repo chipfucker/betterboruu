@@ -42,15 +42,95 @@ async function getData(inputId) {
 	
 	// Display image along with other cards
 	if (jsonInfo[13].data) {
-		document.getElementById("imageDisplay").setAttribute("src", jsonInfo[1].data);
-		document.getElementById("imageDisplay").style.maxwidth = `${jsonInfo[15].data}px`;
+		//document.getElementById("imageDisplay").setAttribute("src", jsonInfo[1].data);
+		//document.getElementById("imageDisplay").style.maxwidth = `${jsonInfo[15].data}px`;
+		displayMedia(jsonInfo[1].data, jsonInfo[15].data);
 	} else {
-		document.getElementById("imageDisplay").setAttribute("src", jsonInfo[2].data);
+		//document.getElementById("imageDisplay").setAttribute("src", jsonInfo[2].data);
+		displayMedia(jsonInfo[2]);
+	}
+
+	displayMedia()
+
+	function displayMedia(mediaUrl) {
+		const container = document.getElementById('imageDisplay');
+		container.innerHTML = '';
+		
+		const extension = mediaUrl.split('.').pop().toLowerCase();
+		const imageExtensions = ['jpg', 'jpeg', 'png', 'webp'];
+		const videoExtensions = ['mp4', 'webm', 'ogg', 'mov', 'avi'];
+		
+		if (extension === 'gif') {
+			// Treat GIFs as videos for better performance
+			const video = document.createElement('video');
+			video.src = mediaUrl;
+			video.autoplay = true;
+			video.loop = true;
+			video.muted = true; // Required for autoplay in some browsers
+			video.style.maxWidth = '100%';
+			container.appendChild(video);
+		} else if (imageExtensions.includes(extension)) {
+			const img = document.createElement('img');
+			img.src = mediaUrl;
+			img.alt = 'Image';
+			img.style.maxWidth = '100%';
+			container.appendChild(img);
+		} else if (videoExtensions.includes(extension)) {
+			const video = document.createElement('video');
+			video.src = mediaUrl;
+			video.controls = true;
+			video.style.maxWidth = '100%';
+			container.appendChild(video);
+		} else {
+			const link = document.createElement('a');
+			link.href = mediaUrl;
+			link.textContent = 'Download File';
+			link.target = '_blank';
+			container.appendChild(link);
+		}
+	}
+	function displayMedia(mediaUrl, sampleWidth) {
+		const container = document.getElementById('imageDisplay');
+		container.innerHTML = '';
+		
+		const extension = mediaUrl.split('.').pop().toLowerCase();
+		const imageExtensions = ['jpg', 'jpeg', 'png', 'webp'];
+		const videoExtensions = ['mp4', 'webm', 'ogg', 'mov', 'avi'];
+		
+		if (extension === 'gif') {
+			// Treat GIFs as videos for better performance
+			const video = document.createElement('video');
+			video.src = mediaUrl;
+			video.autoplay = true;
+			video.loop = true;
+			video.muted = true; // Required for autoplay in some browsers
+			video.style.maxWidth = '100%';
+			container.appendChild(video);
+		} else if (imageExtensions.includes(extension)) {
+			const img = document.createElement('img');
+			img.src = mediaUrl;
+			img.alt = 'Image';
+			img.style.maxWidth = '100%';
+			container.appendChild(img);
+		} else if (videoExtensions.includes(extension)) {
+			const video = document.createElement('video');
+			video.src = mediaUrl;
+			video.controls = true;
+			video.style.maxWidth = '100%';
+			container.appendChild(video);
+		} else {
+			const link = document.createElement('a');
+			link.href = mediaUrl;
+			link.textContent = 'Download File';
+			link.target = '_blank';
+			container.appendChild(link);
+		}
 	}
 
 	document.getElementById("downloadLink").setAttribute("href", jsonInfo[2].data);
-	document.getElementById("shareLink").setAttribute("href", `https://chipfucker.github.io/betterboruu/r34/post.html?id=${jsonInfo[7].data}`);
-	/// UPDATE TO SUPPORT VIDEOS
+	function copyShareLink(url) {
+		navigator.clipboard.writeText(`https://chipfucker.github.io/betterboruu/r34/post.html?id=${url}`);
+	}
 	
 	// Display JSON info raw
 	document.getElementById("raw").innerHTML = JSON.stringify(post, null, 2);
