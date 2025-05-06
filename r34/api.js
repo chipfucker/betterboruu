@@ -1,7 +1,3 @@
-const params = new Proxy(new URLSearchParams(window.location.search), {
-	get: (searchParams, prop) => searchParams.get(prop),
-});
-
 async function submitPost() {
 	// Assign input to variable
 	var input = document.getElementById("url").value;
@@ -16,16 +12,11 @@ async function submitPost() {
 
 async function getData(inputId) {
 	const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&id=";
-	let id;
-	if (inputId) {
-		id = inputId;
-	} else if (params.id) {
-		id = params.id;
-	} else {
-		inputId = "5823623";
-	}
-	params.id = inputId;
-	url = apiUrl + inputId;
+	const hashId = location.hash.substring(1);
+	// /^\d+$/.test(str) ? str : null;
+	const id = inputId || hashId || "5823623";
+	location.hash = "#" + id;
+	url = apiUrl + id;
 	// hide display
 	display = document.getElementById("display");
 	display.style.display = "none";
