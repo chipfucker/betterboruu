@@ -38,21 +38,21 @@ async function getData(inputId) {
 	assignJson(post);
 
 	// Functions to set Display
-	getTagInfo(jsonInfo[17].data);
+	getTagInfo(jsonInfo.tags.value);
 	
 	// Display image along with other cards
-	if (jsonInfo[13].data) {
+	if (jsonInfo.sample.value) {
 		//document.getElementById("imageDisplay").setAttribute("src", jsonInfo[1].data);
 		//document.getElementById("imageDisplay").style.maxwidth = `${jsonInfo[15].data}px`;
-		displayMedia(jsonInfo[1].data, jsonInfo[15].data);
+		displayMedia(jsonInfo.sample_url.value, jsonInfo.sample_width.value);
 	} else {
 		//document.getElementById("imageDisplay").setAttribute("src", jsonInfo[2].data);
-		displayMedia(jsonInfo[2]);
+		displayMedia(jsonInfo.file_url.value);
 	}
 
 	displayMedia()
 
-	function displayMedia(mediaUrl) {
+	function displayMedia(mediaUrl, sampleWidth) {
 		const container = document.getElementById('imageDisplay');
 		container.innerHTML = '';
 		
@@ -89,7 +89,7 @@ async function getData(inputId) {
 			container.appendChild(link);
 		}
 	}
-	function displayMedia(mediaUrl, sampleWidth) {
+	function displayMedia(mediaUrl) {
 		const container = document.getElementById('imageDisplay');
 		container.innerHTML = '';
 		
@@ -128,8 +128,10 @@ async function getData(inputId) {
 	}
 
 	document.getElementById("downloadLink").setAttribute("href", jsonInfo[2].data);
-	function copyShareLink(url) {
-		navigator.clipboard.writeText(`https://chipfucker.github.io/betterboruu/r34/post.html?id=${url}`);
+	copyShareLink(jsonInfo.image_url.value);
+	function copyShareLink(id) {
+		url = "https://chipfucker.github.io/betterboruu/r34/post.html?id=";
+		navigator.clipboard.writeText(url + id);
 	}
 	
 	// Display JSON info raw
@@ -140,144 +142,32 @@ async function getData(inputId) {
 }
 
 function assignJson(post) {
-	jsonInfo = [
-		{
-			obj: "preview_url",
-			name: "Preview URL",
-			desc: "'URL to thumbnail image?'",
-			data: post[0].preview_url
-		},
-		{
-			obj: "sample_url",
-			name: "Sample URL",
-			desc: "'URL to smaller version of image if File URL is too large?'",
-			data: post[0].sample_url
-		},
-		{
-			obj: "file_url",
-			name: "File URL",
-			desc: "URL to main media file",
-			data: post[0].file_url
-		},
-		{
-			obj: "directory",
-			name: "Directory",
-			desc: "Yet to be determined",
-			data: post[0].directory
-		},
-		{
-			obj: "hash",
-			name: "Hash",
-			desc: "Hash string associated with media",
-			data: post[0].hash
-		},
-		{
-			obj: "width",
-			name: "Width",
-			desc: "Width of media in pixels",
-			data: post[0].width
-		},
-		{
-			obj: "height",
-			name: "Height",
-			desc: "Height of media in pixels",
-			data: post[0].height
-		},
-		{
-			obj: "id",
-			name: "ID",
-			desc: "ID of post",
-			data: post[0].id
-		},
-		{
-			obj: "image",
-			name: "Image",
-			desc: "Name of image file",
-			data: post[0].image
-		},
-		{
-			obj: "change",
-			name: "Change",
-			desc: "Date of the last modification to the post, in Unix time",
-			data: post[0].change
-		},
-		{
-			obj: "owner",
-			name: "Owner",
-			desc: "User who created post, 'bot' if uploaded by a robot",
-			data: post[0].owner
-		},
-		{
-			obj: "parent_id",
-			name: "Parent ID",
-			desc: "ID of parent post, 0 if none exists",
-			data: post[0].parent_id
-		},
-		{
-			obj: "rating",
-			name: "Rating",
-			desc: "How suggestive or explicit the media is",
-			data: post[0].rating
-		},
-		{
-			obj: "sample",
-			name: "Sample",
-			desc: "Whether there is a sample attributed",
-			data: post[0].sample
-		},
-		{
-			obj: "sample_height",
-			name: "Sample Height",
-			desc: "'Height of sample?'",
-			data: post[0].sample_height
-		},
-		{
-			obj: "sample_width",
-			name: "Sample Width",
-			desc: "'Width of sample?'",
-			data: post[0].sample_width
-		},
-		{
-			obj: "score",
-			name: "Score",
-			desc: "Amount of upvotes this post has",
-			data: post[0].score
-		},
-		{
-			obj: "tags",
-			name: "Tags",
-			desc: "Tags that are associated with this post, separated by spaces",
-			data: post[0].tags
-		},
-		{
-			obj: "source",
-			name: "Source",
-			desc: "Source string associated with post, empty string if none",
-			data: post[0].source
-		},
-		{
-			obj: "status",
-			name: "Status",
-			desc: "'Whether the post is up?'",
-			data: post[0].status
-		},
-		{
-			obj: "has_notes",
-			name: "Has notes",
-			desc: "'Whether the post has notes?'",
-			data: post[0].has_notes
-		},
-		{
-			obj: "comment_count",
-			name: "Comment count",
-			desc: "Amount of comments under post",
-			data: post[0].comment_count
-		}
-	];
+	jsonInfo = {
+		preview_url: post[0].preview_url, // URL to thumbnail image
+		sample_url: post[0].sample_url, // URL to smaller version of image
+		file_url: post[0].file_url, // URL to original media file
+		directory: post[0].directory, // Yet to be determined
+		hash: post[0].hash, // Hash string associated with media
+		width: post[0].width, // Width of media in pixels
+		height: post[0].height, // Height of media in pixels
+		id: post[0].id, // ID of post
+		image: post[0].image, // Name of image file
+		change: post[0].change, // Date of the last modification to the post, in Unix time
+		owner: post[0].owner, // User who created post, 'bot' if uploaded by a robot
+		parent_id: post[0].parent_id, // ID of parent post, 0 if not applicable
+		rating: post[0].rating, // How suggestive or explicit the media is
+		sample: post[0].sample, // Whether there is a smaller version of the image
+		sample_height: post[0].sample_height, // Height of sample image
+		sample_width: post[0].sample_width, // Width of sample image
+		score: post[0].score, // Amount of upvotes this post has
+		tags: post[0].tags, // Tags that are associated with this post, separated by spaces
+		source: post[0].source, // Source string associated with post, "" if none
+		status: post[0].status, // 'Whether the post is up?'
+		has_notes: post[0].has_notes, // 'Whether the post has notes?'
+		comment_count: post[0].comment_count // Amount of comments under post
+	};
 	
-	for (let x = 0; x < jsonInfo.length; x++) {
-		console.log(`"${jsonInfo[x].obj}": "${jsonInfo[x].data}"`);
-	}
+	console.log(jsonInfo.tags.value);
 }
 
 async function getTagInfo(tags) {
