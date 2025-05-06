@@ -11,10 +11,12 @@ body {
     background-attachment: fixed;
     background-size: cover;
     color: white;
-    height: 1920px;
     padding: 100px 5%;
     margin: 0;
     font-family: system-ui;
+}
+a {
+    text-decoration: none;
 }
 
 #input {
@@ -76,7 +78,7 @@ body {
     width: 100%;
     grid-template-areas:
         "tags imageDisplay imageDisplay"
-        "tags imageDisplay imageDisplay"
+        "imageDownload . ."
         "raw raw raw"
         "rawTags rawTags rawTags";
     grid-gap: 10px;
@@ -84,9 +86,9 @@ body {
 }
 
 #imageDisplay {
-    width: 50%;
-    max-width: 500px;
-    margin: auto;
+    max-width: 100%;
+    max-height: 85vh;
+    aspect-ratio: 1 / 1;
     grid-area: imageDisplay;
     border-style: solid;
     border-width: 1px;
@@ -98,6 +100,34 @@ body {
     transform: scale(1.1);
     border-radius: 0;
     border-color: #FFF0;
+}
+
+#imageDownload {
+    grid-area: imageDownload;
+    width: fit-content;
+    height: fit-content;
+    margin: 0 0 auto 0;
+    white-space: nowrap;
+    padding: 15px;
+    font-size: 20px;
+    font-family: system-ui;
+    background-color: var(--accent-4);
+    border-style: solid;
+    border-width: 1px;
+    border-color: #FFF3;
+    border-radius: 10px;
+    align-self: bottom;
+    color: white;
+    transition:
+        box-shadow 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000),
+        transform 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000);
+}
+#imageDownload:hover {
+    box-shadow: 0 3px 5px 3px var(--accent-4);
+}
+#imageDownload a, #imageDownload svg {
+    vertical-align: bottom;
+    color: white;
 }
 
 div.card {
@@ -117,38 +147,52 @@ div.card *::selection {
     background-color: var(--accent-5);
 }
 
-div.card > label {
+div.card > .label {
     font-weight: bolder;
     text-transform: uppercase;
     font-size: larger;
-}
-div.card * {
-    list-style-type: none;
-    list-style-position: outside;
     margin: 0;
     padding: 0;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    border-bottom: solid #FFF2 2px;
 }
 
 #tags {
     grid-area: tags;
 }
-
-/* change depending on actual colors */
-#tagCopyright {
-    color: #f0a0f0;
+#tagList ul {
+    list-style-type: none;
+    list-style-position: outside;
+    margin: 10px 0;
+    padding: 0;
 }
-#tagCharacter {
-    color: #b0e0b0;
+#tagList li {
+    width: fit-content;
+    color: rgba(var(--color));
+    border: solid rgba(var(--color)) 2px;
+    border-radius: 5px;
+    background-image:
+        linear-gradient(rgba(var(--color), 0.2), rgba(var(--color), 0.2)),
+        linear-gradient(black, black);
+    padding: 2px 5px;
+    margin: 2px 0;
+    transition: all 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000);
 }
-#tagArtist {
-    color: #f0a0a0;
+#tagList li:hover {
+    background-image:
+        linear-gradient(rgba(var(--color), 0.3), rgba(var(--color), 0.3)),
+        linear-gradient(black, black);
+    box-shadow: 0 0 5px 3px rgba(var(--color), 0.2);
 }
-#tagGeneral {
-    color: #90D9ED;
+#tagList a {
+    width: fit-content;
 }
-#tagMeta {
-    color: #f0f0a0;
-}
+#tagCopyright   { --color: 240, 160, 240; }
+#tagCharacter   { --color: 176, 224, 176; }
+#tagArtist      { --color: 240, 160, 160; }
+#tagGeneral     { --color: 145, 191, 237; }
+#tagMeta        { --color: 240, 240, 160; }
 
 #raw {
     grid-area: raw;

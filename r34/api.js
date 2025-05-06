@@ -1,20 +1,26 @@
+const params = new Proxy(new URLSearchParams(window.location.search), {
+	get: (searchParams, prop) => searchParams.get(prop),
+});
+
 async function submitPost() {
 	// Assign input to variable
 	var input = document.getElementById("url").value;
-	if (input === "") {
-		input = "5823623";
-	}
 	
 	const defaultUrl = "https://rule34.xxx/index.php?page=post&s=view&id=";
-	const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&id=";
-	const outputUrl = input.startsWith(defaultUrl)
-		? apiUrl + input.slice(defaultUrl.length)
-		: apiUrl + input;
+	const outputId = input.startsWith(defaultUrl)
+		? input.slice(defaultUrl.length)
+		: input;
 	
-	getData(outputUrl);
+	getData(outputId);
 }
 
-async function getData(url) {
+async function getData(inputId) {
+	const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&id=";
+	if (!inputId) {
+		inputId = "5823623";
+	}
+	params.id = inputId;
+	url = apiUrl + inputId;
 	// hide display
 	display = document.getElementById("display");
 	display.style.display = "none";
@@ -27,10 +33,17 @@ async function getData(url) {
 	assignJson(post);
 
 	// Functions to set Display
-	getTagInfo(tags);
+	getTagInfo(jsonInfo[17].data);
 	
 	// Display image along with other cards
-	document.getElementById("imageDisplay").setAttribute("src", postInfo[2].data);
+	if (jsonInfo[13].data) {
+		document.getElementById("imageDisplay").setAttribute("src", jsonInfo[1].data);
+		document.getElementById("imageDisplay").style.maxwidth = `${jsonInfo[15].data}px`;
+	} else {
+		document.getElementById("imageDisplay").setAttribute("src", jsonInfo[2].data);
+	}
+
+	document.getElementById("downloadLink").setAttribute("href", jsonInfo[2].data);
 	/// UPDATE TO SUPPORT VIDEOS
 	
 	// Display JSON info raw
@@ -41,7 +54,7 @@ async function getData(url) {
 }
 
 function assignJson(post) {
-	postInfo = [
+	jsonInfo = [
 		{
 			obj: "preview_url",
 			name: "Preview URL",
@@ -176,84 +189,56 @@ function assignJson(post) {
 		}
 	];
 	
-	for (let x = 0; x < postInfo.length; x++) {
-		console.log(
-			postInfo[x].obj +
-			": " +
-			postInfo[x].name +
-			"\n (" +
-			postInfo[x].desc +
-			")\n\t= " +
-			postInfo[x].data
-		);
+	for (let x = 0; x < jsonInfo.length; x++) {
+		console.log(`"${jsonInfo[x].obj}": "${jsonInfo[x].data}"`);
 	}
 }
 
 async function getTagInfo(tags) {
-	// Separate tags and list them in unordered list
-	
-	// ORIGINAL CODE
-	const tag = tags.split(" ");
-	const tagList = document.getElementById("tagList");
-	tagList.innerHTML = ""; // Delete existing displayed tags
-	for (let x = 0; x < tag.length; x++) {
-		tagList.innerHTML += `<li>${tag[x]}</li>`;
+	// Base API URL
+	const apiUrl = "https://api.rule34.xxx/index.php?page=dapi&s=tag&q=index&name=";
+
+	const tagName = tags.split(" ");
+	const tagInfo = [];
+
+	for (let x = 0; x < tagName.length; x++) {
+		const response = await fetch(apiUrl + tagName[x]);
+		const text = await response.text();
+
+		const parser = new DOMParser();
+		const xmlDoc = parser.parseFromString(text, "text/xml");
+
+		const tagElement = xmlDoc.querySelector('tag');
+
+		if (tagElement) {
+			tagInfo.push({
+				name: tagElement.getAttribute('name'),
+				type: tagElement.getAttribute('type'),
+				count: tagElement.getAttribute('count'),
+				id: tagElement.getAttribute('id'),
+				ambiguous: tagElement.getAttribute('ambiguous')
+			});
+		} else {
+			tagInfo.push({
+				name: tag,
+				error: "Couldn't find tag info"
+			});
+		}
 	}
 
-	// Warn for errors in display
-	tagList.parentNode.innerHTML += "<h3>Tag color testing</h3><p>Ignore this if it seems broken.</p>";
+	const tagType = {
+		3: document.getElementById("tagCopyright"),
+		4: document.getElementById("tagCharacter"),
+		1: document.getElementById("tagArtist"),
+		0: document.getElementById("tagGeneral"),
+		5: document.getElementById("tagMeta")
+	};
 
-	fetchTagTypes(tags);
-
-	// Function to fetch tag info
-	async function fetchTagTypes(tags) {
-		// Base API URL
-		const apiUrl = "https://api.rule34.xxx/index.php?page=dapi&s=tag&q=index&name=";
-
-		const tagName = tags.split(" ");
-		const tagInfo = [];
-
-		for (let x = 0; x < tagName.length; x++) {
-			const response = await fetch(apiUrl + tagName[x]);
-			const text = await response.text();
-
-			const parser = new DOMParser();
-			const xmlDoc = parser.parseFromString(text, "text/xml");
-
-			const tagElement = xmlDoc.querySelector('tag');
-
-			if (tagElement) {
-				tagInfo.push({
-					name: tagElement.getAttribute('name'),
-					type: tagElement.getAttribute('type'),
-					count: tagElement.getAttribute('count'),
-					id: tagElement.getAttribute('id'),
-					ambiguous: tagElement.getAttribute('ambiguous')
-				});
-			} else {
-				tagInfo.push({
-					name: tag,
-					error: "Couldn't find tag info"
-				});
-			}
-		}
-
-		const tagType = {
-			0: getElementById("tagCopyright"),
-			1: getElementById("tagCharacter"),
-			2: getElementById("tagArtist"),
-			3: getElementById("tagGeneral"),
-			4: getElementById("tagMeta")
-		};
-		
-		for (let x = 0; x < tagInfo.length; x++) {
-			const element = tagType[tagInfo[x].type];
-			if (element) {
-				element.innerHTML += `<li title="(${tagInfo[x].count})">${tagInfo[x].name}</li>`;
-				// append <a> for searching for tag when applicable
-			}
+	for (let x = 0; x < tagInfo.length; x++) {
+		const element = tagType[tagInfo[x].type];
+		if (element) {
+			element.innerHTML +=
+				`<a href="https://rule34.xxx/index.php?page=post&s=list&tags=${tagInfo[x].name}" title="${tagInfo[x].count} uses"><li>${tagInfo[x].name}</li></a>`;
 		}
 	}
 }
-
-window.onload = submitPost();

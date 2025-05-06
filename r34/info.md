@@ -5,28 +5,28 @@
 * [View API info](<https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&id=5823623>)
 
 # JSON Info
-## postInfo variables
+## jsonInfo variables
 ```js
-preview_url = postInfo[0];
-sample_url = postInfo[1];
-file_url = postInfo[2];
-directory = postInfo[3];
-hash = postInfo[4];
-width = postInfo[5];
-height = postInfo[6];
-id = postInfo[7];
-image = postInfo[8];
-change = postInfo[9];
-owner = postInfo[10];
-parent_id = postInfo[11];
-rating = postInfo[12];
-sample = postInfo[13];
-sample_height = postInfo[14];
-sample_width = postInfo[15];
-score = postInfo[16];
-tags = postInfo[17];
-source = postInfo[18];
-status = postInfo[19];
-has_notes = postInfo[20];
-comment_count = postInfo[21];
+preview_url = jsonInfo[0];
+sample_url = jsonInfo[1];
+file_url = jsonInfo[2];
+directory = jsonInfo[3];
+hash = jsonInfo[4];
+width = jsonInfo[5];
+height = jsonInfo[6];
+id = jsonInfo[7];
+image = jsonInfo[8];
+change = jsonInfo[9];
+owner = jsonInfo[10];
+parent_id = jsonInfo[11];
+rating = jsonInfo[12];
+sample = jsonInfo[13];
+sample_height = jsonInfo[14];
+sample_width = jsonInfo[15];
+score = jsonInfo[16];
+tags = jsonInfo[17];
+source = jsonInfo[18];
+status = jsonInfo[19];
+has_notes = jsonInfo[20];
+comment_count = jsonInfo[21];
 ```

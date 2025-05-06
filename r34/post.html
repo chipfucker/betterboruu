@@ -7,11 +7,11 @@
         <script src="api.js"></script>
         <link rel="icon" type="image/x-icon" href="/r34/favicon.ico">
     </head>
-    <body>
+    <body onload="getData(params.id)">
         <div id="input">
             <input type="text" id="url">
             <button onclick="submitPost()" id="submit">
-                <svg width="23" height="23" fill="none" viewBox="0 0 24 24">
+                <svg width="24" height="24" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M6.6 10.02 14 11.4a.6.6 0 0 1 0 1.18L6.6 14l-2.94 5.87a1.48 1.48 0 0 0 1.99 1.98l17.03-8.52a1.48 1.48 0 0 0 0-2.64L5.65 2.16a1.48 1.48 0 0 0-1.99 1.98l2.94 5.88Z">
                     </path>
                 </svg>
@@ -20,10 +20,19 @@
         
         <div id="display">
             <img id="imageDisplay">
+            <a id="downloadLink">
+                <div id="imageDownload">
+                Download
+                    <svg width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M12 2a1 1 0 0 1 1 1v10.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V3a1 1 0 0 1 1-1ZM3 20a1 1 0 1 0 0 2h18a1 1 0 1 0 0-2H3Z">
+                        </path>
+                    </svg>
+                </div>
+            </a>
+
             <div class="card" id="tags" data-card="Tags">
-                <span class="label">Tags</span>
-                <ul id="tagList"></ul>
-                <div id="tagListColor">
+                <p class="label">Tags</p>
+                <div id="tagList">
                     <ul id="tagCopyright"></ul>
                     <ul id="tagCharacter"></ul>
                     <ul id="tagArtist"></ul>
