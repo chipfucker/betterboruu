@@ -17,6 +17,7 @@ body {
 }
 a {
     text-decoration: none;
+    color: white;
 }
 
 #input {
@@ -55,6 +56,7 @@ a {
     display: flex;
     padding: 5px;
     margin: 5px;
+    cursor: pointer;
     font-size: 20px;
     font-family: system-ui;
     background-color: var(--accent-4);
@@ -69,8 +71,10 @@ a {
         box-shadow 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000),
         transform 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000);
 }
+#submit:hover {
+    box-shadow: 0 0 5px 3px var(--accent-4);
+}
 #submit:active {
-    box-shadow: 0 3px 5px 3px var(--accent-4);
     transform: translateY(2px);
 }
 
@@ -78,7 +82,7 @@ a {
     width: 100%;
     grid-template-areas:
         "tags imageDisplay imageDisplay"
-        "imageDownload . ."
+        "buttons buttons buttons"
         "raw raw raw"
         "rawTags rawTags rawTags";
     grid-gap: 10px;
@@ -96,17 +100,14 @@ a {
     border-radius: 10px;
     transition: all 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000);
 }
-#imageDisplay:hover {
-    transform: scale(1.1);
-    border-radius: 0;
-    border-color: #FFF0;
-}
 
-#imageDownload {
-    grid-area: imageDownload;
+#buttons {
+    display: flex;
+}
+#buttons > a > div {
     width: fit-content;
     height: fit-content;
-    margin: 0 0 auto 0;
+    margin-right: 10px;
     white-space: nowrap;
     padding: 15px;
     font-size: 20px;
@@ -122,12 +123,11 @@ a {
         box-shadow 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000),
         transform 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000);
 }
-#imageDownload:hover {
-    box-shadow: 0 3px 5px 3px var(--accent-4);
+#buttons > a > div:hover {
+    box-shadow: 0 0 5px 3px var(--accent-4);
 }
-#imageDownload a, #imageDownload svg {
+#buttons > a > div > svg {
     vertical-align: bottom;
-    color: white;
 }
 
 div.card {

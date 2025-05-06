@@ -16,7 +16,12 @@ async function submitPost() {
 
 async function getData(inputId) {
 	const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&id=";
-	if (!inputId) {
+	let id;
+	if (inputId) {
+		id = inputId;
+	} else if (params.id) {
+		id = params.id;
+	} else {
 		inputId = "5823623";
 	}
 	params.id = inputId;
@@ -44,6 +49,7 @@ async function getData(inputId) {
 	}
 
 	document.getElementById("downloadLink").setAttribute("href", jsonInfo[2].data);
+	document.getElementById("shareLink").setAttribute("href", `https://chipfucker.github.io/betterboruu/r34/post.html?id=${jsonInfo[7].data}`);
 	/// UPDATE TO SUPPORT VIDEOS
 	
 	// Display JSON info raw
@@ -233,6 +239,11 @@ async function getTagInfo(tags) {
 		0: document.getElementById("tagGeneral"),
 		5: document.getElementById("tagMeta")
 	};
+	tagType[0].innerHTML = "";
+	tagType[1].innerHTML = "";
+	tagType[3].innerHTML = "";
+	tagType[4].innerHTML = "";
+	tagType[5].innerHTML = "";
 
 	for (let x = 0; x < tagInfo.length; x++) {
 		const element = tagType[tagInfo[x].type];
