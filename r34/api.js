@@ -44,48 +44,10 @@ async function getData(inputId) {
 	if (jsonInfo.sample) {
 		//document.getElementById("imageDisplay").setAttribute("src", jsonInfo[1].data);
 		//document.getElementById("imageDisplay").style.maxwidth = `${jsonInfo[15].data}px`;
-		displayMedia(jsonInfo.sample_url, jsonInfo.sample_width);
+		displayMedia(jsonInfo.sample_url);
 	} else {
 		//document.getElementById("imageDisplay").setAttribute("src", jsonInfo[2].data);
 		displayMedia(jsonInfo.file_url);
-	}
-
-	displayMedia()
-
-	function displayMedia(mediaUrl, sampleWidth) {
-		const container = document.getElementById('imageDisplay');
-		container.innerHTML = '';
-		
-		const extension = mediaUrl.split('.').pop().toLowerCase();
-		const imageExt = ['jpg', 'jpeg', 'png', 'webp'];
-		const videoExt = ['mp4', 'webm', 'ogg', 'mov', 'avi'];
-		
-		if (imageExt.includes(extension)) {
-			const img = document.createElement('img');
-			img.src = mediaUrl;
-			img.alt = 'Image';
-			img.style.maxWidth = sampleWidth + 'px';
-			container.appendChild(img);
-		} else if (extension === 'gif') {
-			const video = document.createElement('video');
-			video.src = mediaUrl;
-			video.autoplay = true;
-			video.loop = true;
-			video.muted = false;
-			video.style.maxWidth = sampleWidth + 'px';
-			container.appendChild(video);
-		} else if (videoExt.includes(extension)) {
-			const video = document.createElement('video');
-			video.src = mediaUrl;
-			video.controls = true;
-			video.style.maxWidth = sampleWidth + 'px';
-			container.appendChild(video);
-		} else {
-			const button = document.createElement('div');
-			link.innerHTML = 'Invalid format. <a href="link">Contact chipfucker if this is erroneous</a>.';
-			link.class = 'button'
-			container.appendChild(button);
-		}
 	}
 
 	function displayMedia(mediaUrl) {
@@ -94,40 +56,33 @@ async function getData(inputId) {
 		
 		const extension = mediaUrl.split('.').pop().toLowerCase();
 		const imageExt = ['jpg', 'jpeg', 'png', 'webp'];
-		const videoExt = ['mp4', 'webm', 'ogg', 'mov', 'avi'];
+		const videoExt = ['mp4', 'webm', 'ogg', 'mov', 'avi', 'gif'];
 		
 		if (imageExt.includes(extension)) {
 			const img = document.createElement('img');
 			img.src = mediaUrl;
 			img.alt = 'Image';
-			img.style.maxWidth = '100%';
 			container.appendChild(img);
-		} else if (extension === 'gif') {
-			const video = document.createElement('video');
-			video.src = mediaUrl;
-			video.autoplay = true;
-			video.loop = true;
-			video.muted = false;
-			video.style.maxWidth = sampleWidth;
-			container.appendChild(video);
 		} else if (videoExt.includes(extension)) {
 			const video = document.createElement('video');
 			video.src = mediaUrl;
 			video.controls = true;
-			video.style.maxWidth = '100%';
+			video.autoplay = false;
+			video.loop = true;
+			video.muted = false;
 			container.appendChild(video);
 		} else {
-			const button = document.createElement('div');
-			link.textContent = 'Invalid format. Contact chipfucker if this is erroneous.';
-			link.class = 'button'
-			container.appendChild(button);
+			const link = document.createElement('a');
+			link.href = 'https://discord.com/users/1184619891215573042'
+			link.innerHTML = '<div class="button">Invalid format. Contact @chipfucker on Discord if this is erroneous</div>.';
+			container.appendChild(link);
 		}
 	}
 
 	document.getElementById("downloadLink").setAttribute("href", jsonInfo.file_url);
 	copyShareLink(jsonInfo.image_url);
 	function copyShareLink(id) {
-		url = "https://chipfucker.github.io/betterboruu/r34/post.html?id=";
+		const url = "https://chipfucker.github.io/betterboruu/r34/post.html?id=";
 		navigator.clipboard.writeText(url + id);
 	}
 	
