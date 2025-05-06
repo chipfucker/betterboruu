@@ -104,10 +104,14 @@ a {
 #buttons {
     display: flex;
 }
-#buttons > a > div {
+#buttons div.button {
+    margin-right: 10px;
+    align-self: bottom;
+}
+
+div.button {
     width: fit-content;
     height: fit-content;
-    margin-right: 10px;
     white-space: nowrap;
     padding: 15px;
     font-size: 20px;
@@ -117,16 +121,15 @@ a {
     border-width: 1px;
     border-color: #FFF3;
     border-radius: 10px;
-    align-self: bottom;
     color: white;
     transition:
         box-shadow 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000),
         transform 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000);
 }
-#buttons > a > div:hover {
+div.button:hover {
     box-shadow: 0 0 5px 3px var(--accent-4);
 }
-#buttons > a > div > svg {
+div.button svg {
     vertical-align: bottom;
 }
 

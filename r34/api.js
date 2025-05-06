@@ -38,16 +38,16 @@ async function getData(inputId) {
 	assignJson(post);
 
 	// Functions to set Display
-	getTagInfo(jsonInfo.tags.value);
+	getTagInfo(jsonInfo.tags);
 	
 	// Display image along with other cards
-	if (jsonInfo.sample.value) {
+	if (jsonInfo.sample) {
 		//document.getElementById("imageDisplay").setAttribute("src", jsonInfo[1].data);
 		//document.getElementById("imageDisplay").style.maxwidth = `${jsonInfo[15].data}px`;
-		displayMedia(jsonInfo.sample_url.value, jsonInfo.sample_width.value);
+		displayMedia(jsonInfo.sample_url, jsonInfo.sample_width);
 	} else {
 		//document.getElementById("imageDisplay").setAttribute("src", jsonInfo[2].data);
-		displayMedia(jsonInfo.file_url.value);
+		displayMedia(jsonInfo.file_url);
 	}
 
 	displayMedia()
@@ -57,78 +57,75 @@ async function getData(inputId) {
 		container.innerHTML = '';
 		
 		const extension = mediaUrl.split('.').pop().toLowerCase();
-		const imageExtensions = ['jpg', 'jpeg', 'png', 'webp'];
-		const videoExtensions = ['mp4', 'webm', 'ogg', 'mov', 'avi'];
+		const imageExt = ['jpg', 'jpeg', 'png', 'webp'];
+		const videoExt = ['mp4', 'webm', 'ogg', 'mov', 'avi'];
 		
-		if (extension === 'gif') {
-			// Treat GIFs as videos for better performance
+		if (imageExt.includes(extension)) {
+			const img = document.createElement('img');
+			img.src = mediaUrl;
+			img.alt = 'Image';
+			img.style.maxWidth = sampleWidth + 'px';
+			container.appendChild(img);
+		} else if (extension === 'gif') {
 			const video = document.createElement('video');
 			video.src = mediaUrl;
 			video.autoplay = true;
 			video.loop = true;
-			video.muted = true; // Required for autoplay in some browsers
-			video.style.maxWidth = '100%';
+			video.muted = false;
+			video.style.maxWidth = sampleWidth + 'px';
 			container.appendChild(video);
-		} else if (imageExtensions.includes(extension)) {
-			const img = document.createElement('img');
-			img.src = mediaUrl;
-			img.alt = 'Image';
-			img.style.maxWidth = '100%';
-			container.appendChild(img);
-		} else if (videoExtensions.includes(extension)) {
+		} else if (videoExt.includes(extension)) {
 			const video = document.createElement('video');
 			video.src = mediaUrl;
 			video.controls = true;
-			video.style.maxWidth = '100%';
+			video.style.maxWidth = sampleWidth + 'px';
 			container.appendChild(video);
 		} else {
-			const link = document.createElement('a');
-			link.href = mediaUrl;
-			link.textContent = 'Download File';
-			link.target = '_blank';
-			container.appendChild(link);
+			const button = document.createElement('div');
+			link.innerHTML = 'Invalid format. <a href="link">Contact chipfucker if this is erroneous</a>.';
+			link.class = 'button'
+			container.appendChild(button);
 		}
 	}
+
 	function displayMedia(mediaUrl) {
 		const container = document.getElementById('imageDisplay');
 		container.innerHTML = '';
 		
 		const extension = mediaUrl.split('.').pop().toLowerCase();
-		const imageExtensions = ['jpg', 'jpeg', 'png', 'webp'];
-		const videoExtensions = ['mp4', 'webm', 'ogg', 'mov', 'avi'];
+		const imageExt = ['jpg', 'jpeg', 'png', 'webp'];
+		const videoExt = ['mp4', 'webm', 'ogg', 'mov', 'avi'];
 		
-		if (extension === 'gif') {
-			// Treat GIFs as videos for better performance
-			const video = document.createElement('video');
-			video.src = mediaUrl;
-			video.autoplay = true;
-			video.loop = true;
-			video.muted = true; // Required for autoplay in some browsers
-			video.style.maxWidth = '100%';
-			container.appendChild(video);
-		} else if (imageExtensions.includes(extension)) {
+		if (imageExt.includes(extension)) {
 			const img = document.createElement('img');
 			img.src = mediaUrl;
 			img.alt = 'Image';
 			img.style.maxWidth = '100%';
 			container.appendChild(img);
-		} else if (videoExtensions.includes(extension)) {
+		} else if (extension === 'gif') {
+			const video = document.createElement('video');
+			video.src = mediaUrl;
+			video.autoplay = true;
+			video.loop = true;
+			video.muted = false;
+			video.style.maxWidth = sampleWidth;
+			container.appendChild(video);
+		} else if (videoExt.includes(extension)) {
 			const video = document.createElement('video');
 			video.src = mediaUrl;
 			video.controls = true;
 			video.style.maxWidth = '100%';
 			container.appendChild(video);
 		} else {
-			const link = document.createElement('a');
-			link.href = mediaUrl;
-			link.textContent = 'Download File';
-			link.target = '_blank';
-			container.appendChild(link);
+			const button = document.createElement('div');
+			link.textContent = 'Invalid format. Contact chipfucker if this is erroneous.';
+			link.class = 'button'
+			container.appendChild(button);
 		}
 	}
 
-	document.getElementById("downloadLink").setAttribute("href", jsonInfo[2].data);
-	copyShareLink(jsonInfo.image_url.value);
+	document.getElementById("downloadLink").setAttribute("href", jsonInfo.file_url);
+	copyShareLink(jsonInfo.image_url);
 	function copyShareLink(id) {
 		url = "https://chipfucker.github.io/betterboruu/r34/post.html?id=";
 		navigator.clipboard.writeText(url + id);
@@ -143,31 +140,31 @@ async function getData(inputId) {
 
 function assignJson(post) {
 	jsonInfo = {
-		preview_url: post[0].preview_url, // URL to thumbnail image
-		sample_url: post[0].sample_url, // URL to smaller version of image
-		file_url: post[0].file_url, // URL to original media file
-		directory: post[0].directory, // Yet to be determined
-		hash: post[0].hash, // Hash string associated with media
-		width: post[0].width, // Width of media in pixels
-		height: post[0].height, // Height of media in pixels
-		id: post[0].id, // ID of post
-		image: post[0].image, // Name of image file
-		change: post[0].change, // Date of the last modification to the post, in Unix time
-		owner: post[0].owner, // User who created post, 'bot' if uploaded by a robot
-		parent_id: post[0].parent_id, // ID of parent post, 0 if not applicable
-		rating: post[0].rating, // How suggestive or explicit the media is
-		sample: post[0].sample, // Whether there is a smaller version of the image
-		sample_height: post[0].sample_height, // Height of sample image
-		sample_width: post[0].sample_width, // Width of sample image
-		score: post[0].score, // Amount of upvotes this post has
-		tags: post[0].tags, // Tags that are associated with this post, separated by spaces
-		source: post[0].source, // Source string associated with post, "" if none
-		status: post[0].status, // 'Whether the post is up?'
-		has_notes: post[0].has_notes, // 'Whether the post has notes?'
-		comment_count: post[0].comment_count // Amount of comments under post
+		preview_url: post[0].preview_url,
+		sample_url: post[0].sample_url,
+		file_url: post[0].file_url,
+		directory: post[0].directory,
+		hash: post[0].hash,
+		width: post[0].width,
+		height: post[0].height,
+		id: post[0].id,
+		image: post[0].image,
+		change: post[0].change,
+		owner: post[0].owner,
+		parent_id: post[0].parent_id,
+		rating: post[0].rating,
+		sample: post[0].sample,
+		sample_height: post[0].sample_height,
+		sample_width: post[0].sample_width,
+		score: post[0].score,
+		tags: post[0].tags,
+		source: post[0].source,
+		status: post[0].status,
+		has_notes: post[0].has_notes,
+		comment_count: post[0].comment_count
 	};
 	
-	console.log(jsonInfo.tags.value);
+	console.log(jsonInfo.tags);
 }
 
 async function getTagInfo(tags) {
