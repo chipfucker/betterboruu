@@ -1,4 +1,4 @@
-<img src="/logo/betterboruu.png" alt="Example Image" width="100">
+<img src="/logo/betterboruu.png" alt="Example Image" width="384">
 
 ![Logo](/logo/betterboruu.png)
 
