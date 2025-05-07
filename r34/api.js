@@ -1,27 +1,28 @@
-// hideStuff();
+hideStuff();
 submitPost();
+
+function hideStuff() {
+	document.getElementById("errDisplay").style.display = "none";
+	document.getElementById("display").style.display = "none";
+}
 
 async function submitPost() {
 	const input = document.getElementById("url").value;
-	
 	const defaultUrl = "https://rule34.xxx/index.php?page=post&s=view&id=";
 	const outputId = input.startsWith(defaultUrl) ? input.slice(defaultUrl.length) : input;
 	
 	getData(outputId);
 }
-
 async function getData(inputId) {
-	document.getElementById("errDisplay").style.display = "none";
+	// create api link
 	const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&fields=tag_info&id=";
 	let hashId = location.hash.substring(1);
 	hashId = /^\d+$/.test(hashId) ? hashId : null;
 	const id = inputId || hashId || "5823623";
 	location.hash = "#" + id;
 	url = apiUrl + id;
-	// hide display
-	const display = document.getElementById("display");
-	display.style.display = "none";
 	
+	// fetch and handle api content
 	try {
 		response = await fetch(url);
 	} catch (e) {
@@ -32,12 +33,15 @@ async function getData(inputId) {
 	const jsonInfo = await response.json();
 	post = jsonInfo[0];
 
-	getTagInfo(post.tag_info);
+	displayTagInfo(post.tag_info); // display extra tag info
 
-	const proxyUrl = "https://corsproxy.io/?url=";
-	displayMedia(/*post.sample ? post.sample_url : */post.file_url);
+	displayMedia(post.file_url); // display media
+	// display sample file if it exists:
+	/* displayMedia(post.sample ? post.sample_url : post.file_url); */
+	// (not useful because image is resized to fit screen regardless)
+	/// videos don't work on firefox
 
-	document.getElementById("downloadLink").setAttribute("href", post.file_url);
+	setDownloadLink(post.file_url); // set download button link
 	
 	// Display JSON info raw
 	document.getElementById("raw").innerHTML = JSON.stringify(jsonInfo, null, 2);
@@ -46,25 +50,7 @@ async function getData(inputId) {
 	display.style.display = "grid";
 }
 
-function copyShareLink() {
-	console.debug("Ran copyShareLink function");
-	navigator.clipboard.writeText(location);
-	let element = document.getElementById("postShare");
-	let share = document.getElementById("postShare").innerHTML;
-	let success =
-		`<svg width="24" height="24" viewBox="0 0 24 24">
-            <path fill="currentColor" d="M21.7 5.3a1 1 0 0 1 0 1.4l-12 12a1 1 0 0 1-1.4 0l-6-6a1 1 0 1 1 1.4-1.4L9 16.58l11.3-11.3a1 1 0 0 1 1.4 0Z">
-            </path>
-        </svg>
-		<span>Share</span>`;
-	
-	element.innerHTML = success;
-	setTimeout(() => {
-		element.innerHTML = share;
-	}, 3000);
-}
-
-function getTagInfo(tags) {
+function displayTags(tags) {
 	const tagType = {
 		copyright: document.getElementById("tagCopyright"),
 		character: document.getElementById("tagCharacter"),
@@ -118,6 +104,37 @@ function displayMedia(mediaUrl) {
 		link.firstChild.style.whiteSpace = "wrap";
 		container.appendChild(link);
 	}
+}
+
+function copyLink() {
+	console.debug("Copying location");
+	try {
+		navigator.clipboard.writeText(location);
+		console.debug("Copied location to clipboard");
+	} catch (e) {
+		let msg = "Couldn't write location to clipboard";
+		displayError(e, msg);
+		return;
+	}
+	let element = document.getElementById("postShare");
+	let share = document.getElementById("postShare").innerHTML;
+	let success =
+		`<svg width="24" height="24" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M21.7 5.3a1 1 0 0 1 0 1.4l-12 12a1 1 0 0 1-1.4 0l-6-6a1 1 0 1 1 1.4-1.4L9 16.58l11.3-11.3a1 1 0 0 1 1.4 0Z">
+            </path>
+        </svg>
+		<span>Share</span>`;
+	
+	element.innerHTML = success;
+	console.debug("")
+	setTimeout(() => {
+		element.innerHTML = share;
+	}, 3000);
+}
+
+function setDownloadLink(url) {
+	link = document.getElementById("downloadLink");
+	link.setAttribute("href", url);
 }
 
 function displayError(e, msg) {
