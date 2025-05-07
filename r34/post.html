@@ -37,7 +37,17 @@
             <div id="imageDisplay"></div>
             <div id="buttons">
                 <!-- open media link -->
-                <a id="openLink">
+                <a id="openMedia">
+                    <div class="button">
+                        <svg width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M12 2a1 1 0 0 1 1 1v10.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V3a1 1 0 0 1 1-1ZM3 20a1 1 0 1 0 0 2h18a1 1 0 1 0 0-2H3Z">
+                            </path>
+                        </svg>
+                        <span>Open media</span>
+                    </div>
+                </a>
+                <!-- copy media link -->
+                <a id="copyMedia">
                     <div class="button">
                         <svg width="24" height="24" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M12 2a1 1 0 0 1 1 1v10.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V3a1 1 0 0 1 1-1ZM3 20a1 1 0 1 0 0 2h18a1 1 0 1 0 0-2H3Z">
@@ -54,6 +64,26 @@
                             </path>
                         </svg>
                         <span>Download</span>
+                    </div>
+                </a>
+                <!-- download media with template name -->
+                <a id="specialDownloadLink" title="Download media to device (with preset name!)">
+                    <div class="button">
+                        <svg width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M12 2a1 1 0 0 1 1 1v10.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V3a1 1 0 0 1 1-1ZM3 20a1 1 0 1 0 0 2h18a1 1 0 1 0 0-2H3Z">
+                            </path>
+                        </svg>
+                        <span>Download with preset name</span>
+                    </div>
+                </a>
+                <!-- open original post link -->
+                <a id="openPost">
+                    <div class="button">
+                        <svg width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M12 2a1 1 0 0 1 1 1v10.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V3a1 1 0 0 1 1-1ZM3 20a1 1 0 1 0 0 2h18a1 1 0 1 0 0-2H3Z">
+                            </path>
+                        </svg>
+                        <span>Original post</span>
                     </div>
                 </a>
                 <!-- copy betterboruu link (current location) -->
@@ -77,7 +107,12 @@
             <h2>This could also be on me.</h2>
             <p>This website will probably never not be a work-in-progress, so there's a high chance you came across the
                 website not far after I made a change that needs a bit more fixing before it functions properly.</p>
-            <p>If you believe this with full faith to be erreneous, contact me on Discord, I don't bite: @chipfucker</p>
+            <p>If you with full faith believe this to be erreneous, contact me on Discord, I don't bite!</p>
+            <a href="https://discord.com/users/1184619891215573042">
+                <div class="button">
+                    @chipfucker
+                </div>
+            </a>
             <pre style="margin-top: 30px;">ERROR INFO:</pre>
             <pre id="errInfo" class="raw"></pre>
         </div>

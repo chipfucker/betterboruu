@@ -105,7 +105,7 @@ a {
 }
 
 #buttons {
-    display: flex;
+    display: inline-flex;
 }
 #buttons div.button {
     margin-right: 10px;
@@ -205,9 +205,9 @@ div.card > .label {
 
 #raw {
     grid-area: raw;
-    overflow: scroll;
 }
 .raw {
+    overflow: wrap;
     background-color: #10141f;
     scrollbar-width: thin;
     padding: 10px;
