@@ -33,7 +33,7 @@ async function getData(inputId) {
 	const jsonInfo = await response.json();
 	post = jsonInfo[0];
 
-	displayTagInfo(post.tag_info); // display extra tag info
+	artists = getTags(post.tag_info); // display extra tag info and get artist tags as string
 
 	displayMedia(post.file_url); // display media
 	// display sample file if it exists:
@@ -41,7 +41,7 @@ async function getData(inputId) {
 	// (not useful because image is resized to fit screen regardless)
 	/// videos don't work on firefox
 
-	setDownloadLink(post.file_url); // set download button link
+	setDownloadLink(post.file_url, post.id); // set download button link
 	
 	// Display JSON info raw
 	document.getElementById("raw").innerHTML = JSON.stringify(jsonInfo, null, 2);
@@ -50,7 +50,7 @@ async function getData(inputId) {
 	display.style.display = "grid";
 }
 
-function displayTags(tags) {
+function getTags(tags) {
 	const tagType = {
 		copyright: document.getElementById("tagCopyright"),
 		character: document.getElementById("tagCharacter"),
@@ -68,7 +68,10 @@ function displayTags(tags) {
 		const element = tagType[tags[x].type];
 		if (element) {
 			element.innerHTML +=
-				`<a href="https://rule34.xxx/index.php?page=post&s=list&tags=${tags[x].tag}" title="${tags[x].count} uses"><li>${tags[x].tag}</li></a>`;
+				`<a
+					href="https://rule34.xxx/index.php?page=post&s=list&tags=${tags[x].tag}"
+					title="${tags[x].count} uses"
+				><li>${tags[x].tag}</li></a>`;
 		}
 	}
 }
@@ -132,9 +135,11 @@ function copyLink() {
 	}, 3000);
 }
 
-function setDownloadLink(url) {
+function setDownloadLink(url, id, artists) {
 	link = document.getElementById("downloadLink");
 	link.setAttribute("href", url);
+	link.href = url;
+	link.download = artists;
 }
 
 function displayError(e, msg) {
