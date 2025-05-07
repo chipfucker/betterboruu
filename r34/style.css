@@ -83,24 +83,25 @@ a {
     grid-template-areas:
         "tags imageDisplay imageDisplay"
         "buttons buttons buttons"
-        "raw raw raw"
-        "rawTags rawTags rawTags";
+        "raw raw raw";
     grid-gap: 10px;
     grid-template-columns: 1fr 2fr 2fr;
+    grid-template-rows: 50vh;
 }
 
 #imageDisplay {
-    max-width: 100%;
-    max-height: 85vh;
+    height: 100%;
+    margin: auto;
+    padding: none;
     grid-area: imageDisplay;
+    overflow: visible;
+}
+#imageDisplay > * {
     border-style: solid;
     border-width: 1px;
     border-color: #FFF1;
     border-radius: 10px;
-}
-#imageDisplay > * {
-    width: 100%;
-    height: 100%;
+    height: calc(100% - 2px);
 }
 
 #buttons {
@@ -114,6 +115,7 @@ a {
 div.button {
     width: fit-content;
     height: fit-content;
+    cursor: pointer;
     white-space: nowrap;
     padding: 15px;
     font-size: 20px;
@@ -165,6 +167,7 @@ div.card > .label {
 
 #tags {
     grid-area: tags;
+    overflow-y: scroll;
 }
 #tagList ul {
     list-style-type: none;
@@ -173,6 +176,7 @@ div.card > .label {
     padding: 0;
 }
 #tagList li {
+    display: inline-flex;
     width: fit-content;
     color: rgba(var(--color));
     border: solid rgba(var(--color)) 2px;
@@ -181,7 +185,7 @@ div.card > .label {
         linear-gradient(rgba(var(--color), 0.2), rgba(var(--color), 0.2)),
         linear-gradient(black, black);
     padding: 2px 5px;
-    margin: 2px 0;
+    margin: 2px;
     transition: all 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000);
 }
 #tagList li:hover {
@@ -201,13 +205,10 @@ div.card > .label {
 
 #raw {
     grid-area: raw;
-}
-#rawTags {
-    grid-area: rawTags;
-}
-#raw, #rawTags > pre {
-    background-color: #10141f;
     overflow: scroll;
+}
+.raw {
+    background-color: #10141f;
     scrollbar-width: thin;
     padding: 10px;
     border-style: solid;
@@ -215,7 +216,7 @@ div.card > .label {
     border-color: #FFF1;
     color: white;
 }
-#raw::selection, #rawTags > pre::selection {
+.raw::selection {
     background-color: white;
     color: #10141f;
 }

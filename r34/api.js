@@ -1,168 +1,128 @@
+// hideStuff();
+submitPost();
+
 async function submitPost() {
-	// Assign input to variable
-	var input = document.getElementById("url").value;
+	const input = document.getElementById("url").value;
 	
 	const defaultUrl = "https://rule34.xxx/index.php?page=post&s=view&id=";
-	const outputId = input.startsWith(defaultUrl)
-		? input.slice(defaultUrl.length)
-		: input;
+	const outputId = input.startsWith(defaultUrl) ? input.slice(defaultUrl.length) : input;
 	
 	getData(outputId);
 }
 
 async function getData(inputId) {
-	const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&id=";
-	const hashId = location.hash.substring(1);
-	// /^\d+$/.test(str) ? str : null;
+	document.getElementById("errDisplay").style.display = "none";
+	const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&fields=tag_info&id=";
+	let hashId = location.hash.substring(1);
+	hashId = /^\d+$/.test(hashId) ? hashId : null;
 	const id = inputId || hashId || "5823623";
 	location.hash = "#" + id;
 	url = apiUrl + id;
 	// hide display
-	display = document.getElementById("display");
+	const display = document.getElementById("display");
 	display.style.display = "none";
 	
-	// fetch JSON info from url
-	const response = await fetch(url);
-	// assign info to variable
-	const post = await response.json();
-
-	assignJson(post);
-
-	// Functions to set Display
-	getTagInfo(jsonInfo.tags);
-	
-	// Display image along with other cards
-	if (jsonInfo.sample) {
-		//document.getElementById("imageDisplay").setAttribute("src", jsonInfo[1].data);
-		//document.getElementById("imageDisplay").style.maxwidth = `${jsonInfo[15].data}px`;
-		displayMedia(jsonInfo.sample_url);
-	} else {
-		//document.getElementById("imageDisplay").setAttribute("src", jsonInfo[2].data);
-		displayMedia(jsonInfo.file_url);
+	try {
+		response = await fetch(url);
+	} catch (e) {
+		let msg = "Couldn't fetch from: "+url;
+		displayError(e, msg);
+		return;
 	}
+	const jsonInfo = await response.json();
+	post = jsonInfo[0];
 
-	function displayMedia(mediaUrl) {
-		const container = document.getElementById('imageDisplay');
-		container.innerHTML = '';
-		
-		const extension = mediaUrl.split('.').pop().toLowerCase();
-		const imageExt = ['jpg', 'jpeg', 'png', 'webp'];
-		const videoExt = ['mp4', 'webm', 'ogg', 'mov', 'avi', 'gif'];
-		
-		if (imageExt.includes(extension)) {
-			const img = document.createElement('img');
-			img.src = mediaUrl;
-			img.alt = 'Image';
-			container.appendChild(img);
-		} else if (videoExt.includes(extension)) {
-			const video = document.createElement('video');
-			video.src = mediaUrl;
-			video.controls = true;
-			video.autoplay = false;
-			video.loop = true;
-			video.muted = false;
-			container.appendChild(video);
-		} else {
-			const link = document.createElement('a');
-			link.href = 'https://discord.com/users/1184619891215573042'
-			link.innerHTML = '<div class="button">Invalid format. Contact @chipfucker on Discord if this is erroneous</div>.';
-			container.appendChild(link);
-		}
-	}
+	getTagInfo(post.tag_info);
 
-	document.getElementById("downloadLink").setAttribute("href", jsonInfo.file_url);
-	copyShareLink(jsonInfo.image_url);
-	function copyShareLink(id) {
-		const url = "https://chipfucker.github.io/betterboruu/r34/post.html?id=";
-		navigator.clipboard.writeText(url + id);
-	}
+	const proxyUrl = "https://corsproxy.io/?url=";
+	displayMedia(/*post.sample ? post.sample_url : */post.file_url);
+
+	document.getElementById("downloadLink").setAttribute("href", post.file_url);
 	
 	// Display JSON info raw
-	document.getElementById("raw").innerHTML = JSON.stringify(post, null, 2);
+	document.getElementById("raw").innerHTML = JSON.stringify(jsonInfo, null, 2);
 	
 	// Reveal display
 	display.style.display = "grid";
 }
 
-function assignJson(post) {
-	jsonInfo = {
-		preview_url: post[0].preview_url,
-		sample_url: post[0].sample_url,
-		file_url: post[0].file_url,
-		directory: post[0].directory,
-		hash: post[0].hash,
-		width: post[0].width,
-		height: post[0].height,
-		id: post[0].id,
-		image: post[0].image,
-		change: post[0].change,
-		owner: post[0].owner,
-		parent_id: post[0].parent_id,
-		rating: post[0].rating,
-		sample: post[0].sample,
-		sample_height: post[0].sample_height,
-		sample_width: post[0].sample_width,
-		score: post[0].score,
-		tags: post[0].tags,
-		source: post[0].source,
-		status: post[0].status,
-		has_notes: post[0].has_notes,
-		comment_count: post[0].comment_count
-	};
+function copyShareLink() {
+	console.debug("Ran copyShareLink function");
+	navigator.clipboard.writeText(location);
+	let element = document.getElementById("postShare");
+	let share = document.getElementById("postShare").innerHTML;
+	let success =
+		`<svg width="24" height="24" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M21.7 5.3a1 1 0 0 1 0 1.4l-12 12a1 1 0 0 1-1.4 0l-6-6a1 1 0 1 1 1.4-1.4L9 16.58l11.3-11.3a1 1 0 0 1 1.4 0Z">
+            </path>
+        </svg>
+		<span>Share</span>`;
 	
-	console.log(jsonInfo.tags);
+	element.innerHTML = success;
+	setTimeout(() => {
+		element.innerHTML = share;
+	}, 3000);
 }
 
-async function getTagInfo(tags) {
-	// Base API URL
-	const apiUrl = "https://api.rule34.xxx/index.php?page=dapi&s=tag&q=index&name=";
-
-	const tagName = tags.split(" ");
-	const tagInfo = [];
-
-	for (let x = 0; x < tagName.length; x++) {
-		const response = await fetch(apiUrl + tagName[x]);
-		const text = await response.text();
-
-		const parser = new DOMParser();
-		const xmlDoc = parser.parseFromString(text, "text/xml");
-
-		const tagElement = xmlDoc.querySelector('tag');
-
-		if (tagElement) {
-			tagInfo.push({
-				name: tagElement.getAttribute('name'),
-				type: tagElement.getAttribute('type'),
-				count: tagElement.getAttribute('count'),
-				id: tagElement.getAttribute('id'),
-				ambiguous: tagElement.getAttribute('ambiguous')
-			});
-		} else {
-			tagInfo.push({
-				name: tag,
-				error: "Couldn't find tag info"
-			});
-		}
-	}
-
+function getTagInfo(tags) {
 	const tagType = {
-		3: document.getElementById("tagCopyright"),
-		4: document.getElementById("tagCharacter"),
-		1: document.getElementById("tagArtist"),
-		0: document.getElementById("tagGeneral"),
-		5: document.getElementById("tagMeta")
+		copyright: document.getElementById("tagCopyright"),
+		character: document.getElementById("tagCharacter"),
+		artist: document.getElementById("tagArtist"),
+		tag: document.getElementById("tagGeneral"),
+		meta: document.getElementById("tagMeta")
 	};
-	tagType[0].innerHTML = "";
-	tagType[1].innerHTML = "";
-	tagType[3].innerHTML = "";
-	tagType[4].innerHTML = "";
-	tagType[5].innerHTML = "";
+	tagType.copyright.innerHTML = "";
+	tagType.character.innerHTML = "";
+	tagType.artist.innerHTML = "";
+	tagType.tag.innerHTML = "";
+	tagType.meta.innerHTML = "";
 
-	for (let x = 0; x < tagInfo.length; x++) {
-		const element = tagType[tagInfo[x].type];
+	for (let x = 0; x < tags.length; x++) {
+		const element = tagType[tags[x].type];
 		if (element) {
 			element.innerHTML +=
-				`<a href="https://rule34.xxx/index.php?page=post&s=list&tags=${tagInfo[x].name}" title="${tagInfo[x].count} uses"><li>${tagInfo[x].name}</li></a>`;
+				`<a href="https://rule34.xxx/index.php?page=post&s=list&tags=${tags[x].tag}" title="${tags[x].count} uses"><li>${tags[x].tag}</li></a>`;
 		}
 	}
+}
+
+function displayMedia(mediaUrl) {
+	const container = document.getElementById('imageDisplay');
+	container.innerHTML = '';
+
+	const extension = mediaUrl.split('.').pop().toLowerCase();
+	console.debug("Media extension is ."+extension);
+	const imageExt = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+	const videoExt = ['mp4', 'webm', 'ogg', 'mov', 'avi'];
+
+
+	if (imageExt.includes(extension)) {
+		const img = document.createElement('img');
+		img.src = mediaUrl;
+		img.alt = post.file;
+		container.appendChild(img);
+	} else if (videoExt.includes(extension)) {
+		const video = document.createElement('video');
+		video.src = mediaUrl;
+		video.controls = true;
+		video.autoplay = false;
+		video.loop = true;
+		video.muted = false;
+		container.appendChild(video);
+	} else {
+		const link = document.createElement('a');
+		link.style.borderStyle = "none";
+		link.href = 'https://discord.com/users/1184619891215573042';
+		link.innerHTML = '<div class="button">Invalid format. Contact @chipfucker on Discord if this is erroneous.</div>';
+		link.firstChild.style.whiteSpace = "wrap";
+		container.appendChild(link);
+	}
+}
+
+function displayError(e, msg) {
+	const errorDisplay = document.getElementById("errDisplay");
+	const errorInfo = document.getElementById("errInfo");
+	errorInfo.innerHTML = `MESSAGE IN TRY CATCH: ${msg}<br><br>ERROR MESSAGE:<br>${e}`;
+	errorDisplay.style.display = "block";
 }
