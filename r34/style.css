@@ -207,7 +207,7 @@ div.card > .label {
     grid-area: raw;
 }
 .raw {
-    overflow: wrap;
+    overflow-wrap: break-word;
     background-color: #10141f;
     scrollbar-width: thin;
     padding: 10px;
