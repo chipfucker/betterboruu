@@ -36,6 +36,7 @@ async function getData(inputId) {
 	const jsonInfo = await response.json();
 	post = jsonInfo[0];
 
+	getTags(post[tag_info]);
 	artists = getTags(post[tag_info], "artist"); // display extra tag info and get artist tags as one string
 
 	displayMedia(post[file_url]); // display media
@@ -81,16 +82,21 @@ function getTags(tags, typeRequest) {
 			featCount.push(`${tags[tagNum].tag} (${tags[tagNum]})`);
 		}
 	}
-	// for (let tagNum of feat) {
-	// 	feat.length === 0
-	// 		?
-
-	// }
-	featJson = {
+	/* featJson = {
 		list: feat.join(" "),
 		comma: feat.join(", "),
-	}
-	return artistsJson;
+		and: feat.subarray(0, (feat.length - 1)).join(", "),
+		count: {
+			list: feat.join(" "),
+			comma: feat.join(", "),
+			and: 
+		}
+	};
+	return featJson; */
+}
+
+function getTagOfType(typeRequest) {
+
 }
 
 function displayMedia(mediaUrl) {
