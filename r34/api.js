@@ -25,53 +25,55 @@ async function getData(inputId) {
 	// fetch and handle api content
 	try {
 		response = await fetch(url);
+		console.debug("got api info");
 	} catch (e) {
 		let msg = "Couldn't fetch from: "+url;
-		displayError(e, msg);
+		let hide = true;
+		displayError(e, msg, hide);
 		return;
 	}
 	const jsonInfo = await response.json();
 	post = jsonInfo[0];
 
-	artists = getTags(post.tag_info); // display extra tag info and get artist tags as string
+	artists = getTags(post[tag_info]); // display extra tag info and get artist tags as string
 
-	displayMedia(post.file_url); // display media
-	// display sample file if it exists:
-	/* displayMedia(post.sample ? post.sample_url : post.file_url); */
-	// (not useful because image is resized to fit screen regardless)
+	displayMedia(post[file_url]); // display media
+	/* display sample file if it exists:
+	 * displayMedia(post[sample] ? post[sample_url] : post[file_url]);
+	 * (not useful because image is resized to fit screen regardless) */
 	/// videos don't work on firefox
 
-	setDownloadLink(post.file_url, post.id); // set download button link
+	setDownloadLink(post[file_url], post[id]); // set download button link
 	
-	// Display JSON info raw
+	displayRaw(jsonInfo); // display raw json info
 	document.getElementById("raw").innerHTML = JSON.stringify(jsonInfo, null, 2);
 	
-	// Reveal display
+	// reveal everything
+	showStuff();
 	display.style.display = "grid";
 }
 
 function getTags(tags) {
-	const tagType = {
+	const ulElement = {
 		copyright: document.getElementById("tagCopyright"),
 		character: document.getElementById("tagCharacter"),
 		artist: document.getElementById("tagArtist"),
 		tag: document.getElementById("tagGeneral"),
 		meta: document.getElementById("tagMeta")
 	};
-	tagType.copyright.innerHTML = "";
-	tagType.character.innerHTML = "";
-	tagType.artist.innerHTML = "";
-	tagType.tag.innerHTML = "";
-	tagType.meta.innerHTML = "";
 
-	for (let x = 0; x < tags.length; x++) {
-		const element = tagType[tags[x].type];
+	for (const list in ulElement) {
+		ulElement[list].innerHTML = "";
+	}
+
+	for (let tagNumber of tags) {
+		const element = ulElement[tags[tagNumber].type];
 		if (element) {
 			element.innerHTML +=
 				`<a
-					href="https://rule34.xxx/index.php?page=post&s=list&tags=${tags[x].tag}"
-					title="${tags[x].count} uses"
-				><li>${tags[x].tag}</li></a>`;
+					href="https://rule34.xxx/index.php?page=post&s=list&tags=${tags[tagNumber].tag}"
+					title="${tags[tagNumber].count} uses"
+				><li>${tags[tagNumber].tag}</li></a>`;
 		}
 	}
 }
@@ -109,32 +111,6 @@ function displayMedia(mediaUrl) {
 	}
 }
 
-function copyLink() {
-	console.debug("Copying location");
-	try {
-		navigator.clipboard.writeText(location);
-		console.debug("Copied location to clipboard");
-	} catch (e) {
-		let msg = "Couldn't write location to clipboard";
-		displayError(e, msg);
-		return;
-	}
-	let element = document.getElementById("postShare");
-	let share = document.getElementById("postShare").innerHTML;
-	let success =
-		`<svg width="24" height="24" viewBox="0 0 24 24">
-            <path fill="currentColor" d="M21.7 5.3a1 1 0 0 1 0 1.4l-12 12a1 1 0 0 1-1.4 0l-6-6a1 1 0 1 1 1.4-1.4L9 16.58l11.3-11.3a1 1 0 0 1 1.4 0Z">
-            </path>
-        </svg>
-		<span>Share</span>`;
-	
-	element.innerHTML = success;
-	console.debug("")
-	setTimeout(() => {
-		element.innerHTML = share;
-	}, 3000);
-}
-
 function setDownloadLink(url, id, artists) {
 	link = document.getElementById("downloadLink");
 	link.setAttribute("href", url);
@@ -142,9 +118,37 @@ function setDownloadLink(url, id, artists) {
 	link.download = artists;
 }
 
-function displayError(e, msg) {
+function copyLink() {
+	let element = document.getElementById("copyLink").firstChild;
+	let share = element.innerHTML;
+	let success =
+		`<svg width="24" height="24" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M21.7 5.3a1 1 0 0 1 0 1.4l-12 12a1 1 0 0 1-1.4 0l-6-6a1 1 0 1 1 1.4-1.4L9 16.58l11.3-11.3a1 1 0 0 1 1.4 0Z">
+            </path>
+        </svg>
+		<span>Copied</span>`;
+
+	console.debug("Copying location");
+	try {
+		navigator.clipboard.writeText(location);
+		console.debug("copied location to clipboard");
+	} catch (e) {
+		console.warning("couldn't write location to clipboard");
+		
+		return;
+	}
+	
+	element.innerHTML = success;
+	console.debug("set text to 'copied'")
+	setTimeout(() => {
+		element.innerHTML = share;
+		console.debug("reset text to 'copy'");
+	}, 3000);
+}
+
+function displayError(e, msg, hide) {
 	const errorDisplay = document.getElementById("errDisplay");
 	const errorInfo = document.getElementById("errInfo");
-	errorInfo.innerHTML = `MESSAGE IN TRY CATCH: ${msg}<br><br>ERROR MESSAGE:<br>${e}`;
+	errorInfo.innerHTML = `MESSAGE IN 'TRY' CATCH:<br>${msg}<br><br>ERROR MESSAGE:<br>${e}`;
 	errorDisplay.style.display = "block";
 }

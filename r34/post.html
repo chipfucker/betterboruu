@@ -36,16 +36,18 @@
             </div>
             <div id="imageDisplay"></div>
             <div id="buttons">
+                <!-- open media link -->
                 <a id="openLink">
-                    <div id="openLinkDiv" class="button">
+                    <div class="button">
                         <svg width="24" height="24" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M12 2a1 1 0 0 1 1 1v10.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V3a1 1 0 0 1 1-1ZM3 20a1 1 0 1 0 0 2h18a1 1 0 1 0 0-2H3Z">
                             </path>
                         </svg>
-                        <span>Download</span>
+                        <span>Open media</span>
                     </div>
                 </a>
-                <a id="downloadLink">
+                <!-- download media -->
+                <a id="downloadLink" title="Download media to device">
                     <div class="button">
                         <svg width="24" height="24" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M12 2a1 1 0 0 1 1 1v10.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V3a1 1 0 0 1 1-1ZM3 20a1 1 0 1 0 0 2h18a1 1 0 1 0 0-2H3Z">
@@ -54,13 +56,14 @@
                         <span>Download</span>
                     </div>
                 </a>
-                <a id="shareLink" onclick="copyLink();">
-                    <div id="postShare" class="button">
+                <!-- copy betterboruu link (current location) -->
+                <a id="copyLink" onclick="copyLink();">
+                    <div class="button">
                         <svg width="24" height="24" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M2.3 7.3a1 1 0 0 0 0 1.4l5 5a1 1 0 0 0 1.4-1.4L5.42 9H11a7 7 0 0 1 7 7v4a1 1 0 1 0 2 0v-4a9 9 0 0 0-9-9H5.41l3.3-3.3a1 1 0 0 0-1.42-1.4l-5 5Z">
                             </path>
                         </svg>
-                        <span>Share</span>
+                        <span>Copy BetterBoruu link</span>
                     </div>
                 </a>
             </div>
