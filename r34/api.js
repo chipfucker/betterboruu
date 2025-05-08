@@ -1,4 +1,4 @@
-const debug = true;
+const debug = false;
 const debugPost = {
 	image: 5823623,
 	wide: 6400013,
