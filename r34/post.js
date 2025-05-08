@@ -1,25 +1,43 @@
 const debug = false;
-const debugPost = {
-	image: 5823623,
-	wide: 6400013,
-	video: 6197524,
-	gif: 7703831
+const debugPosts = {
+	type: {
+		image: "debug/image.json",
+		wide: "debug/wide.json",
+		video: "debug/video.json",
+		gif: "debug/gif.json"
+	},
+	error: false
 };
+const debugPost = debugPosts.type.image; // change depending on needs
+const debugErr = debugPosts.error;
 
 submitPost();
 
 async function submitPost() {
 	hideStuff();
 	if (debug) {
-		console.info("%crunning in debug mode", "padding: 10px; background: light-dark(pink, maroon); color: light-dark(maroon, pink); font-size: large");
-		getData(debugPost.gif);
+		console.info("%crunning in debug mode",
+			`padding: 10px; \
+			background: light-dark(pink, maroon); \
+			color: light-dark(maroon, pink); \
+			font-size: large`
+		);
+		fetchData(debugPost);
+		console.info("skipped link creation");
 		return;
 	}
 	console.group("submitPost()");
 	const input = document.getElementById("url").value;
 	const defaultUrl = "https://rule34.xxx/index.php?page=post&s=view&id=";
 	const outputId = input.startsWith(defaultUrl) ? input.slice(defaultUrl.length) : input;
-	getData(outputId);
+	// create api link
+	const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&fields=tag_info&id=";
+	let hashId = location.hash.substring(1);
+	hashId = /^\d+$/.test(hashId) ? hashId : null;
+	const id = input || hashId || "5823623";
+	location.hash = "#" + id;
+	url = apiUrl + id;
+	fetchData(url);
 }
 
 function hideStuff() {
@@ -28,15 +46,7 @@ function hideStuff() {
 	console.log("hid displays");
 }
 
-async function getData(inputId) {
-	// create api link
-	const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&fields=tag_info&id=";
-	let hashId = location.hash.substring(1);
-	hashId = /^\d+$/.test(hashId) ? hashId : null;
-	const id = inputId || hashId || "5823623";
-	location.hash = "#" + id;
-	url = apiUrl + id;
-	
+async function fetchData(url) {
 	// fetch and handle api content
 	console.group("fetching");
 	console.time("fetch time");
@@ -58,7 +68,7 @@ async function getData(inputId) {
 	post = jsonInfo[0];
 
 	artists = getTags(post.tag_info, "artist"); // display extra tag info and get artist tags as one string
-	//artists = getTagOfType(post.tag_info, "artist");
+	// artists = getTagOfType(post.tag_info, "artist");
 
 	displayMedia(post.file_url, post.sample_url); // display media
 	/// videos don't work on firefox; fix this somehow!!!
