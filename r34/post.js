@@ -12,10 +12,19 @@ const debugPost = debugPosts.type.image; // change depending on needs
 const debugErr = debugPosts.error;
 
 /*jslint-disable*/
-if (new URLSearchParams(window.location.search).get("format") === "json") {
+function setEmbed {
     url = getLink(window.location.hash);
     post = fetchData(url);
     const artists = getTagOfType(post.tags, "artist");
+    
+    // document.head.querySelector("[property~=author:name]").content = ;
+    // document.head.querySelector("[property~=author:icon-url]").content = ;
+    // document.head.querySelector("[property~=author:url]").content = ;
+    // document.head.querySelector("[property~=description]").content = ;
+    // document.head.querySelector("[property~=image:url]").content = ;
+    // document.head.querySelector("[property~=color]").content = ;
+    // document.head.querySelector("[property~=footer:text]").content = ;
+    // document.head.querySelector("[property~=footer:icon-url]").content = ;
     const embed = {
         author: {
             name: "#id",
@@ -37,9 +46,8 @@ if (new URLSearchParams(window.location.search).get("format") === "json") {
             icon_url: "https://chipfucker.github.io/betterboruu/favicon.ico"
         }
     };
-    document.write(JSON.stringify(embed));
-    document.close();
 }
+
 
 submitPost();
 
