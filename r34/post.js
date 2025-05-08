@@ -1,4 +1,4 @@
-const debug = false;
+const debug = true;
 const debugErrMsg = "Debug: Forced error";
 const debugPosts = {
 	type: {
@@ -7,7 +7,7 @@ const debugPosts = {
 		video: "debug/video.json",
 		gif: "debug/gif.json"
 	},
-	error: false ? debugErrMsg : false
+	error: true ? debugErrMsg : false
 };
 const debugPost = debugPosts.type.image; // change depending on needs
 const debugErr = debugPosts.error;
@@ -79,6 +79,8 @@ async function fetchData(url) {
 	console.groupEnd();
 	console.groupEnd();
 	post = jsonInfo[0];
+
+
 
 	artists = getTags(post.tag_info, "artist"); // display extra tag info and get artist tags as one string
 	// artists = getTagOfType(post.tag_info, "artist");
@@ -244,9 +246,9 @@ function copyLink() {
 		<span>Copy BetterBoruu link</span>`;
 	let success =
 		`<svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M21.7 5.3a1 1 0 0 1 0 1.4l-12 12a1 1 0 0 1-1.4 0l-6-6a1 1 0 1 1 1.4-1.4L9 16.58l11.3-11.3a1 1 0 0 1 1.4 0Z">
-            </path>
-        </svg>
+			<path d="M21.7 5.3a1 1 0 0 1 0 1.4l-12 12a1 1 0 0 1-1.4 0l-6-6a1 1 0 1 1 1.4-1.4L9 16.58l11.3-11.3a1 1 0 0 1 1.4 0Z">
+			</path>
+		</svg>
 		<span>Copied!</span>`;
 	let failure =
 		`<svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
