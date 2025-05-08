@@ -1,4 +1,5 @@
 const debug = false;
+const debugErrMsg = "Debug: Forced error";
 const debugPosts = {
 	type: {
 		image: "debug/image.json",
@@ -6,7 +7,7 @@ const debugPosts = {
 		video: "debug/video.json",
 		gif: "debug/gif.json"
 	},
-	error: false
+	error: false ? debugErrMsg : false
 };
 const debugPost = debugPosts.type.image; // change depending on needs
 const debugErr = debugPosts.error;
@@ -14,6 +15,7 @@ const debugErr = debugPosts.error;
 submitPost();
 
 async function submitPost() {
+	console.group(">> attempt");
 	hideStuff();
 	if (debug) {
 		console.info("%crunning in debug mode",
@@ -22,21 +24,32 @@ async function submitPost() {
 			color: light-dark(maroon, pink); \
 			font-size: large`
 		);
+		if (debugErr) {
+			console.log("forced error");
+			let msg =
+				"This website is in debug mode, and an error was forced on load. "+
+				"If you're seeing this, you probably shouldn't be, and you should contact me if you are!";
+			displayError(debugErr, msg);
+			return;
+		}
 		fetchData(debugPost);
 		console.info("skipped link creation");
 		return;
 	}
 	console.group("submitPost()");
+	// get input
 	const input = document.getElementById("url").value;
 	const defaultUrl = "https://rule34.xxx/index.php?page=post&s=view&id=";
+	// convert input to post id
 	const outputId = input.startsWith(defaultUrl) ? input.slice(defaultUrl.length) : input;
-	// create api link
+	// append id to end of api link
 	const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&fields=tag_info&id=";
 	let hashId = location.hash.substring(1);
 	hashId = /^\d+$/.test(hashId) ? hashId : null;
 	const id = input || hashId || "5823623";
 	location.hash = "#" + id;
 	url = apiUrl + id;
+	console.groupEnd();
 	fetchData(url);
 }
 
@@ -52,8 +65,8 @@ async function fetchData(url) {
 	console.time("fetch time");
 	try {
 		response = await fetch(url);
-		console.log("got api info from:\n"+url);
 		console.timeEnd("fetch time");
+		console.log("got api info from:\n"+url);
 	} catch (e) {
 		console.timeEnd("fetch time");
 		let msg = "Couldn't fetch from: "+url;
@@ -177,7 +190,6 @@ function displayMedia(mediaUrl, sampleUrl) {
 		videoSource.type = `video/mp4`;
 		video.appendChild(videoSource);
 		container.appendChild(video);
-		video.load();
 	} else {
 		console.error("media is assumed neither an image or a video\nfalling back to error button");
 		const link = document.createElement('a');
