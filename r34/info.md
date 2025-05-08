@@ -6,15 +6,19 @@ ID: 5823623
 * [View post](<https://rule34.xxx/index.php?page=post&s=view&id=5823623>)
 * [View API info](<https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&id=5823623>)
 
-### Image sample
+### Wide image
+
+ID: 6400013
+* [View post](<https://rule34.xxx/index.php?page=post&s=view&id=6400013>)
+* [View API info](<https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&id=6400013>)
 
 ### Video
 
-### Video sample
+ID: 6197524
+* [View post](<https://rule34.xxx/index.php?page=post&s=view&id=6197524>)
+* [View API info](<https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&id=6197524>)
 
 ### GIF
-
-### GIF sample
 
 # Possible API Info
 ## JSON

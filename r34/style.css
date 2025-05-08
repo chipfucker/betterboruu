@@ -89,27 +89,39 @@ a {
     grid-template-rows: 50vh;
 }
 
+@media (max-width: 800px) {
+    #display {
+        grid-template-areas: "imageDisplay" "buttons" "tags" "raw";
+        grid-template-columns: 100%;
+        grid-template-rows: 1fr;
+    }
+}
+
 #imageDisplay {
+    display: flex;
     height: 100%;
+    max-width: 100%;
     margin: auto;
-    padding: none;
     grid-area: imageDisplay;
-    overflow: visible;
+    overflow: hidden;
+
 }
 #imageDisplay > * {
+    width: 100%;
     border-style: solid;
     border-width: 1px;
     border-color: #FFF1;
     border-radius: 10px;
-    height: calc(100% - 2px);
+    max-height: calc(100% - 2px);
+    align-self: center;
 }
 
 #buttons {
+    grid-area: buttons;
     display: inline-flex;
-}
-#buttons div.button {
-    margin-right: 10px;
-    align-self: bottom;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 div.button {
@@ -117,8 +129,8 @@ div.button {
     height: fit-content;
     cursor: pointer;
     white-space: nowrap;
-    padding: 15px;
-    font-size: 20px;
+    padding: 5px 10px;
+    font-size: 16px;
     font-family: system-ui;
     background-color: var(--accent-4);
     border-style: solid;
@@ -132,6 +144,9 @@ div.button {
 }
 div.button:hover {
     box-shadow: 0 0 5px 3px var(--accent-4);
+}
+div.button:active {
+    transform: translateY(2px);
 }
 div.button svg {
     vertical-align: bottom;
@@ -168,6 +183,7 @@ div.card > .label {
 #tags {
     grid-area: tags;
     overflow-y: scroll;
+    min-width: min-content;
 }
 #tagList ul {
     list-style-type: none;
@@ -187,6 +203,7 @@ div.card > .label {
     padding: 2px 5px;
     margin: 2px;
     transition: all 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000);
+    overflow-wrap: break-word;
 }
 #tagList li:hover {
     background-image:
@@ -201,13 +218,13 @@ div.card > .label {
 #tagCharacter   { --color: 176, 224, 176; }
 #tagArtist      { --color: 240, 160, 160; }
 #tagGeneral     { --color: 145, 191, 237; }
-#tagMeta        { --color: 240, 240, 160; }
+#tagMetadata    { --color: 240, 240, 160; }
 
 #raw {
     grid-area: raw;
 }
 .raw {
-    overflow-wrap: break-word;
+    overflow-x: scroll;
     background-color: #10141f;
     scrollbar-width: thin;
     padding: 10px;
