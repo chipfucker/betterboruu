@@ -61,7 +61,7 @@ async function submitPost() {
 	// append id to end of api link
 	url = getLink(input);
 	console.groupEnd();
-	fetchData(url);
+	post = fetchData(url);
 
 	getTags(post.tag_info); // display extra tag info and get artist tags as one string
 	artists = getTagOfType(post.tag_info, "artist");
@@ -107,7 +107,8 @@ async function fetchData(url) {
 	console.log(JSON.stringify(jsonInfo, null, 1));
 	console.groupEnd();
 	console.groupEnd();
-	post = jsonInfo[0];
+	const post = jsonInfo[0];
+	return post;
 }
 
 function getTags(tags) {
