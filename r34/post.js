@@ -3,11 +3,10 @@ const debugErrMsg = "Debug: Forced error";
 const debugPosts = {
 	type: {
 		image: "debug/image.json",
-		wide: "debug/wide.json",
 		video: "debug/video.json",
-		gif: "debug/gif.json"
+		animated: "debug/animated.json"
 	},
-	error: true ? debugErrMsg : false
+	error: false ? debugErrMsg : false
 };
 const debugPost = debugPosts.type.image; // change depending on needs
 const debugErr = debugPosts.error;
@@ -27,8 +26,8 @@ async function submitPost() {
 		if (debugErr) {
 			console.log("forced error");
 			let msg =
-				"This website is in debug mode, and an error was forced on load. "+
-				"If you're seeing this, you probably shouldn't be, and you should contact me if you are!";
+				"This website is in debug mode, and an error was forced on load.\n"+
+				"\tIf you're seeing this, you probably shouldn't be, and you should contact me if you are!";
 			displayError(debugErr, msg);
 			return;
 		}

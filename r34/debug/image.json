@@ -1,0 +1,103 @@
+[
+    {
+        "preview_url": "image/image.jpeg",
+        "sample_url": "image/image.jpeg",
+        "file_url": "image/image.jpeg",
+        "directory" : 5109,
+        "hash": "0966b7bb5f64f30010d14d5e98bb81e4",
+        "width": 1136,
+        "height": 1250,
+        "id": 5823623,
+        "image": "image.jpeg",
+        "change": 1680758419,
+        "owner": "artistNameLol",
+        "parent_id": 0,
+        "rating": "safe",
+        "sample": false,
+        "sample_height": 0,
+        "sample_width": 0,
+        "score": 360,
+        "tags": "anthro belt female female_only heart inkplasm jeans redhead shirt smile smiling solo terraria welwraith zoologist_(terraria)",
+        "source": "",
+        "status": "active",
+        "has_notes": false,
+        "comment_count": 17,
+        "tag_info": [
+            {
+                "count": 2415516,
+                "type": "tag",
+                "tag": "anthro"
+            },
+            {
+                "count": 74272,
+                "type": "tag",
+                "tag": "belt"
+            },
+            {
+                "count": 7171965,
+                "type": "tag",
+                "tag": "female"
+            },
+            {
+                "count": 1660958,
+                "type": "tag",
+                "tag": "female_only"
+            },
+            {
+                "count": 450726,
+                "type": "tag",
+                "tag": "heart"
+            },
+            {
+                "count": 606,
+                "type": "artist",
+                "tag": "inkplasm"
+            },
+            {
+                "count": 32184,
+                "type": "tag",
+                "tag": "jeans"
+            },
+            {
+                "count": 21632,
+                "type": "tag",
+                "tag": "redhead"
+            },
+            {
+                "count": 322274,
+                "type": "tag",
+                "tag": "shirt"
+            },
+            {
+                "count": 1365298,
+                "type": "tag",
+                "tag": "smile"
+            },
+            {
+                "count": 148834,
+                "type": "tag",
+                "tag": "smiling"
+            },
+            {
+                "count": 3140741,
+                "type": "tag",
+                "tag": "solo"
+            },
+            {
+                "count": 4611,
+                "type": "copyright",
+                "tag": "terraria"
+            },
+            {
+                "count": 1330,
+                "type": "artist",
+                "tag": "welwraith"
+            },
+            {
+                "count": 860,
+                "type": "character",
+                "tag": "zoologist_(terraria)"
+            }
+        ]
+    }
+]

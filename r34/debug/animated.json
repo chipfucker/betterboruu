@@ -1,14 +1,14 @@
 [
     {
-        "preview_url": "video/video.mp4",
-        "sample_url": "video/video.mp4",
-        "file_url": "video/video.mp4",
+        "preview_url": "animated/animated.gif",
+        "sample_url": "animated/animated.gif",
+        "file_url": "animated/animated.gif",
         "directory" : 5109,
         "hash": "0966b7bb5f64f30010d14d5e98bb81e4",
         "width": 1136,
         "height": 1250,
         "id": 5823623,
-        "image": "video.mp4",
+        "image": "animated.gif",
         "change": 1680758419,
         "owner": "artistNameLol",
         "parent_id": 0,
