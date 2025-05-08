@@ -17,22 +17,22 @@ async function setEmbed() {
     const artists = getTagOfType(post.tag_info, "artist");
     
     const authorName = document.createElement("meta");
-    authorName.property = "author:name";
+    authorName.property = "og:author:name";
     authorName.content = `#${post.id}`;
     document.head.appendChild(authorName);
 
     const authorUrl = document.createElement("meta");
-    authorUrl.property = "author:url";
+    authorUrl.property = "og:author:url";
     authorUrl.content = `https://chipfucker.github.io/betterboruu/r34/post#${post.id}`;
     document.head.appendChild(authorUrl);
 
     const description = document.createElement("meta");
-    description.property = "description";
+    description.property = "og:description";
     description.content = `### Artist${artists.plural}:\n${artists.list}`;
     document.head.appendChild(description);
 
     const imageUrl = document.createElement("meta");
-    imageUrl.property = "image:url";
+    imageUrl.property = "og:image:url";
     imageUrl.content = post.file_url;
     document.head.appendChild(imageUrl);
 }
