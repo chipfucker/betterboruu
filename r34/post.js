@@ -37,7 +37,7 @@ async function submitInput() {
     } else {
         const input = document.getElementById("searchBar").value; // get input
         console.log("got input: "+(input?input:null));
-        if (/^id:\d+$/.test(input)) {
+        if (/^id:\d+$/.test(input) || !input) {
             submitPost(input);
         } else {
             submitSearch(input);
@@ -440,4 +440,4 @@ function displayError(e, msg) {
     errorDisplay.style.display = "block";
 }
 
-submitPost();
+window.onload = submitPost();
