@@ -431,6 +431,7 @@ async function getFileFromUrl(url, name, defaultType = "text/xml") {
 }
 
 function displayError(e, msg) {
+    window.alert(`"${msg}"\n\n${e}`);
     const errorDisplay = document.getElementById("errDisplay");
     const errorInfo = document.getElementById("errInfo");
     errorInfo.innerHTML = `MESSAGE IN 'TRY' CATCH:<br>${msg}<br><br>ERROR MESSAGE:<br>${e}`;
