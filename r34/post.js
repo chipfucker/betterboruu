@@ -230,7 +230,7 @@ function displayMedia(mediaUrl) {
     container.innerHTML = "";
 
     extension = mediaUrl.split(".").pop().toLowerCase();
-    console.log("media extension is ."+extension);
+    console.log("media extension: ."+extension);
     const imageExt = ["jpg", "jpeg", "png", "webp", "gif"];
     const videoExt = ["mp4", "webm", "ogg", "mov", "avi"];
 
@@ -310,39 +310,6 @@ function copyMedia() {
     try {
         navigator.clipboard.writeText(post.file_url);
         console.debug("copied media link to clipboard: "+post.file_url);
-        element.innerHTML = success;
-        console.debug("set text to 'copied'");
-    } catch (e) {
-        console.warn("couldn't write location to clipboard:\n"+e);
-        element.innerHTML = failure;
-        console.debug("set text to 'failed'");
-    }
-
-    setTimeout(() => {
-        element.innerHTML = copy;
-        console.debug("reset text to 'copy'");
-    }, 1000);
-}
-
-function copyLink() {
-    const element = document.getElementById("copyLink").firstElementChild;
-    const copy = element.innerHTML;
-    let success =
-        `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M21.7 5.3a1 1 0 0 1 0 1.4l-12 12a1 1 0 0 1-1.4 0l-6-6a1 1 0 1 1 1.4-1.4L9 16.58l11.3-11.3a1 1 0 0 1 1.4 0Z">
-            </path>
-        </svg>
-        <span>Copied!</span>`;
-    let failure =
-        `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M17.3 18.7a1 1 0 0 0 1.4-1.4L13.42 12l5.3-5.3a1 1 0 0 0-1.42-1.4L12 10.58l-5.3-5.3a1 1 0 0 0-1.4 1.42L10.58 12l-5.3 5.3a1 1 0 1 0 1.42 1.4L12 13.42l5.3 5.3Z">
-            </path>
-        </svg>
-        <span>Failed!</span>`;
-
-    try {
-        navigator.clipboard.writeText(location);
-        console.debug("copied location to clipboard: "+location);
         element.innerHTML = success;
         console.debug("set text to 'copied'");
     } catch (e) {
