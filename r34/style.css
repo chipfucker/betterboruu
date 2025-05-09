@@ -20,14 +20,14 @@ a {
     color: white;
 }
 
-#input {
+#menuBar {
     width: 90%;
     display: flex;
     position: fixed;
     top: 5px;
 }
 
-#url {
+#searchBar {
     width: 75%;
     max-width: 500px;
     padding: 5px;
@@ -45,10 +45,10 @@ a {
         box-shadow 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000),
         transform 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000);
 }
-#url:active {
+#searchBar:active {
     transform: translateY(2px);
 }
-#url:focus {
+#searchBar:focus {
     box-shadow: 0 3px 5px 3px #fbfbb344;
 }
 

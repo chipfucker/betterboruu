@@ -1,8 +1,9 @@
 const debug = true;
 const debugErrMsg = "Debug: Forced error";
 const debugPosts = {
+    particular: "",
     link: {
-        image: "https://rule34.xxx/index.php?page=post&s=view&id=5823623"
+        image: "5823623"
     },
     file: {
         image: "debug\/image.json",
@@ -14,15 +15,14 @@ const debugPosts = {
 const debugPost = debugPosts.file.image; // change depending on needs
 const debugErr = debugPosts.error;
 
-async function submitPost() {
+async function submitInput() {
     console.group(">> attempt");
     hideStuff();
     if (debug) {
         console.info("%crunning in debug mode",
             `padding: 10px; \
             background: light-dark(pink, maroon); \
-            color: light-dark(maroon, pink); \
-            font-size: large`
+            color: light-dark(maroon, pink)`
         );
         if (debugErr) {
             console.log("forced error");
@@ -33,21 +33,31 @@ async function submitPost() {
             return;
         }
         post = await fetchData(debugPost);
-        console.info("skipped link creation");
+        console.info(`skipped to fetchData(${debugPost})`);
+    const input = document.getElementById("searchBar").value; // get input
+    console.log("got input: "+(input?input:null));
     } else {
-        const input = document.getElementById("url").value; // get input
+        const input = document.getElementById("searchBar").value; // get input
         console.log("got input: "+(input?input:null));
-        const defaultUrl = "https://rule34.xxx/index.php?page=post&s=view&id=";
-        const outputId = // convert input to only id
-            input.startsWith(defaultUrl)
-            ? input.slice(defaultUrl.length)
-            : input;
-        console.log("extracted id: "+(outputId?outputId:null));
-        const url = getLink(outputId); // append id to end of api link
-        console.log("got api link: "+url);
-        post = await fetchData(url); // set post info to variable
-        // await setEmbed();
+        if (/^id:\d+$/.test(input)) {
+            submitPost(input);
+        } else {
+            submitSearch(input);
+        }
     }
+}
+async function submitPost(input) {
+    const defaultUrl = "https://rule34.xxx/index.php?page=post&s=view&id=";
+    // convert input to only id
+    const outputId = (
+        input.startsWith(defaultUrl)
+        ? input.slice(defaultUrl.length)
+        : input);
+    console.log("extracted id: "+(outputId?outputId:null));
+    const url = getLink(outputId); // append id to end of api link
+    console.log("got api link: "+url);
+    post = await fetchData(url); // set post info to variable
+    // await setEmbed();
 
     getTags(post.tag_info); // display extra tag info and get artist tags as one string
     artists = getTagOfType(post.tag_info, "artist"); // assign artist tags to strings
