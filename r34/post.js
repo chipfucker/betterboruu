@@ -1,4 +1,4 @@
-const debug = false;
+const debug = true;
 const debugErrMsg = "Debug: Forced error";
 const debugPosts = {
     link: {
@@ -11,7 +11,7 @@ const debugPosts = {
     },
     error: false ? debugErrMsg : false
 };
-const debugPost = debugPosts.link.image; // change depending on needs
+const debugPost = debugPosts.file.image; // change depending on needs
 const debugErr = debugPosts.error;
 
 async function submitPost() {
@@ -35,22 +35,22 @@ async function submitPost() {
         post = await fetchData(debugPost);
         console.info("skipped link creation");
     } else {
-        // get input
-        const input = document.getElementById("url").value;
+        const input = document.getElementById("url").value; // get input
         console.log("got input: "+(input?input:null));
         const defaultUrl = "https://rule34.xxx/index.php?page=post&s=view&id=";
-        // convert input to only id
-        const outputId = input.startsWith(defaultUrl) ? input.slice(defaultUrl.length) : input;
+        const outputId = // convert input to only id
+            input.startsWith(defaultUrl)
+            ? input.slice(defaultUrl.length)
+            : input;
         console.log("extracted id: "+(outputId?outputId:null));
-        // append id to end of api link
-        const url = getLink(outputId);
+        const url = getLink(outputId); // append id to end of api link
         console.log("got api link: "+url);
-        post = await fetchData(url);
+        post = await fetchData(url); // set post info to variable
         // await setEmbed();
     }
 
     getTags(post.tag_info); // display extra tag info and get artist tags as one string
-    artists = getTagOfType(post.tag_info, "artist");
+    artists = getTagOfType(post.tag_info, "artist"); // assign artist tags to strings
     displayMedia(post.file_url); // display media
     /// videos don't work on firefox; fix this somehow!!!
     setButtons(); // set all buttons
