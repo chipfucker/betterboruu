@@ -78,7 +78,7 @@ a {
     transform: translateY(2px);
 }
 
-#display {
+#postDisplay {
     width: 100%;
     grid-template-areas:
         "tags imageDisplay imageDisplay"
@@ -90,7 +90,7 @@ a {
 }
 
 @media (max-width: 800px) {
-    #display {
+    #postDisplay {
         grid-template-areas: "imageDisplay" "buttons" "tags" "raw";
         grid-template-columns: 100%;
         grid-template-rows: 1fr;

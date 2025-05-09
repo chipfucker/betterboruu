@@ -1,9 +1,28 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>wuddup</title>
-    </head>
-    <body>
-        <p>test</p>
-    </body>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Security-Policy" content="
+			style-src 'self' 'unsafe-inline';
+			connect-src 'self' https://api.rule34.xxx;
+			img-src 'self' https://api-cdn.rule34.xxx;
+			media-src 'self' https://api-cdn.rule34.xxx https://api-cdn-mp4.rule34.xxx;" />
+		<title></title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="style.css">
+		<link rel="icon" type="image/x-icon" href="/r34/favicon.ico">
+	</head>
+	<body>
+		<div id="input">
+			<input type="text" id="url">
+			<button onclick="submitSearch()" id="submit">
+				<svg width="24" height="24" viewBox="0 0 24 24">
+					<path fill="currentColor" d="M6.6 10.02 14 11.4a.6.6 0 0 1 0 1.18L6.6 14l-2.94 5.87a1.48 1.48 0 0 0 1.99 1.98l17.03-8.52a1.48 1.48 0 0 0 0-2.64L5.65 2.16a1.48 1.48 0 0 0-1.99 1.98l2.94 5.88Z"/>
+				</svg>
+			</button>
+		</div>
+
+		<div id="searchDisplay">
+			
+		</div>
+	</body>
 </html>
