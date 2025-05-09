@@ -6,9 +6,9 @@ const debugPosts = {
         image: "5823623"
     },
     file: {
-        image: "debug\/image.json",
-        animated: "debug\/animated.json",
-        video: "debug\/video.json"
+        image: "debug\/image\/image.json",
+        animated: "debug\/animated\/animated.json",
+        video: "debug\/video\/video.json"
     },
     error: false ? debugErrMsg : false
 };
@@ -440,4 +440,4 @@ function displayError(e, msg) {
     errorDisplay.style.display = "block";
 }
 
-window.onload = submitPost();
+submitPost();
