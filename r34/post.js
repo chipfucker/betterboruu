@@ -17,6 +17,12 @@ const debugErr = debugPosts.error;
 
 consoleOutput = "";
 
+try {
+    submitInput();
+} catch (e) {
+    displayError(e, "Failed to run submitInput");
+}
+
 async function submitInput() {
     console.group(">> attempt");
     if (debug) {
@@ -438,5 +444,3 @@ function displayError(e, msg) {
     errorInfo.innerHTML = `MESSAGE IN 'TRY' CATCH:<br>${msg}<br><br>ERROR MESSAGE:<br>${e}`;
     errorDisplay.style.display = "block";
 }
-
-window.onload = submitInput();
