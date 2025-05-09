@@ -1,7 +1,7 @@
 const debug = true;
 const debugErrMsg = "Debug: Forced error";
 const debugPosts = {
-    particular: "",
+    particular: "5823623", // specific link if necessary
     link: {
         image: "5823623"
     },
@@ -14,13 +14,6 @@ const debugPosts = {
 };
 const debugPost = debugPosts.file.image; // change depending on needs
 const debugErr = debugPosts.error;
-
-try {
-    hideStuff();
-    submitInput();
-} catch (e) {
-    displayError(e, "Failed to run submitInput");
-}
 
 async function submitInput() {
     console.group(">> attempt");
@@ -55,6 +48,7 @@ function hideStuff() {
 }
 
 async function submitPost(input) {
+    hideStuff();
     const defaultUrl = "https://rule34.xxx/index.php?page=post&s=view&id=";
     // convert input to only id
     const outputId = (
@@ -437,8 +431,17 @@ async function getFileFromUrl(url, name, defaultType = "text/xml") {
 
 function displayError(e, msg) {
     window.alert(`"${msg}"\n\n${e}`);
+    document.getElementById("display").style.display = "none";
+    document.getElementById("hideError").style.display = "none";
     const errorDisplay = document.getElementById("errDisplay");
     const errorInfo = document.getElementById("errInfo");
     errorInfo.innerHTML = `MESSAGE IN 'TRY' CATCH:<br>${msg}<br><br>ERROR MESSAGE:<br>${e}`;
     errorDisplay.style.display = "block";
+}
+
+try {
+    submitPost();
+} catch (e) {
+    hideStuff();
+    displayError(e, "Failed to run submitPost");
 }
