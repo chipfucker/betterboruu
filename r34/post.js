@@ -34,8 +34,6 @@ async function submitInput() {
         }
         post = await fetchData(debugPost);
         console.info(`skipped to fetchData(${debugPost})`);
-    const input = document.getElementById("searchBar").value; // get input
-    console.log("got input: "+(input?input:null));
     } else {
         const input = document.getElementById("searchBar").value; // get input
         console.log("got input: "+(input?input:null));
@@ -46,6 +44,13 @@ async function submitInput() {
         }
     }
 }
+
+function hideStuff() {
+    document.getElementById("display").style.display = "none";
+    document.getElementById("errDisplay").style.display = "none";
+    console.log("hid displays");
+}
+
 async function submitPost(input) {
     const defaultUrl = "https://rule34.xxx/index.php?page=post&s=view&id=";
     // convert input to only id
@@ -69,10 +74,8 @@ async function submitPost(input) {
     console.groupEnd();
 }
 
-function hideStuff() {
-    document.getElementById("display").style.display = "none";
-    document.getElementById("errDisplay").style.display = "none";
-    console.log("hid displays");
+async function submitSearch(input) {
+    window.location.href = "https://chipfucker.github.io/betterboruu/r34?q=" + input;
 }
 
 function getLink(input) {
@@ -84,7 +87,7 @@ function getLink(input) {
     const id = input || hashId || "5823623";
     console.log("final id: "+id);
     location.hash = "#" + id;
-    url = apiUrl + id;
+    const url = apiUrl + id;
     console.log("final url: "+url);
     return url;
 }
