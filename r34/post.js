@@ -48,7 +48,11 @@ function hideStuff() {
 }
 
 async function submitPost(input) {
-    hideStuff();
+    try {
+        hideStuff();
+    } catch (e) {
+        displayError(e, "Couldn't hide content");
+    }
     const defaultUrl = "https://rule34.xxx/index.php?page=post&s=view&id=";
     // convert input to only id
     const outputId = (
@@ -440,8 +444,8 @@ function displayError(e, msg) {
 }
 
 try {
-    submitPost();
+    submitInput();
 } catch (e) {
     hideStuff();
-    displayError(e, "Failed to run submitPost");
+    displayError(e, "Failed to run submitInput");
 }
