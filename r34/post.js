@@ -2,12 +2,10 @@ window.onerror = function handleError(e, url, line) {
     window.alert(`${e}\n\n${line}`);
     document.getElementById("display").style.display = "none";
     document.getElementById("hideError").style.display = "none";
-    const errorDisplay = document.getElementById("errDisplay");
-    const errorInfo = document.getElementById("errInfo");
-    errorInfo.innerHTML =
+    document.getElementById("errInfo").innerHTML =
         `ERROR MESSAGE:<br>${e}<br><br>ERROR URL:<br>${url}<br><br>ERROR LINE:<br>${line}`;
-    errorDisplay.style.display = "block";
-    console.log(e);
+    document.getElementById("errDisplay").style.display = "block";
+    console.error(e);
     return false;
 }
 
@@ -23,7 +21,7 @@ const debugPosts = {
         animated: "debug\/animated\/animated.json",
         video: "debug\/video\/video.json"
     },
-    error: false ? debugErrMsg : false
+    error: true ? debugErrMsg : false
 };
 const debugPost = debugPosts.file.image; // change depending on needs
 const debugErr = debugPosts.error;
