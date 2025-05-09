@@ -1,21 +1,25 @@
-const debug = true;
-const debugErrMsg = "Debug: Forced error";
-const debugPosts = {
-    particular: "",
-    link: {
-        image: "5823623"
-    },
-    file: {
-        image: "debug\/image\/image.json",
-        animated: "debug\/animated\/animated.json",
-        video: "debug\/video\/video.json"
-    },
-    error: false ? debugErrMsg : false
-};
-const debugPost = debugPosts.file.image; // change depending on needs
-const debugErr = debugPosts.error;
-
-consoleOutput = "";
+try {
+    const debug = true;
+    const debugErrMsg = "Debug: Forced error";
+    const debugPosts = {
+        particular: "",
+        link: {
+            image: "5823623"
+        },
+        file: {
+            image: "https:\/\/chipfucker.github.io\/betterboruu\/r34\/debug\/image\/image.json",
+            animated: "https:\/\/chipfucker.github.io\/betterboruu\/r34\/debug\/animated\/animated.json",
+            video: "https:\/\/chipfucker.github.io\/betterboruu\/r34\/debug\/video\/video.json"
+        },
+        error: false ? debugErrMsg : false
+    };
+    const debugPost = debugPosts.file.image; // change depending on needs
+    const debugErr = debugPosts.error;
+    
+    consoleOutput = "";
+} catch (e) {
+    displayError(e, "Unable to configure debug parameters");
+}
 
 async function submitInput() {
     console.group(">> attempt");
