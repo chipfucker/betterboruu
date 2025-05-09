@@ -15,33 +15,35 @@ const debugPosts = {
 const debugPost = debugPosts.file.image; // change depending on needs
 const debugErr = debugPosts.error;
 
+consoleOutput = "";
+
 async function submitInput() {
-    console.group(">> attempt");
-    hideStuff();
-    if (debug) {
-        console.info("%crunning in debug mode",
-            `padding: 10px; \
-            background: light-dark(pink, maroon); \
-            color: light-dark(maroon, pink)`
-        );
-        if (debugErr) {
-            console.log("forced error");
-            let msg =
-                "This website is in debug mode, and an error was forced on load.\n"+
-                "If you're seeing this, you probably shouldn't be, and you should contact me if you are!";
-            displayError(debugErr, msg);
-            return;
-        }
-        post = await fetchData(debugPost);
-        console.info(`skipped to fetchData(${debugPost})`);
-    } else {
-        const input = document.getElementById("searchBar").value; // get input
-        console.log("got input: "+(input?input:null));
-        if (/^id:\d+$/.test(input) || !input) {
-            submitPost(input);
+    try {
+        console.group(">> attempt");
+        hideStuff();
+        if (debug) {
+            console.info("!! running in debug mode");
+            if (debugErr) {
+                console.log("forced error");
+                let msg =
+                    "This website is in debug mode, and an error was forced on load.\n"+
+                    "If you're seeing this, you probably shouldn't be, and you should contact me if you are!";
+                displayError(debugErr, msg);
+                return;
+            }
+            post = await fetchData(debugPost);
+            console.info(`skipped to fetchData(${debugPost})`);
         } else {
-            submitSearch(input);
+            const input = document.getElementById("searchBar").value; // get input
+            console.log("got input: "+(input?input:null));
+            if (/^id:\d+$/.test(input) || !input) {
+                submitPost(input);
+            } else {
+                submitSearch(input);
+            }
         }
+    } catch (e) {
+        displayError(e, `what fucking error!!??`)
     }
 }
 
@@ -101,8 +103,7 @@ async function fetchData(url) {
         console.log("got api info from:\n"+url);
     } catch (e) {
         console.timeEnd("fetch time");
-        let msg = "Couldn't fetch from: "+url;
-        displayError(e, msg);
+        displayError(e, `Couldn't fetch from: ${url}`);
         return;
     }
     const jsonInfo = await response.json();
