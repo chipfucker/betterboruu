@@ -444,11 +444,9 @@ function displayError(e, msg) {
     window.alert(`"${msg}"\n\n${e}`);
     document.getElementById("display").style.display = "none";
     document.getElementById("hideError").style.display = "none";
-    const errorDisplay = document.getElementById("errDisplay");
-    const errorInfo = document.getElementById("errInfo");
-    errorInfo.innerHTML =
+    document.getElementById("errInfo").innerHTML =
         `MESSAGE IN TRY-CATCH:<br>${msg}<br><br>ERROR MESSAGE:<br>${e}`;
-    errorDisplay.style.display = "block";
+    document.getElementById("errDisplay").style.display = "block";
 }
 
 submitInput();
