@@ -21,7 +21,7 @@ const debugPosts = {
         animated: "debug\/animated\/animated.json",
         video: "debug\/video\/video.json"
     },
-    error: true ? debugErrMsg : false
+    error: false ? debugErrMsg : false
 };
 const debugPost = debugPosts.file.image; // change depending on needs
 const debugErr = debugPosts.error;
@@ -44,7 +44,9 @@ async function submitInput() {
         const input = document.getElementById("searchBar").value; // get input
         console.log("got input: "+(input?input:null));
         if (/^id:\d+$/.test(input) || !input) {
-            submitPost(input);
+            const url = getLink(input); // append id to end of api link
+            console.log("got api link: "+url);
+            submitPost(url); /// CHANGE METHOD
         } else {
             submitSearch(input);
         }
@@ -58,17 +60,8 @@ function hideStuff() {
     console.log("hid displays");
 }
 
-async function submitPost(input) {
+async function submitPost(url) {
     hideStuff();
-    const defaultUrl = "https://rule34.xxx/index.php?page=post&s=view&id=";
-    // convert input to only id
-    const outputId = (
-        input.startsWith(defaultUrl)
-        ? input.slice(defaultUrl.length)
-        : input);
-    console.log("extracted id: "+(outputId?outputId:null));
-    const url = getLink(outputId); // append id to end of api link
-    console.log("got api link: "+url);
     post = await fetchData(url); // set post info to variable
     // await setEmbed();
 
