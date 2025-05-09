@@ -19,7 +19,6 @@ consoleOutput = "";
 
 async function submitInput() {
     console.group(">> attempt");
-    hideStuff();
     if (debug) {
         console.info("!! running in debug mode");
         if (debugErr) {
@@ -49,7 +48,8 @@ function hideStuff() {
     console.log("hid displays");
 }
 
-async function submitPost(input=null) {
+async function submitPost(input) {
+    hideStuff();
     const defaultUrl = "https://rule34.xxx/index.php?page=post&s=view&id=";
     // convert input to only id
     const outputId = (
