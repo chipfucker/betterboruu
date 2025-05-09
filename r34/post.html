@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<meta http-equiv="Content-Security-Policy" content="
+			style-src 'self' 'unsafe-inline';
+			connect-src 'self' https://api.rule34.xxx;
+			img-src 'self' https://api-cdn.rule34.xxx;
+			media-src 'self' https://api-cdn.rule34.xxx https://api-cdn-mp4.rule34.xxx;" />
+		<title></title>
 		<meta charset="UTF-8">
-		<title>Rule34 post</title>
 		<link rel="stylesheet" href="style.css">
 		<link rel="icon" type="image/x-icon" href="/r34/favicon.ico">
 		<!-- discord embed -->
@@ -10,13 +15,6 @@
 		<meta property="og:color" content="#b5e3a9" />
 		<meta property="og:footer:text" content="BetterBoruu" />
 		<meta property="og:footer:icon-url" content="https://chipfucker.github.io/betterboruu/favicon.ico" />
-		<!--
-		<meta property="author:name" content="" />
-		<meta property="author:url" content="" />
-		<meta property="description" content="" />
-		<meta property="image:url" content="" />
-		-->
-		
 	</head>
 	<body>
 		<div id="input">
@@ -42,33 +40,84 @@
 			</div>
 			<div id="imageDisplay"></div>
 			<div id="buttons">
-			<!-- open media link -->
-				<a id="openMedia" title="Open media in new tab">
+				<a id="openMedia" title="Open media in new tab (may be useful on Firefox for some videos!)">
 					<div class="button">
 						<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-							<path d="M13.82 21.7c.17.05.14.3-.04.3H6a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4h7.5c.28 0 .5.22.5.5V5a5 5 0 0 0 5 5h2.5c.28 0 .5.22.5.5v2.3a.4.4 0 0 1-.68.27l-.2-.2a3 3 0 0 0-4.24 0l-4 4a3 3 0 0 0 0 4.25c.3.3.6.46.94.58Z">
-							</path>
-							<path fill="currentColor" d="M21.66 8c.03 0 .05-.03.04-.06a3 3 0 0 0-.58-.82l-4.24-4.24a3 3 0 0 0-.82-.58.04.04 0 0 0-.06.04V5a3 3 0 0 0 3 3h2.66ZM18.3 14.3a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L20 17.42V23a1 1 0 1 1-2 0v-5.59l-2.3 2.3a1 1 0 0 1-1.4-1.42l4-4Z">
-							</path>
+							<path d="M13.82 21.7c.17.05.14.3-.04.3H6a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4h7.5c.28 0 .5.22.5.5V5a5 5 0 0 0 5 5h2.5c.28 0 .5.22.5.5v2.3a.4.4 0 0 1-.68.27l-.2-.2a3 3 0 0 0-4.24 0l-4 4a3 3 0 0 0 0 4.25c.3.3.6.46.94.58Z"/>
+							<path fill="currentColor" d="M21.66 8c.03 0 .05-.03.04-.06a3 3 0 0 0-.58-.82l-4.24-4.24a3 3 0 0 0-.82-.58.04.04 0 0 0-.06.04V5a3 3 0 0 0 3 3h2.66ZM18.3 14.3a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L20 17.42V23a1 1 0 1 1-2 0v-5.59l-2.3 2.3a1 1 0 0 1-1.4-1.42l4-4Z"/>
 						</svg>
 						<span>Open media</span>
 					</div>
 				</a>
-			<!-- copy media link -->
-				<a id="copyMedia" onclick="copyMedia()">
+				<a id="openPost" title="Open original post on rule34.xxx">
+				<div class="button">
+					<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+						<path d="M15 2a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0V4.41l-4.3 4.3a1 1 0 1
+							1-1.4-1.42L19.58 3H16a1 1 0 0 1-1-1Z"/>
+						<path d="M5 2a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-6a1 1 0 1 0-2 0v6a1 1 0 0 1-1
+							1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 1 0 0-2H5Z"/>
+					</svg>
+					<span>Original post</span>
+				</div>
+			</a>
+				<a id="copyMedia" onclick="copyMedia()" title="Copy link to the original media">
 					<div class="button">
 						<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-							<path d="M3 16a1 1 0 0 1-1-1v-5a8 8 0 0 1 8-8h5a1 1 0 0 1 1 1v.5a.5.5 0 0 1-.5.5H10a6 6 0 0 0-6 6v5.5a.5.5 0 0 1-.5.5H3Z">
-							</path>
-							<path d="M6 18a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4v-4h-3a5 5 0 0 1-5-5V6h-4a4 4 0 0 0-4 4v8Z">
-							</path>
-							<path d="M21.73 12a3 3 0 0 0-.6-.88l-4.25-4.24a3 3 0 0 0-.88-.61V9a3 3 0 0 0 3 3h2.73Z">
-							</path>
+							<path d="M3 16a1 1 0 0 1-1-1v-5a8 8 0 0 1 8-8h5a1 1 0 0 1 1 1v.5a.5.5 0 0 1-.5.5H10a6 6 0
+								0 0-6 6v5.5a.5.5 0 0 1-.5.5H3Z"/>
+							<path d="M6 18a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4v-4h-3a5 5 0 0 1-5-5V6h-4a4 4 0 0 0-4 4v8Z"/>
+							<path d="M21.73 12a3 3 0 0 0-.6-.88l-4.25-4.24a3 3 0 0 0-.88-.61V9a3 3 0 0 0 3 3h2.73Z"/>
 						</svg>
 						<span>Copy media link</span>
 					</div>
 				</a>
-			<!-- download media -->
+				<a id="copyLink" onclick="copyLink()" title="Copy link to current location">
+					<div class="button">
+						<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+							<path d="M2.3 7.3a1 1 0 0 0 0 1.4l5 5a1 1 0 0 0 1.4-1.4L5.42 9H11a7 7 0 0 1 7 7v4a1 1 0 1
+								0 2 0v-4a9 9 0 0 0-9-9H5.41l3.3-3.3a1 1 0 0 0-1.42-1.4l-5 5Z"/>
+						</svg>
+						<span>Copy BetterBoruu link</span>
+					</div>
+				</a>
+				<a id="copyPresetName" onclick="copyPresetName()" title="Copy a preset that improves the name of the file if you save it with such">
+					<div class="button">
+						<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+							<path d="m13.96 5.46 4.58 4.58a1 1 0 0 0 1.42 0l1.38-1.38a2 2 0 0 0 0-2.82l-3.18-3.18a2 2
+								0 0 0-2.82 0l-1.38 1.38a1 1 0 0 0 0 1.42ZM2.11 20.16l.73-4.22a3 3 0 0 1
+								.83-1.61l7.87-7.87a1 1 0 0 1 1.42 0l4.58 4.58a1 1 0 0 1 0 1.42l-7.87 7.87a3 3 0 0
+								1-1.6.83l-4.23.73a1.5 1.5 0 0 1-1.73-1.73Z"/>
+						</svg>
+						<span>Copy Preset Name</span>
+					</div>
+				</a>
+				<a id="copyLawlietCommand" onclick="copyLawlietCommand()" title="Copy a command for Lawliet that searches for the artist(s)">
+					<div class="button">
+						<svg width="16" height="16" fill="currentColor" viewBox="0 0 266.000000 300.000000" style="transform: translateY(-1px)">
+							<g transform="translate(0.000000,300) scale(0.100000,-0.1)">
+								<path d="M373 2985 c-87 -19 -157 -59 -229 -131 -114 -114 -160 -259 -129 -410 9 -43 19 -81
+									21 -83 2 -2 20 2 39 10 l36 14 2 85 c5 205 112 251 382 166 151 -48 243 -55 385 -32 56 
+									10 122 24 146 31 l44 13 -68 -76 c-206 -230 -251 -344 -259 -649 l-5 -183 -27 8 c-14 4
+									-71 7 -126 7 -92 0 -105 -3 -160 -32 -64 -33 -158 -111 -177 -146 -9 -17 -7 -24 11 -38
+									21 -17 24 -17 79 9 49 23 70 27 147 27 81 0 95 -3 144 -30 67 -37 105 -83 131 -159 21
+									-59 39 -186 26 -186 -4 0 -30 12 -59 27 -78 39 -177 44 -248 10 -30 -13 -73 -44 -97 -67
+									l-42 -43 20 -22 c20 -21 23 -21 73 -8 196 52 366 -133 327 -355 -13 -73 -53 -168 -101
+									-239 -72 -106 -226 -247 -385 -354 -44 -30 -82 -58 -83 -62 -2 -5 6 -26 18 -48 l23 -40
+									91 50 c274 147 549 234 827 262 315 31 646 -58 932 -251 l86 -59 241 225 c133 124 241
+									229 241 233 0 4 -16 22 -34 41 l-35 33 -68 -61 c-37 -33 -79 -72 -92 -86 -14 -14 -28
+									-26 -33 -26 -5 0 -43 24 -86 54 -312 219 -661 268 -1096 156 -61 -15 -112 -28 -113 -27
+									-1 1 31 29 70 62 108 91 332 311 397 390 125 152 185 279 215 453 26 146 19 462 -15 732
+									-35 274 -31 372 21 477 52 108 160 179 321 211 46 9 85 17 87 19 2 1 -5 23 -15 49 l-19
+									46 -125 -5 c-139 -7 -211 -23 -315 -71 -137 -64 -239 -163 -301 -291 -79 -165 -89 -297
+									-49 -685 31 -311 35 -495 11 -629 -44 -247 -156 -459 -341 -646 -85 -86 -215 -194 -215
+									-179 0 3 15 27 34 53 140 193 247 423 292 631 29 132 25 442 -10 780 -44 418 -31 558 61
+									700 38 57 152 175 236 245 l48 40 -23 28 -23 28 -76 -35 c-43 -19 -106 -43 -140 -54 -143
+									-44 -206 -39 -434 33 -237 76 -298 85 -412 60z"/>
+							</g>
+						</svg>
+						<span>Copy artist(s) as Lawliet command</span>
+					</div>
+				</a>
 				<!-- <a id="downloadLink" title="Download media to device">
 					<div class="button">
 						<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
@@ -78,7 +127,6 @@
 						<span>Download</span>
 					</div>
 				</a> -->
-			<!-- download media with template name -->
 				<!-- <a id="specialDownloadLink" title="Download media to device (with preset name!)">
 					<div class="button">
 						<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
@@ -88,28 +136,6 @@
 						<span>Download with preset name</span>
 					</div>
 				</a> -->
-			<!-- copy betterboruu link (current location) -->
-				<a id="copyLink" onclick="copyLink()">
-					<div class="button">
-						<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-							<path d="M2.3 7.3a1 1 0 0 0 0 1.4l5 5a1 1 0 0 0 1.4-1.4L5.42 9H11a7 7 0 0 1 7 7v4a1 1 0 1 0 2 0v-4a9 9 0 0 0-9-9H5.41l3.3-3.3a1 1 0 0 0-1.42-1.4l-5 5Z">
-							</path>
-						</svg>
-						<span>Copy BetterBoruu link</span>
-					</div>
-				</a>
-				<!-- open original post link -->
-				<a id="openPost">
-					<div class="button">
-						<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-							<path d="M15 2a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0V4.41l-4.3 4.3a1 1 0 1 1-1.4-1.42L19.58 3H16a1 1 0 0 1-1-1Z">
-							</path>
-							<path d="M5 2a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-6a1 1 0 1 0-2 0v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 1 0 0-2H5Z">
-							</path>
-						</svg>
-						<span>Original post</span>
-					</div>
-				</a>
 			</div>
 			<pre id="raw" class="raw"></pre>
 		</div>

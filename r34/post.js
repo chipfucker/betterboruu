@@ -1,41 +1,18 @@
 const debug = false;
 const debugErrMsg = "Debug: Forced error";
 const debugPosts = {
-    type: {
+    link: {
+        image: "https://rule34.xxx/index.php?page=post&s=view&id=5823623"
+    },
+    file: {
         image: "debug\/image.json",
         animated: "debug\/animated.json",
         video: "debug\/video.json"
     },
     error: false ? debugErrMsg : false
 };
-const debugPost = debugPosts.type.image; // change depending on needs
+const debugPost = debugPosts.link.image; // change depending on needs
 const debugErr = debugPosts.error;
-
-submitPost();
-
-async function setEmbed() {
-    const artists = getTagOfType(post.tag_info, "artist");
-    
-    const authorName = document.createElement("meta");
-    authorName.setAttribute("property", "og:author:name");
-    authorName.content = `#${post.id}`;
-    document.head.appendChild(authorName);
-
-    const authorUrl = document.createElement("meta");
-    authorUrl.setAttribute("property", "og:author:url");
-    authorUrl.content = `https://chipfucker.github.io/betterboruu/r34/post#${post.id}`;
-    document.head.appendChild(authorUrl);
-
-    const description = document.createElement("meta");
-    description.setAttribute("property", "og:description");
-    description.content = `### Artist${artists.plural}:\n${artists.list}`;
-    document.head.appendChild(description);
-
-    const imageUrl = document.createElement("meta");
-    imageUrl.setAttribute("property", "og:image:url");
-    imageUrl.content = post.file_url;
-    document.head.appendChild(imageUrl);
-}
 
 async function submitPost() {
     console.group(">> attempt");
@@ -69,7 +46,7 @@ async function submitPost() {
         const url = getLink(outputId);
         console.log("got api link: "+url);
         post = await fetchData(url);
-        await setEmbed();
+        // await setEmbed();
     }
 
     getTags(post.tag_info); // display extra tag info and get artist tags as one string
@@ -195,7 +172,40 @@ function getTagOfType(tags, typeRequest) {
     return featJson;
 }
 
+async function setEmbed() {
+    const artists = getTagOfType(post.tag_info, "artist");
+    
+    const titleElement = document.getElementsByTagName("title")[0];
+    titleElement.innerText = `#${post.id} - ${artists.comma}`;
+    
+    const authorName = document.createElement("meta");
+    authorName.setAttribute("property", "og:author:name");
+    authorName.content = `#${post.id}`;
+    document.head.appendChild(authorName);
+
+    const authorUrl = document.createElement("meta");
+    authorUrl.setAttribute("property", "og:author:url");
+    authorUrl.content = `https://chipfucker.github.io/betterboruu/r34/post#${post.id}`;
+    document.head.appendChild(authorUrl);
+
+    const description = document.createElement("meta");
+    description.setAttribute("property", "og:description");
+    description.content = `### Artist${artists.plural}:\n${artists.list}`;
+    document.head.appendChild(description);
+
+    const imageUrl = document.createElement("meta");
+    imageUrl.setAttribute("property", "og:image:url");
+    imageUrl.content = post.file_url;
+    document.head.appendChild(imageUrl);
+
+    const title = document.createElement("meta");
+    title.setAttribute("property", "title");
+    title.content = `#${artists.and}`;
+    document.head.appendChild(title);
+}
+
 function displayMedia(mediaUrl) {
+    console.log(`media url: ${mediaUrl}`);
     const container = document.getElementById("imageDisplay");
     container.innerHTML = "";
 
@@ -265,26 +275,15 @@ function setButtons() {
 
 function copyMedia() {
     const element = document.getElementById("copyMedia").firstElementChild;
-    let copy =
-        `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M3 16a1 1 0 0 1-1-1v-5a8 8 0 0 1 8-8h5a1 1 0 0 1 1 1v.5a.5.5 0 0 1-.5.5H10a6 6 0 0 0-6 6v5.5a.5.5 0 0 1-.5.5H3Z">
-            </path>
-            <path d="M6 18a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4v-4h-3a5 5 0 0 1-5-5V6h-4a4 4 0 0 0-4 4v8Z">
-            </path>
-            <path d="M21.73 12a3 3 0 0 0-.6-.88l-4.25-4.24a3 3 0 0 0-.88-.61V9a3 3 0 0 0 3 3h2.73Z">
-            </path>
-        </svg>
-        <span>Copy media link</span>`;
+    const copy = element.innerHTML;
     let success =
-        `<svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M21.7 5.3a1 1 0 0 1 0 1.4l-12 12a1 1 0 0 1-1.4 0l-6-6a1 1 0 1 1 1.4-1.4L9 16.58l11.3-11.3a1 1 0 0 1 1.4 0Z">
-            </path>
+        `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M21.7 5.3a1 1 0 0 1 0 1.4l-12 12a1 1 0 0 1-1.4 0l-6-6a1 1 0 1 1 1.4-1.4L9 16.58l11.3-11.3a1 1 0 0 1 1.4 0Z"/>
         </svg>
         <span>Copied!</span>`;
     let failure =
-        `<svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M17.3 18.7a1 1 0 0 0 1.4-1.4L13.42 12l5.3-5.3a1 1 0 0 0-1.42-1.4L12 10.58l-5.3-5.3a1 1 0 0 0-1.4 1.42L10.58 12l-5.3 5.3a1 1 0 1 0 1.42 1.4L12 13.42l5.3 5.3Z">
-            </path>
+        `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.3 18.7a1 1 0 0 0 1.4-1.4L13.42 12l5.3-5.3a1 1 0 0 0-1.42-1.4L12 10.58l-5.3-5.3a1 1 0 0 0-1.4 1.42L10.58 12l-5.3 5.3a1 1 0 1 0 1.42 1.4L12 13.42l5.3 5.3Z"/>
         </svg>
         <span>Failed!</span>`;
 
@@ -307,20 +306,15 @@ function copyMedia() {
 
 function copyLink() {
     const element = document.getElementById("copyLink").firstElementChild;
-    let copy =
-        `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M2.3 7.3a1 1 0 0 0 0 1.4l5 5a1 1 0 0 0 1.4-1.4L5.42 9H11a7 7 0 0 1 7 7v4a1 1 0 1 0 2 0v-4a9 9 0 0 0-9-9H5.41l3.3-3.3a1 1 0 0 0-1.42-1.4l-5 5Z">
-            </path>
-        </svg>
-        <span>Copy BetterBoruu link</span>`;
+    const copy = element.innerHTML;
     let success =
-        `<svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+        `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
             <path d="M21.7 5.3a1 1 0 0 1 0 1.4l-12 12a1 1 0 0 1-1.4 0l-6-6a1 1 0 1 1 1.4-1.4L9 16.58l11.3-11.3a1 1 0 0 1 1.4 0Z">
             </path>
         </svg>
         <span>Copied!</span>`;
     let failure =
-        `<svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+        `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
             <path d="M17.3 18.7a1 1 0 0 0 1.4-1.4L13.42 12l5.3-5.3a1 1 0 0 0-1.42-1.4L12 10.58l-5.3-5.3a1 1 0 0 0-1.4 1.42L10.58 12l-5.3 5.3a1 1 0 1 0 1.42 1.4L12 13.42l5.3 5.3Z">
             </path>
         </svg>
@@ -329,6 +323,72 @@ function copyLink() {
     try {
         navigator.clipboard.writeText(location);
         console.debug("copied location to clipboard: "+location);
+        element.innerHTML = success;
+        console.debug("set text to 'copied'");
+    } catch (e) {
+        console.warn("couldn't write location to clipboard:\n"+e);
+        element.innerHTML = failure;
+        console.debug("set text to 'failed'");
+    }
+
+    setTimeout(() => {
+        element.innerHTML = copy;
+        console.debug("reset text to 'copy'");
+    }, 1000);
+}
+
+function copyPresetName() {
+    const element = document.getElementById("copyPresetName").firstElementChild;
+    const copy = element.innerHTML;
+    let success =
+        `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M21.7 5.3a1 1 0 0 1 0 1.4l-12 12a1 1 0 0 1-1.4 0l-6-6a1 1 0 1 1 1.4-1.4L9 16.58l11.3-11.3a1 1 0 0 1 1.4 0Z">
+            </path>
+        </svg>
+        <span>Copied!</span>`;
+    let failure =
+        `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.3 18.7a1 1 0 0 0 1.4-1.4L13.42 12l5.3-5.3a1 1 0 0 0-1.42-1.4L12 10.58l-5.3-5.3a1 1 0 0 0-1.4 1.42L10.58 12l-5.3 5.3a1 1 0 1 0 1.42 1.4L12 13.42l5.3 5.3Z">
+            </path>
+        </svg>
+        <span>Failed!</span>`;
+
+    try {
+        navigator.clipboard.writeText(`${artists.generic} r${post.id}.${extension}`);
+        console.debug("copied preset name to clipboard: "+`${artists.generic} r${post.id}.${extension}`);
+        element.innerHTML = success;
+        console.debug("set text to 'copied'");
+    } catch (e) {
+        console.warn("couldn't write location to clipboard:\n"+e);
+        element.innerHTML = failure;
+        console.debug("set text to 'failed'");
+    }
+
+    setTimeout(() => {
+        element.innerHTML = copy;
+        console.debug("reset text to 'copy'");
+    }, 1000);
+}
+
+function copyLawlietCommand() {
+    const element = document.getElementById("copyLawlietCommand").firstElementChild;
+    const copy = element.innerHTML;
+    let success =
+        `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M21.7 5.3a1 1 0 0 1 0 1.4l-12 12a1 1 0 0 1-1.4 0l-6-6a1 1 0 1 1 1.4-1.4L9 16.58l11.3-11.3a1 1 0 0 1 1.4 0Z">
+            </path>
+        </svg>
+        <span>Copied!</span>`;
+    let failure =
+        `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.3 18.7a1 1 0 0 0 1.4-1.4L13.42 12l5.3-5.3a1 1 0 0 0-1.42-1.4L12 10.58l-5.3-5.3a1 1 0 0 0-1.4 1.42L10.58 12l-5.3 5.3a1 1 0 1 0 1.42 1.4L12 13.42l5.3 5.3Z">
+            </path>
+        </svg>
+        <span>Failed!</span>`;
+
+    try {
+        navigator.clipboard.writeText(`l.r34 ${artists.generic}`);
+        console.debug("copied preset name to clipboard: "+`l.r34 ${artists.generic}`);
         element.innerHTML = success;
         console.debug("set text to 'copied'");
     } catch (e) {
@@ -366,3 +426,5 @@ function displayError(e, msg) {
     errorInfo.innerHTML = `MESSAGE IN 'TRY' CATCH:<br>${msg}<br><br>ERROR MESSAGE:<br>${e}`;
     errorDisplay.style.display = "block";
 }
+
+submitPost();

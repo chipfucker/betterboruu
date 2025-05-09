@@ -119,6 +119,7 @@ a {
 #buttons {
     grid-area: buttons;
     display: inline-flex;
+    flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
@@ -128,7 +129,6 @@ div.button {
     width: fit-content;
     height: fit-content;
     cursor: pointer;
-    white-space: nowrap;
     padding: 5px 10px;
     font-size: 16px;
     font-family: system-ui;
@@ -159,6 +159,7 @@ div.card {
     border-width: 1px;
     border-color: #FFF1;
     border-radius: 10px;
+    overflow: hidden;
     transition: all 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000);
 }
 div.card:hover {
@@ -181,8 +182,8 @@ div.card > .label {
 }
 
 #tags {
-    grid-area: tags;
     overflow-y: scroll;
+    grid-area: tags;
     min-width: min-content;
 }
 #tagList ul {
