@@ -18,32 +18,28 @@ const debugErr = debugPosts.error;
 consoleOutput = "";
 
 async function submitInput() {
-    try {
-        console.group(">> attempt");
-        hideStuff();
-        if (debug) {
-            console.info("!! running in debug mode");
-            if (debugErr) {
-                console.log("forced error");
-                let msg =
-                    "This website is in debug mode, and an error was forced on load.\n"+
-                    "If you're seeing this, you probably shouldn't be, and you should contact me if you are!";
-                displayError(debugErr, msg);
-                return;
-            }
-            post = await fetchData(debugPost);
-            console.info(`skipped to fetchData(${debugPost})`);
-        } else {
-            const input = document.getElementById("searchBar").value; // get input
-            console.log("got input: "+(input?input:null));
-            if (/^id:\d+$/.test(input) || !input) {
-                submitPost(input);
-            } else {
-                submitSearch(input);
-            }
+    console.group(">> attempt");
+    hideStuff();
+    if (debug) {
+        console.info("!! running in debug mode");
+        if (debugErr) {
+            console.log("forced error");
+            let msg =
+                "This website is in debug mode, and an error was forced on load.\n"+
+                "If you're seeing this, you probably shouldn't be, and you should contact me if you are!";
+            displayError(debugErr, msg);
+            return;
         }
-    } catch (e) {
-        displayError(e, `what fucking error!!??`)
+        post = await fetchData(debugPost);
+        console.info(`skipped to fetchData(${debugPost})`);
+    } else {
+        const input = document.getElementById("searchBar").value; // get input
+        console.log("got input: "+(input?input:null));
+        if (/^id:\d+$/.test(input) || !input) {
+            submitPost(input);
+        } else {
+            submitSearch(input);
+        }
     }
 }
 
@@ -53,7 +49,7 @@ function hideStuff() {
     console.log("hid displays");
 }
 
-async function submitPost(input) {
+async function submitPost(input=null) {
     const defaultUrl = "https://rule34.xxx/index.php?page=post&s=view&id=";
     // convert input to only id
     const outputId = (
