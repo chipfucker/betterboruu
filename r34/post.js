@@ -45,6 +45,7 @@ async function submitInput() {
 function hideStuff() {
     document.getElementById("display").style.display = "none";
     document.getElementById("errDisplay").style.display = "none";
+    document.getElementById("hideError").style.display = "none";
     console.log("hid displays");
 }
 
