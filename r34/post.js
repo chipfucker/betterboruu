@@ -1,9 +1,10 @@
 const debug = true;
+const debugLocalFile = 
 const debugErrMsg = "Debug: Forced error";
 const debugPosts = {
     particular: "5823623", // specific link if necessary
     link: {
-        image: "5823623"
+        image: "https:\/\/rule34.xxx\/index.php?page=post&s=view&id=5823623"
     },
     file: {
         image: "debug\/image\/image.json",
@@ -14,6 +15,48 @@ const debugPosts = {
 };
 const debugPost = debugPosts.file.image; // change depending on needs
 const debugErr = debugPosts.error;
+
+allLogs = [];
+
+console.defaultLog = console.log.bind(console);
+console.logs = [];
+console.log = function(){
+    // default &  console.log()
+    console.defaultLog.apply(console, arguments);
+    // new & array data
+    console.logs.push(Array.from(arguments));
+    console.allLogs.push(Array.from(arguments));
+}
+
+console.defaultError = console.error.bind(console);
+console.errors = [];
+console.error = function(){
+    // default &  console.error()
+    console.defaultError.apply(console, arguments);
+    // new & array data
+    console.errors.push(Array.from(arguments));
+    console.allLogs.push(Array.from(arguments));
+}
+
+console.defaultWarn = console.warn.bind(console);
+console.warns = [];
+console.warn = function(){
+    // default &  console.warn()
+    console.defaultWarn.apply(console, arguments);
+    // new & array data
+    console.warns.push(Array.from(arguments));
+    console.allLogs.push(Array.from(arguments));
+}
+
+console.defaultDebug = console.debug.bind(console);
+console.debugs = [];
+console.debug = function(){
+    // default &  console.debug()
+    console.defaultDebug.apply(console, arguments);
+    // new & array data
+    console.debugs.push(Array.from(arguments));
+    console.allLogs.push(Array.from(arguments));
+}
 
 async function submitInput() {
     console.group(">> attempt");
@@ -448,4 +491,8 @@ try {
 } catch (e) {
     hideStuff();
     displayError(e, "Failed to run submitInput");
+}
+
+if (debug) {
+    getElementById("logInfo").innerText = allLogs
 }
