@@ -85,7 +85,7 @@ function getLink(input) {
     const id = input || hashId || "5823623";
     console.log("final id: "+id);
     location.hash = "#" + id;
-    const url = apiUrl + id;
+    url = apiUrl + id;
     console.log("final url: "+url);
     return url;
 }

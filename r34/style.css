@@ -78,13 +78,6 @@ a {
     transform: translateY(2px);
 }
 
-#version {
-    background-color: black;
-    color: white;
-    padding: 5px;
-    margin: auto;
-}
-
 #postDisplay {
     width: 100%;
     grid-template-areas:
