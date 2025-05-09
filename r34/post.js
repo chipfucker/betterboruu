@@ -1,3 +1,9 @@
+window.onerror = function handleError(e, url, line) {  
+    displayError(e, url, line);
+    console.log(e);
+    return false;
+}
+
 const debug = true;
 const debugErrMsg = "Debug: Forced error";
 const debugPosts = {
@@ -431,12 +437,6 @@ async function getFileFromUrl(url, name, defaultType = "text/xml") {
     return new File([data], name, {
         type: data.type || defaultType
     });
-}
-
-window.onerror = function handleError(e, url, line) {  
-    displayError(e, url, line);
-    console.log(e);
-    return false;
 }
 
 function displayError(e, msg) {
