@@ -1,5 +1,12 @@
-window.onerror = function handleError(e, url, line) {  
-    displayError(e, url, line);
+window.onerror = function handleError(e, url, line) { 
+    window.alert(`${e}\n\n${line}`);
+    document.getElementById("display").style.display = "none";
+    document.getElementById("hideError").style.display = "none";
+    const errorDisplay = document.getElementById("errDisplay");
+    const errorInfo = document.getElementById("errInfo");
+    errorInfo.innerHTML =
+        `ERROR MESSAGE:<br>${e}<br><br>ERROR URL:<br>${url}<br><br>ERROR LINE:<br>${line}`;
+    errorDisplay.style.display = "block";
     console.log(e);
     return false;
 }
@@ -447,17 +454,6 @@ function displayError(e, msg) {
     const errorInfo = document.getElementById("errInfo");
     errorInfo.innerHTML =
         `MESSAGE IN TRY-CATCH:<br>${msg}<br><br>ERROR MESSAGE:<br>${e}`;
-    errorDisplay.style.display = "block";
-}
-
-function displayError(e, url, line,) {
-    window.alert(`${e}\n\n${line}`);
-    document.getElementById("display").style.display = "none";
-    document.getElementById("hideError").style.display = "none";
-    const errorDisplay = document.getElementById("errDisplay");
-    const errorInfo = document.getElementById("errInfo");
-    errorInfo.innerHTML =
-        `ERROR MESSAGE:<br>${e}<br><br>ERROR URL:<br>${url}<br><br>ERROR LINE:<br>${line}`;
     errorDisplay.style.display = "block";
 }
 
