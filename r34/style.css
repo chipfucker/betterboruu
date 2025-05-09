@@ -81,7 +81,8 @@ a {
 #version {
     background-color: black;
     color: white;
-    justify-self: flex-end;
+    padding: 5px;
+    margin: 10px;
 }
 
 #postDisplay {
