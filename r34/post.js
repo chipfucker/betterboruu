@@ -10,7 +10,7 @@ const debugPosts = {
         animated: "debug\/animated\/animated.json",
         video: "debug\/video\/video.json"
     },
-    error: false ? debugErrMsg : false
+    error: true ? debugErrMsg : false
 };
 const debugPost = debugPosts.file.image; // change depending on needs
 const debugErr = debugPosts.error;
@@ -18,6 +18,7 @@ const debugErr = debugPosts.error;
 consoleOutput = "";
 
 try {
+    hideStuff();
     submitInput();
 } catch (e) {
     displayError(e, "Failed to run submitInput");
@@ -56,7 +57,6 @@ function hideStuff() {
 }
 
 async function submitPost(input) {
-    hideStuff();
     const defaultUrl = "https://rule34.xxx/index.php?page=post&s=view&id=";
     // convert input to only id
     const outputId = (
