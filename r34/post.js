@@ -15,8 +15,6 @@ const debugPosts = {
 const debugPost = debugPosts.file.image; // change depending on needs
 const debugErr = debugPosts.error;
 
-consoleOutput = "";
-
 try {
     hideStuff();
     submitInput();
