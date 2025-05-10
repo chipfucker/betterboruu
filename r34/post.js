@@ -7,12 +7,11 @@ window.onerror = function handleError(e, url, line) {
     document.getElementById("errDisplay").style.display = "block";
     console.error(e);
     return false;
-}
+};
 
-const debug = true;
+const debug = false;
 const debugErrMsg = "Debug: Forced error";
 const debugPosts = {
-    particular: "5823623", // specific link if necessary
     link: {
         image: "https:\/\/rule34.xxx\/index.php?page=post&s=view&id=5823623"
     },
@@ -23,7 +22,7 @@ const debugPosts = {
     },
     error: false ? debugErrMsg : false
 };
-const debugPost = debugPosts.file.image; // change depending on needs
+const debugPost = debugPosts.file.video; // change depending on needs
 const debugErr = debugPosts.error;
 
 async function submitInput() {
@@ -38,15 +37,15 @@ async function submitInput() {
             displayError(debugErr, msg);
             return;
         }
-        post = await fetchData(debugPost);
+        submitPost(debugPost);
         console.info(`skipped to fetchData(${debugPost})`);
     } else {
         const input = document.getElementById("searchBar").value; // get input
         console.log("got input: "+(input?input:null));
-        if (/^id:\d+$/.test(input) || !input) {
+        if (/^\i\d\:\d+$/.test(input) || !input) {
             const url = getLink(input); // append id to end of api link
             console.log("got api link: "+url);
-            submitPost(url); /// CHANGE METHOD
+            submitPost(url);
         } else {
             submitSearch(input);
         }
@@ -54,7 +53,7 @@ async function submitInput() {
 }
 
 function hideStuff() {
-    document.getElementById("display").style.display = "none";
+    document.getElementById("postDisplay").style.display = "none";
     document.getElementById("errDisplay").style.display = "none";
     document.getElementById("hideError").style.display = "none";
     console.log("hid displays");
@@ -63,20 +62,20 @@ function hideStuff() {
 async function submitPost(url) {
     hideStuff();
     post = await fetchData(url); // set post info to variable
-    // await setEmbed();
+    await setEmbed();
 
     getTags(post.tag_info); // display extra tag info and get artist tags as one string
     artists = getTagOfType(post.tag_info, "artist"); // assign artist tags to strings
     displayMedia(post.file_url); // display media
     /// videos don't work on firefox; fix this somehow!!!
+    displayInfo(post);
     setButtons(); // set all buttons
-    displayRaw(document.getElementById("raw"), post); // display raw json info
     showStuff(); // reveal everything
     console.groupEnd();
 }
 
 async function submitSearch(input) {
-    window.location.href = "https://chipfucker.github.io/betterboruu/r34?q=" + input;
+    window.location.href = "https://chipfucker.github.io/betterboruu/r34?q=" + encodeParams(input);
 }
 
 function getLink(input) {
@@ -258,6 +257,10 @@ function displayMedia(mediaUrl) {
     }
 }
 
+function displayInfo(post) {
+    document.getElementById("raw").innerHTML = JSON.stringify(post, null, 2);
+}
+
 function setButtons() {
     setOpenMedia(post.file_url); // set open media link
     // setDownloadLink(post.file_url); // set download media link
@@ -383,12 +386,8 @@ function copyLawlietCommand() {
     }, 1000);
 }
 
-function displayRaw(element, json) {
-    element.innerHTML = JSON.stringify(json, null, 2);
-}
-
 function showStuff() {
-    document.getElementById("display").style.display = "grid";
+    document.getElementById("postDisplay").style.display = "grid";
     console.log("revealed display");
 }
 
@@ -400,9 +399,20 @@ async function getFileFromUrl(url, name, defaultType = "text/xml") {
     });
 }
 
+function encodeParams(input) {
+    const replaced = input.replace(/ /g, "+");
+    const encoded = encodeURI(replaced);
+    return encoded;
+}
+function decodeParams(input) {
+    const decoded = decodeURI(input);
+    const replaced = decoded.replace(/\+/g, " ");
+    return replaced;
+}
+
 function displayError(e, msg) {
     window.alert(`"${msg}"\n\n${e}`);
-    document.getElementById("display").style.display = "none";
+    document.getElementById("postDisplay").style.display = "none";
     document.getElementById("hideError").style.display = "none";
     document.getElementById("errInfo").innerHTML =
         `MESSAGE IN TRY-CATCH:<br>${msg}<br><br>ERROR MESSAGE:<br>${e}`;

@@ -34,17 +34,24 @@
 			<pre>BROKEN DISPLAYS BELOW!</pre>
 		</div>
 		<div id="postDisplay">
-			<div class="card" id="tags" data-card="Tags">
-				<p class="label">Tags</p>
-				<div id="tagList">
-					<ul id="tagCopyright"></ul>
-					<ul id="tagCharacter"></ul>
-					<ul id="tagArtist"></ul>
-					<ul id="tagGeneral"></ul>
-					<ul id="tagMetadata"></ul>
+			<div id="imageDisplay"></div>
+			<div id="info">
+				<div class="card" id="tags">
+					<p class="label">Tags</p>
+					<div id="tagList">
+						<ul id="tagCopyright"></ul>
+						<ul id="tagCharacter"></ul>
+						<ul id="tagArtist"></ul>
+						<ul id="tagGeneral"></ul>
+						<ul id="tagMetadata"></ul>
+					</div>
+				</div>
+				<div id="moreInfo" class="card">
+					<div>
+						<span><b>More info is a work in progress!</b></span><span id="id"></span>
+					</div>
 				</div>
 			</div>
-			<div id="imageDisplay"></div>
 			<div id="buttons">
 				<a id="openMedia" title="Open media in new tab (may be useful on Firefox for some videos!)">
 					<div class="button">
@@ -88,7 +95,7 @@
 						<span>Copy Preset Name</span>
 					</div>
 				</a>
-				<a id="copyLawlietCommand" onclick="copyLawlietCommand()" title="Copy a command for Lawliet that searches for the artist(s)">
+				<a id="copyLawlietCommand" onclick="copyLawlietCommand()" title="Copy a command for Lawliet that searches for the artists">
 					<div class="button">
 						<svg width="16" height="16" fill="currentColor" viewBox="0 0 266.000000 300.000000" style="transform: translateY(-1px)">
 							<g transform="translate(0.000000,300) scale(0.100000,-0.1)">
@@ -112,14 +119,14 @@
 									-44 -206 -39 -434 33 -237 76 -298 85 -412 60z"/>
 							</g>
 						</svg>
-						<span>Copy artist(s) as Lawliet command</span>
+						<span>Copy artists as Lawliet command</span>
 					</div>
 				</a>
 				<!-- <a id="downloadLink" title="Download media to device">
 					<div class="button">
 						<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-							<path d="M12 2a1 1 0 0 1 1 1v10.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V3a1 1 0 0 1 1-1ZM3 20a1 1 0 1 0 0 2h18a1 1 0 1 0 0-2H3Z">
-							</path>
+							<path d="M12 2a1 1 0 0 1 1 1v10.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1
+								1 0 1 1 1.4-1.42l3.3 3.3V3a1 1 0 0 1 1-1ZM3 20a1 1 0 1 0 0 2h18a1 1 0 1 0 0-2H3Z"/>
 						</svg>
 						<span>Download</span>
 					</div>
@@ -127,15 +134,15 @@
 				<!-- <a id="specialDownloadLink" title="Download media to device (with preset name!)">
 					<div class="button">
 						<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-							<path d="M12 2a1 1 0 0 1 1 1v10.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V3a1 1 0 0 1 1-1ZM3 20a1 1 0 1 0 0 2h18a1 1 0 1 0 0-2H3Z">
-							</path>
+							<path d="M12 2a1 1 0 0 1 1 1v10.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1
+								1 0 1 1 1.4-1.42l3.3 3.3V3a1 1 0 0 1 1-1ZM3 20a1 1 0 1 0 0 2h18a1 1 0 1 0 0-2H3Z"/>
 						</svg>
 						<span>Download with preset name</span>
 					</div>
 				</a> -->
 			</div>
-			<pre id="raw" class="raw" display="none"></pre>
 		</div>
+		<pre id="raw" class="raw" display="none"></pre>
 		<div id="errDisplay">
 			<h1>Couldn't display info. @_@</h1>
 			<p>Check your internet connection, perhaps?</p>

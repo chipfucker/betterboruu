@@ -15,3 +15,14 @@ async function submitSearch(input) {
     const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&fields=tag_info&tags=-ai_generated+";
     const url = apiUrl + input;
 }
+
+function encodeParams(input) {
+    const replaced = input.replace(/ /g, "+");
+    const encoded = encodeURI(replaced);
+    return encoded;
+}
+function decodeParams(input) {
+    const decoded = decodeURI(input);
+    const replaced = decoded.replace(/\+/g, " ");
+    return replaced;
+}
