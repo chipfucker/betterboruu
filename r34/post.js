@@ -24,7 +24,7 @@ const debugPosts = {
         animated: "debug\/animated\/animated.json",
         video: "debug\/video\/video.json"
     },
-    error: true ? debugErrMsg : false
+    error: false ? debugErrMsg : false
 };
 const debugPost = debugPosts.file.image; // change depending on needs
 const debugErr = debugPosts.error;
