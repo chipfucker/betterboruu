@@ -26,7 +26,7 @@ const debugPosts = {
     },
     error: false ? debugErrMsg : false
 };
-const debugPost = debugPosts.file.image; // change depending on needs
+const debugPost = debugPosts.file.animated; // change depending on needs
 const debugErr = debugPosts.error;
 
 window.onload = function () {
@@ -407,7 +407,7 @@ function displayRawInfo() {
     const rawInfo = rawDiv.children[1];
     if (rawDiv.display === "false") {
         rawDrop.innerHTML = "HIDE RAW POST INFO v";
-        rawInfo.style.display = "unset";
+        rawInfo.style.display = "block";
         rawDiv.display = "true";
     } else {
         rawDrop.innerHTML = "DISPLAY RAW POST INFO >";
