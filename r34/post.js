@@ -95,7 +95,7 @@ function hideStuff() {
 
 function displayInfo(post) {
     document.getElementById("rawPostInfo").getElementsByTagName("pre")[1].innerHTML =
-        `<pre>\n${JSON.stringify(post, null, 2)}</pre>`;
+        `\n${JSON.stringify(post, null, 2)}`;
 }
 
 function getLink(input) {
@@ -403,8 +403,8 @@ function copyLawlietCommand() {
 }
 function displayRawInfo() {
     const rawDiv = document.getElementById("rawPostInfo");
-    const rawDrop = rawDiv.getElementsByTagName("pre")[0];
-    const rawInfo = rawDiv.getElementsByTagName("pre")[1];
+    const rawDrop = rawDiv.childNodes[0];
+    const rawInfo = rawDiv.childNodes[1];
     if (rawInfo.display === "none") {
         rawDrop.innerText = "HIDE RAW POST INFO v";
         rawInfo.display = "unset";
