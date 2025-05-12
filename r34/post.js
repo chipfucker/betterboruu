@@ -40,9 +40,10 @@ async function submitInput() {
         submitPost(debugPost);
         console.info(`skipped to fetchData(${debugPost})`);
     } else {
-        const input = document.getElementById("searchBar").value; // get input
+        var input = document.getElementById("searchBar").value; // get input
         console.log("got input: "+(input?input:null));
-        if (/^\i\d\:\d+$/.test(input) || !input) {
+        if (/^id:\d+$/.test(input) || !input) {
+            input = input.substring(3);
             const url = getLink(input); // append id to end of api link
             console.log("got api link: "+url);
             submitPost(url);
@@ -50,13 +51,6 @@ async function submitInput() {
             submitSearch(input);
         }
     }
-}
-
-function hideStuff() {
-    document.getElementById("postDisplay").style.display = "none";
-    document.getElementById("errDisplay").style.display = "none";
-    document.getElementById("hideError").style.display = "none";
-    console.log("hid displays");
 }
 
 async function submitPost(url) {
@@ -75,7 +69,14 @@ async function submitPost(url) {
 }
 
 async function submitSearch(input) {
-    window.location.href = "https://chipfucker.github.io/betterboruu/r34?q=" + encodeParams(input);
+    location.href = "index.html?q=" + encodeURIComponent(input);
+}
+
+function hideStuff() {
+    document.getElementById("postDisplay").style.display = "none";
+    document.getElementById("errDisplay").style.display = "none";
+    document.getElementById("hideError").style.display = "none";
+    console.log("hid displays");
 }
 
 function getLink(input) {
@@ -399,17 +400,6 @@ async function getFileFromUrl(url, name, defaultType = "text/xml") {
     });
 }
 
-function encodeParams(input) {
-    const replaced = input.replace(/ /g, "+");
-    const encoded = encodeURI(replaced);
-    return encoded;
-}
-function decodeParams(input) {
-    const decoded = decodeURI(input);
-    const replaced = decoded.replace(/\+/g, " ");
-    return replaced;
-}
-
 function displayError(e, msg) {
     window.alert(`"${msg}"\n\n${e}`);
     document.getElementById("postDisplay").style.display = "none";
@@ -419,4 +409,7 @@ function displayError(e, msg) {
     document.getElementById("errDisplay").style.display = "block";
 }
 
-submitInput();
+window.onload = function () {
+    const url = getLink(location.hash.substring(1));
+    submitPost(url);
+};
