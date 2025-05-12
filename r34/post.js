@@ -49,6 +49,13 @@ window.onload = function () {
     }
 };
 
+document.getElementById("searchBar").addEventListener("keydown", function (e) {
+    if (e.code === "Enter") {
+        submitInput();
+    }
+});
+
+
 async function submitInput() {
     console.group("SUBMIT ATTEMPT");
     if (debug) {
