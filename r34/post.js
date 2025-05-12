@@ -2,7 +2,12 @@ window.onerror = function handleError(e, url, line) {
     window.alert(`${e}\n\n${line}`);
     document.getElementById("hideError").style.display = "none";
     document.getElementById("errInfo").innerHTML =
-        `ERROR MESSAGE:<br>${e}<br><br>ERROR URL:<br>${url}<br><br>ERROR LINE:<br>${line}`;
+        `<b><pre>ERROR MESSAGE:</pre></b>
+        <pre>${e}</pre>
+        <b><pre>ERROR URL:</pre></b>
+        <pre>${url}</pre>
+        <b><pre>ERROR LINE:</pre></b>
+        <pre>${line}</pre>`;
     document.getElementById("errDisplay").style.display = "block";
     console.error(e);
     return false;
@@ -46,15 +51,21 @@ window.onload = function () {
 
 async function submitInput() {
     console.group("SUBMIT ATTEMPT");
-    var input = document.getElementById("searchBar").value; // get input
-    console.log("got input: "+(input?input:null));
-    if (/^id:\d+$/.test(input) || !input) { // if input is either 'id:' followed by digits or null
-        input = input.substring(3); // get digits after 'id:'
-        const url = getLink(input); // append id to end of api link
-        console.log("got api link: "+url);
-        submitPost(url);
+    if (debug) {
+        console.info("!! running in debug mode");
+        submitPost(debugPost);
+        console.info(`skipped to fetchData(${debugPost})`);
     } else {
-        submitSearch(input);
+        var input = document.getElementById("searchBar").value; // get input
+        console.log("got input: "+(input?input:null));
+        if (/^id:\d+$/.test(input) || !input) { // if input is either 'id:' followed by digits or null
+            input = input.substring(3); // get digits after 'id:'
+            const url = getLink(input); // append id to end of api link
+            console.log("got api link: "+url);
+            submitPost(url);
+        } else {
+            submitSearch(input);
+        }
     }
 }
 
@@ -83,7 +94,7 @@ function hideStuff() {
 }
 
 function displayInfo(post) {
-    document.getElementById("rawPostInfo").innerHTML = JSON.stringify(post, null, 2);
+    document.getElementById("rawPostInfo").innerHTML = `<pre>${JSON.stringify(post, null, 2)}</pre>`;
 }
 
 function getLink(input) {
@@ -404,7 +415,6 @@ async function getFileFromUrl(url, name, defaultType = "text/xml") {
 }
 
 function displayError(e, msg) {
-    window.alert(`"${msg}"\n\n${e}`);
     document.getElementById("postDisplay").style.display = "none";
     document.getElementById("hideError").style.display = "none";
     document.getElementById("errInfo").innerHTML =

@@ -114,16 +114,8 @@ div.warning {
     align-self: center;
 }
 
-#buttons {
-    grid-area: buttons;
-    display: inline-flex;
-    flex-direction: row;
-    justify-content: left;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
 div.button {
+    display: inline;
     width: fit-content;
     height: fit-content;
     cursor: pointer;
@@ -146,6 +138,18 @@ div.button:active {
 }
 div.button svg {
     vertical-align: bottom;
+}
+
+#buttons {
+    grid-area: buttons;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: left;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+#buttons > div.button {
+    display: block;
 }
 
 div.card {
