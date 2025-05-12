@@ -22,7 +22,7 @@ const debugPosts = {
     },
     error: false ? debugErrMsg : false
 };
-const debugPost = debugPosts.file.video; // change depending on needs
+const debugPost = debugPosts.file.image; // change depending on needs
 const debugErr = debugPosts.error;
 
 async function submitInput() {
@@ -42,8 +42,8 @@ async function submitInput() {
     } else {
         var input = document.getElementById("searchBar").value; // get input
         console.log("got input: "+(input?input:null));
-        if (/^id:\d+$/.test(input) || !input) {
-            input = input.substring(3);
+        if (/^id:\d+$/.test(input) || !input) { // if input is either 'id:' followed by digits or null
+            input = input.substring(3); // get digits after 'id:'
             const url = getLink(input); // append id to end of api link
             console.log("got api link: "+url);
             submitPost(url);

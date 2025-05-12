@@ -61,16 +61,16 @@
 					</div>
 				</a>
 				<a id="openPost" title="Open original post on rule34.xxx">
-				<div class="button">
-					<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-						<path d="M15 2a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0V4.41l-4.3 4.3a1 1 0 1
-							1-1.4-1.42L19.58 3H16a1 1 0 0 1-1-1Z"/>
-						<path d="M5 2a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-6a1 1 0 1 0-2 0v6a1 1 0 0 1-1
-							1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 1 0 0-2H5Z"/>
-					</svg>
-					<span>Original post</span>
-				</div>
-			</a>
+					<div class="button">
+						<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+							<path d="M15 2a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0V4.41l-4.3 4.3a1 1 0 1
+								1-1.4-1.42L19.58 3H16a1 1 0 0 1-1-1Z"/>
+							<path d="M5 2a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-6a1 1 0 1 0-2 0v6a1 1 0 0 1-1
+								1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 1 0 0-2H5Z"/>
+						</svg>
+						<span>Original post</span>
+					</div>
+				</a>
 				<a id="copyMedia" onclick="copyMedia()" title="Copy link to the original media">
 					<div class="button">
 						<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
@@ -139,8 +139,8 @@
 					</div>
 				</a> -->
 			</div>
+			<pre id="rawPostInfo" class="raw" display="none"></pre>
 		</div>
-		<pre id="raw" class="raw" display="none"></pre>
 		<div id="errDisplay">
 			<h1>Couldn't display info. @_@</h1>
 			<p>Check your internet connection, perhaps?</p>
@@ -160,8 +160,8 @@
 				<p>
 					I'm working on a website that takes most boorus'&mdash;image boards that make use of tags and other
 					fields&mdash;API's and combine them into a single website for ease of use, and some of those boorus
-					are mature. The display that is brought up is there as a precaution for when the user tries and fails
-					to look for mature content.
+					are mature. The display that is brought up on error is there as a precaution for when the user tries
+					and fails to look for mature content.
 				</p>
 				<p>
 					I usually use a debug mode to prevent any attempts to fetch info from a mature domain, using local and

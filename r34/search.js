@@ -31,7 +31,7 @@ async function submitInput() {
             displayError(debugErr, msg);
             return;
         }
-        submitSearch(debugPost);
+        getData(debugPost);
         console.info(`skipped to fetchData(${debugPost})`);
     } else {
         var input = document.getElementById("searchBar").value; // get input
@@ -55,6 +55,10 @@ async function submitSearch(input) {
 
 async function submitPost(id) {
     window.location.href = "post.html#"+id;
+}
+
+async function getData(url) {
+    
 }
 
 function hideStuff() {
