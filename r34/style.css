@@ -117,7 +117,7 @@ div.warning {
 
 #buttons {
     grid-area: buttons;
-    display: inline-grid;
+    display: inline-flex;
     flex-direction: row;
     justify-content: left;
     flex-wrap: wrap;
@@ -131,6 +131,7 @@ div.button {
     padding: 5px 10px;
     font-size: 16px;
     font-family: system-ui;
+    overflow-wrap: break-word;
     background-color: var(--accent-4);
     border: solid 1px #FFF3;
     border-radius: 10px;
