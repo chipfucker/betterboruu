@@ -68,7 +68,7 @@ async function fetchData(url) {
         response = await fetch(url);
         console.timeEnd("fetch time");
         console.log("got api info from:\n"+url);
-        const jsonInfo = await response.json();
+        jsonInfo = await response.json();
     } catch (e) {
         console.timeEnd("fetch time");
         displayError(e, `Couldn't fetch from: ${url}`);
