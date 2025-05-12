@@ -405,7 +405,7 @@ function displayRawInfo() {
     const rawDiv = document.getElementById("rawPostInfo");
     const rawDrop = rawDiv.children[0];
     const rawInfo = rawDiv.children[1];
-    if (rawInfo.style.display === "none") {
+    if (rawDiv.display === "none") {
         rawDrop.innerHTML = "HIDE RAW POST INFO v";
         rawInfo.style.display = "unset";
     } else {
