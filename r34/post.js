@@ -152,7 +152,7 @@ function getTags(tags) {
         const element = ulElement[tags[x].type];
         element.innerHTML +=
             `<a
-                href="index.html?q=${encodeURIComponent(tags[x].tag)}"
+                href="?q=${encodeURIComponent(tags[x].tag)}"
                 title="${tags[x].count} uses"
             ><li>${tags[x].tag}</li></a>`;
         console.log(`added tag to ${tags[x].type}: ${tags[x].tag}`);
