@@ -19,7 +19,7 @@ const debugPosts = {
 const debugPost = debugPosts.file; // change depending on needs
 const debugErr = debugPosts.error;
 
-async function submitInput() {
+function submitInput() {
     console.group("SUBMIT ATTEMPT");
     if (debug) {
         console.info("!! running in debug mode");
