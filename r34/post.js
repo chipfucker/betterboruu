@@ -53,12 +53,12 @@ async function submitInput() {
     console.group("SUBMIT ATTEMPT");
     if (debug) {
         console.info("!! running in debug mode");
+        console.info(`skipping to submitPost(${debugPost})`);
         submitPost(debugPost);
-        console.info(`skipped to fetchData(${debugPost})`);
     } else {
         var input = document.getElementById("searchBar").value; // get input
         console.log("got input: "+(input?input:null));
-        if (/^id:\d+$/.test(input) || !input) { // if input is either 'id:' followed by digits or null
+        if (/^id:\d+$/.test(input)) { // if input is 'id:' followed by digits
             input = input.substring(3); // get digits after 'id:'
             const url = getLink(input); // append id to end of api link
             console.log("got api link: "+url);
@@ -105,8 +105,6 @@ function getLink(input) {
     const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&fields=tag_info&id=";
     let hashId = location.hash.substring(1);
     console.log("got hash value: "+(hashId?hashId:null));
-    hashId = /^\d+$/.test(hashId) ? hashId : null;
-    console.log("got new hash id: "+hashId);
     const id = input || hashId || "5823623";
     console.log("final id: "+id);
     location.hash = "#" + id;
@@ -152,7 +150,7 @@ function getTags(tags) {
         const element = ulElement[tags[x].type];
         element.innerHTML +=
             `<a
-                href="?q=${encodeURIComponent(tags[x].tag)}"
+                href="index.html?q=${encodeURIComponent(tags[x].tag)}"
                 title="${tags[x].count} uses"
             ><li>${tags[x].tag}</li></a>`;
         console.log(`added tag to ${tags[x].type}: ${tags[x].tag}`);
