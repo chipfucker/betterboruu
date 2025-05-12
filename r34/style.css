@@ -212,11 +212,12 @@ div.card > .label {
     grid-area: raw;
 }
 .raw {
-    overflow-x: scroll;
-    max-height: 300px;
+    overflow-wrap: break-word;
     background-color: #10141f;
     scrollbar-width: thin;
     padding: 10px;
+    padding-left: calc(10px + 2ch);
+    text-indent: -2ch;
     border-style: solid;
     border-width: 1px;
     border-color: #FFF1;
