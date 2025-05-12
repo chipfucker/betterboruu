@@ -405,14 +405,14 @@ function displayRawInfo() {
     const rawDiv = document.getElementById("rawPostInfo");
     const rawDrop = rawDiv.children[0];
     const rawInfo = rawDiv.children[1];
-    if (rawDiv.display === "false") {
-        rawDrop.innerHTML = "HIDE RAW POST INFO v";
-        rawInfo.style.display = "block";
-        rawDiv.display = "true";
-    } else {
-        rawDrop.innerHTML = "DISPLAY RAW POST INFO >";
+    if (rawDiv.display === "true") {
+        rawDrop.innerHTML = "> DISPLAY RAW POST INFO";
         rawInfo.style.display = "none";
         rawDiv.display = "false";
+    } else {
+        rawDrop.innerHTML = "v HIDE RAW POST INFO";
+        rawInfo.style.display = "block";
+        rawDiv.display = "true";
     }
 }
 
