@@ -94,7 +94,7 @@ function hideStuff() {
 }
 
 function displayInfo(post) {
-    document.getElementById("rawPostInfo").innerHTML = `<pre>${JSON.stringify(post, null, 2)}</pre>`;
+    document.getElementById("rawPostInfo").innerHTML = `<pre>RAW JSON INFO:\n${JSON.stringify(post, null, 2)}</pre>`;
 }
 
 function getLink(input) {
