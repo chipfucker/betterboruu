@@ -1,6 +1,5 @@
 window.onerror = function handleError(e, url, line) { 
     window.alert(`${e}\n\n${line}`);
-    document.getElementById("display").style.display = "none";
     document.getElementById("hideError").style.display = "none";
     document.getElementById("errInfo").innerHTML =
         `ERROR MESSAGE:<br>${e}<br><br>ERROR URL:<br>${url}<br><br>ERROR LINE:<br>${line}`;
@@ -79,8 +78,6 @@ async function submitSearch(input) {
 }
 
 function hideStuff() {
-    document.getElementById("postDisplay").style.display = "none";
-    document.getElementById("errDisplay").style.display = "none";
     document.getElementById("hideError").style.display = "none";
     console.log("hid displays");
 }
@@ -411,9 +408,10 @@ function displayError(e, msg) {
     document.getElementById("postDisplay").style.display = "none";
     document.getElementById("hideError").style.display = "none";
     document.getElementById("errInfo").innerHTML =
-        `<pre>MESSAGE IN TRY-CATCH:</pre>
-        <pre>${msg}</pre>
-        <pre>\nERROR MESSAGE:</pre>
+        `<b><pre>MESSAGE IN TRY-CATCH:</pre></b>
+        <i><pre>${msg}</pre></i>
+        <br/>
+        <b><pre>ERROR MESSAGE:</pre></b>
         <pre>${e}</pre>`;
     document.getElementById("errDisplay").style.display = "block";
 }

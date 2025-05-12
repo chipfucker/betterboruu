@@ -229,13 +229,13 @@ div.raw {
     padding: 10px;
     border: solid 1px #FFF1;
 }
-div.raw > pre {
+div.raw pre {
     color: white;
     overflow-wrap: break-word;
     text-wrap-mode: wrap;
     margin: 0;
     padding: 0;
-    padding-left: calc(10px + 2ch);
+    padding-left: 2ch;
     text-indent: -2ch;
 }
 .raw::selection {
