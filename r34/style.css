@@ -117,7 +117,7 @@ div.warning {
 
 #buttons {
     grid-area: buttons;
-    display: inline-flex;
+    display: inline-grid;
     flex-direction: row;
     justify-content: left;
     flex-wrap: wrap;
