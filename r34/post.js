@@ -150,19 +150,11 @@ function getTags(tags) {
     console.groupCollapsed("displaying tags");
     for (const x in tags) {
         const element = ulElement[tags[x].type];
-        if (debug) {
-            element.innerHTML +=
-                `<a
-                    href=""
-                    title="${tags[x].count} uses"
-                ><li>${tags[x].tag}</li></a>`;
-        } else {
-            element.innerHTML +=
-                `<a
-                    href="https://rule34.xxx/index.php?page=post&s=list&tags=${tags[x].tag}"
-                    title="${tags[x].count} uses"
-                ><li>${tags[x].tag}</li></a>`;
-        }
+        element.innerHTML +=
+            `<a
+                href="index.html?q=${encodeURIComponent(tags[x].tag)}"
+                title="${tags[x].count} uses"
+            ><li>${tags[x].tag}</li></a>`;
         console.log(`added tag to ${tags[x].type}: ${tags[x].tag}`);
     }
     console.groupEnd();
