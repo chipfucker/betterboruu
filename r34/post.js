@@ -405,12 +405,12 @@ function displayRawInfo() {
     const rawDiv = document.getElementById("rawPostInfo");
     const rawDrop = rawDiv.childNodes[0];
     const rawInfo = rawDiv.childNodes[1];
-    if (rawInfo.display === "none") {
+    if (rawInfo.style.display === "none") {
         rawDrop.innerText = "HIDE RAW POST INFO v";
-        rawInfo.display = "unset";
+        rawInfo.style.display = "unset";
     } else {
         rawDrop.innerText = "DISPLAY RAW POST INFO >";
-        rawInfo.display = "none";
+        rawInfo.style.display = "none";
     }
 }
 
