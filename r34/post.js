@@ -94,7 +94,8 @@ function hideStuff() {
 }
 
 function displayInfo(post) {
-    document.getElementById("rawPostInfo").innerHTML = `<pre>RAW JSON INFO:\n${JSON.stringify(post, null, 2)}</pre>`;
+    document.getElementById("rawPostInfo").getElementsByTagName("pre")[1].innerHTML =
+        `<pre>\n${JSON.stringify(post, null, 2)}</pre>`;
 }
 
 function getLink(input) {
@@ -399,6 +400,18 @@ function copyLawlietCommand() {
         element.innerHTML = copy;
         console.debug("reset text to 'copy'");
     }, 1000);
+}
+function displayRawInfo() {
+    const rawDiv = document.getElementById("rawPostInfo");
+    const rawDrop = rawDiv.getElementsByTagName("pre")[0];
+    const rawInfo = rawDiv.getElementsByTagName("pre")[1];
+    if (rawInfo.display === "none") {
+        rawDrop.innerText = "HIDE RAW POST INFO v";
+        rawInfo.display = "unset";
+    } else {
+        rawDrop.innerText = "DISPLAY RAW POST INFO >";
+        rawInfo.display = "none";
+    }
 }
 
 function showStuff() {
