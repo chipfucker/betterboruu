@@ -20,7 +20,7 @@ const debugPosts = {
         animated: "debug\/animated\/animated.json",
         video: "debug\/video\/video.json"
     },
-    error: false ? debugErrMsg : false
+    error: true ? debugErrMsg : false
 };
 const debugPost = debugPosts.file.image; // change depending on needs
 const debugErr = debugPosts.error;
@@ -259,7 +259,7 @@ function displayMedia(mediaUrl) {
 }
 
 function displayInfo(post) {
-    document.getElementById("raw").innerHTML = JSON.stringify(post, null, 2);
+    document.getElementById("rawPostInfo").innerHTML = JSON.stringify(post, null, 2);
 }
 
 function setButtons() {
@@ -405,7 +405,10 @@ function displayError(e, msg) {
     document.getElementById("postDisplay").style.display = "none";
     document.getElementById("hideError").style.display = "none";
     document.getElementById("errInfo").innerHTML =
-        `MESSAGE IN TRY-CATCH:<br>${msg}<br><br>ERROR MESSAGE:<br>${e}`;
+        `<pre>MESSAGE IN TRY-CATCH:</pre>
+        <pre>${msg}</pre>
+        <pre>\nERROR MESSAGE:</pre>
+        <pre>${e}</pre>`;
     document.getElementById("errDisplay").style.display = "block";
 }
 
