@@ -68,25 +68,25 @@ async function fetchData(url) {
         response = await fetch(url);
         console.timeEnd("fetch time");
         console.log("got api info from:\n"+url);
-        console.groupCollapsed("json info");
-        console.log(JSON.stringify(jsonInfo, null, 1));
-        console.groupEnd();
         const jsonInfo = await response.json();
-        return jsonInfo;
     } catch (e) {
         console.timeEnd("fetch time");
         displayError(e, `Couldn't fetch from: ${url}`);
         return;
     }
+    console.groupCollapsed("json info");
+    console.log(JSON.stringify(jsonInfo, null, 1));
+    console.groupEnd();
+    return jsonInfo;
 }
 
-function displayResults(posts) {
+function displayResults(results) {
     const display = document.getElementById("searchDisplay");
-    for (const x in posts) {
+    for (const x in results) {
         display.innerHTML +=
             `<div class="post">
-				<a href="post.html#${posts[x].id}">
-					<img src="${posts[x].preview_url}"/>
+				<a href="post.html#${results[x].id}">
+					<img src="${results[x].preview_url}"/>
 				</a>
 			</div>`;
     }
