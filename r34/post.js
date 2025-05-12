@@ -25,6 +25,26 @@ const debugPosts = {
 const debugPost = debugPosts.file.image; // change depending on needs
 const debugErr = debugPosts.error;
 
+window.onload = function () {
+    console.group("ONLOAD ATTEMPT");
+    if (debug) {
+        console.info("!! running in debug mode");
+        if (debugErr) {
+            console.log("forced error");
+            let msg =
+                "This website is in debug mode, and an error was forced on load.\n"+
+                "If you're seeing this, you probably shouldn't be, and you should contact me if you are!";
+            displayError(debugErr, msg);
+            return;
+        }
+        submitPost(debugPost);
+        console.info(`skipped to fetchData(${debugPost})`);
+    } else {
+        const url = getLink(location.hash.substring(1));
+        submitPost(url);
+    }
+};
+
 async function submitInput() {
     console.group("SUBMIT ATTEMPT");
     var input = document.getElementById("searchBar").value; // get input
@@ -397,23 +417,3 @@ function displayError(e, msg) {
         <pre>${e}</pre>`;
     document.getElementById("errDisplay").style.display = "block";
 }
-
-window.onload = function () {
-    console.group("ONLOAD ATTEMPT");
-    if (debug) {
-        console.info("!! running in debug mode");
-        if (debugErr) {
-            console.log("forced error");
-            let msg =
-                "This website is in debug mode, and an error was forced on load.\n"+
-                "If you're seeing this, you probably shouldn't be, and you should contact me if you are!";
-            displayError(debugErr, msg);
-            return;
-        }
-        submitPost(debugPost);
-        console.info(`skipped to fetchData(${debugPost})`);
-    } else {
-        const url = getLink(location.hash.substring(1));
-        submitPost(url);
-    }
-};

@@ -229,7 +229,7 @@ div.raw {
     padding: 10px;
     border: solid 1px #FFF1;
 }
-pre.raw {
+div.raw > pre {
     color: white;
     overflow-wrap: break-word;
     text-wrap-mode: wrap;
