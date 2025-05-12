@@ -403,13 +403,13 @@ function copyLawlietCommand() {
 }
 function displayRawInfo() {
     const rawDiv = document.getElementById("rawPostInfo");
-    const rawDrop = rawDiv.childNodes[0];
-    const rawInfo = rawDiv.childNodes[1];
+    const rawDrop = rawDiv.children[0];
+    const rawInfo = rawDiv.children[1];
     if (rawInfo.style.display === "none") {
-        rawDrop.innerText = "HIDE RAW POST INFO v";
+        rawDrop.innerHTML = "HIDE RAW POST INFO v";
         rawInfo.style.display = "unset";
     } else {
-        rawDrop.innerText = "DISPLAY RAW POST INFO >";
+        rawDrop.innerHTML = "DISPLAY RAW POST INFO >";
         rawInfo.style.display = "none";
     }
 }
