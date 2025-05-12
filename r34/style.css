@@ -112,7 +112,6 @@ div.warning {
     max-width: calc(100% - 2px);
     border: solid 1px #FFF1;
     border-radius: 10px;
-    align-self: center;
 }
 
 #buttons {

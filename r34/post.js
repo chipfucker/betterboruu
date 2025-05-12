@@ -96,6 +96,9 @@ function hideStuff() {
 function displayInfo(post) {
     document.getElementById("rawPostInfo").getElementsByTagName("pre")[1].innerHTML =
         `\n${JSON.stringify(post, null, 2)}`;
+    document.getElementById("id").innerHTML = post.id;
+    document.getElementById("ownerLink").href = "index.html?q=" + encodeURIComponent(post.owner);
+    document.getElementById("owner").innerHTML = post.owner;
 }
 
 function getLink(input) {
