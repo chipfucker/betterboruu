@@ -232,6 +232,9 @@ div.raw {
 pre.raw {
     color: white;
     overflow-wrap: break-word;
+    text-wrap-mode: wrap;
+    margin: 0;
+    padding: 0;
     padding-left: calc(10px + 2ch);
     text-indent: -2ch;
 }

@@ -26,30 +26,16 @@ const debugPost = debugPosts.file.image; // change depending on needs
 const debugErr = debugPosts.error;
 
 async function submitInput() {
-    console.group(">> attempt");
-    if (debug) {
-        console.info("!! running in debug mode");
-        if (debugErr) {
-            console.log("forced error");
-            let msg =
-                "This website is in debug mode, and an error was forced on load.\n"+
-                "If you're seeing this, you probably shouldn't be, and you should contact me if you are!";
-            displayError(debugErr, msg);
-            return;
-        }
-        submitPost(debugPost);
-        console.info(`skipped to fetchData(${debugPost})`);
+    console.group("SUBMIT ATTEMPT");
+    var input = document.getElementById("searchBar").value; // get input
+    console.log("got input: "+(input?input:null));
+    if (/^id:\d+$/.test(input) || !input) { // if input is either 'id:' followed by digits or null
+        input = input.substring(3); // get digits after 'id:'
+        const url = getLink(input); // append id to end of api link
+        console.log("got api link: "+url);
+        submitPost(url);
     } else {
-        var input = document.getElementById("searchBar").value; // get input
-        console.log("got input: "+(input?input:null));
-        if (/^id:\d+$/.test(input) || !input) { // if input is either 'id:' followed by digits or null
-            input = input.substring(3); // get digits after 'id:'
-            const url = getLink(input); // append id to end of api link
-            console.log("got api link: "+url);
-            submitPost(url);
-        } else {
-            submitSearch(input);
-        }
+        submitSearch(input);
     }
 }
 
@@ -77,6 +63,10 @@ function hideStuff() {
     document.getElementById("errDisplay").style.display = "none";
     document.getElementById("hideError").style.display = "none";
     console.log("hid displays");
+}
+
+function displayInfo(post) {
+    document.getElementById("rawPostInfo").innerHTML = JSON.stringify(post, null, 2);
 }
 
 function getLink(input) {
@@ -258,10 +248,6 @@ function displayMedia(mediaUrl) {
     }
 }
 
-function displayInfo(post) {
-    document.getElementById("rawPostInfo").innerHTML = JSON.stringify(post, null, 2);
-}
-
 function setButtons() {
     setOpenMedia(post.file_url); // set open media link
     // setDownloadLink(post.file_url); // set download media link
@@ -413,6 +399,21 @@ function displayError(e, msg) {
 }
 
 window.onload = function () {
-    const url = getLink(location.hash.substring(1));
-    submitPost(url);
+    console.group("ONLOAD ATTEMPT");
+    if (debug) {
+        console.info("!! running in debug mode");
+        if (debugErr) {
+            console.log("forced error");
+            let msg =
+                "This website is in debug mode, and an error was forced on load.\n"+
+                "If you're seeing this, you probably shouldn't be, and you should contact me if you are!";
+            displayError(debugErr, msg);
+            return;
+        }
+        submitPost(debugPost);
+        console.info(`skipped to fetchData(${debugPost})`);
+    } else {
+        const url = getLink(location.hash.substring(1));
+        submitPost(url);
+    }
 };
