@@ -183,7 +183,6 @@ div.card > .label {
 }
 #tagList ul {
     list-style-type: none;
-    list-style-position: outside;
     margin: 10px 0;
     padding: 0;
 }
@@ -246,7 +245,7 @@ div.raw pre {
 
 @media (max-width: 800px) {
     #postDisplay {
-        grid-template-areas: "imageDisplay" "buttons" "info" "raw";
+        grid-template-areas: "imageDisplay" "buttons" "tags" "raw";
         grid-template-columns: 100%;
         grid-template-rows: 1fr;
     }
