@@ -140,7 +140,7 @@ function displayResults(results) {
         if (extension !== "mp4") {
             if (extension === "gif") {
                 display.innerHTML +=
-                    `<div class="post" id="result-${x}"
+                    `<div class="post postGif" id="result-${x}"
                         onmouseover="mouseImg(this, '${results[x].file_url}')"
                         onmouseout="mouseImg(this, '${results[x].preview_url}')">
                         <a href="post.html#${results[x].id}">
