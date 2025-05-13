@@ -289,10 +289,10 @@ div.raw pre {
     align-self: center;
 }
 #searchDisplay > div.postVideo {
-    border: solid 3px #4a63ed;
+    border: ridge 3px #4a63ed;
 }
 #searchDisplay > div.postGif {
-    border: solid 2px #71d1d9;
+    border: ridge 2px #71d1d9;
 }
 #searchDisplay > div:hover {
     border: solid 1px #FFF1;
