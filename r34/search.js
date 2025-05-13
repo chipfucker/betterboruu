@@ -132,17 +132,41 @@ function displayResults(results) {
     const display = document.getElementById("searchDisplay");
     display.innerHTML = "";
     for (const x in results) {
+        if (results[x].image.split(".").pop() !== "mp4") {
         display.innerHTML +=
-            `<div class="post" id="result-${x}" onmouseover="hoverContent(${x})">
+            `<div class="post" id="result-${x}"
+                onmouseover="mouseImg(this, '${results[x].image_url}')"
+                onmouseout="mouseImg(this, '${results[x].preview_url}'">
 				<a href="post.html#${results[x].id}">
 					<img src="${results[x].preview_url}"/>
 				</a>
 			</div>`;
+        } else {
+        display.innerHTML +=
+            `<div class="post" id="result-${x}"
+                onmouseover="overVideo(this, true)" onmouseout="overVideo(this, false)">
+				<a href="post.html#${results[x].id}">
+					<img src="${results[x].preview_url}"/>
+                    <video style="display: none" src="${results[x].file_url}"
+                        type="video/mp4" autoplay muted loop disablepictureinpicture>
+				</a>
+			</div>`;
+        }
     }
 }
 
-function hoverContent(url) {
+function mouseImg(el, img) {
+    el.firstElementChild.firstElementChild.src = img;
+}
 
+function overVideo(el, bool) {
+    if (bool) {
+        el.firstElementChild.firstElementChild.style.display = "none";
+        el.firstElementChild.lastElementChild.style.display = "unset";
+    } else {
+        el.firstElementChild.firstElementChild.style.display = "unset";
+        el.firstElementChild.lastElementChild.style.display = "none";
+    }
 }
 
 function prevPage() {
