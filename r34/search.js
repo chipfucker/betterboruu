@@ -133,12 +133,16 @@ function displayResults(results) {
     display.innerHTML = "";
     for (const x in results) {
         display.innerHTML +=
-            `<a href="post.html#${results[x].id}"><div class="post">
+            `<a href="post.html#${results[x].id}"><div class="post" id="result_>
 				
 					<img src="${results[x].preview_url}"/>
 				
 			</div></a>`;
     }
+}
+
+function hoverContent(url) {
+
 }
 
 function prevPage() {
