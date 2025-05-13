@@ -149,9 +149,6 @@ function displayResults(results) {
                         <img src="${results[x].preview_url}"/>
                         <video style="display: none" src="${results[x].file_url}"
                             type="video/mp4" muted loop disablepictureinpicture>
-                        <button class="toggleMute" style="display: none" onclick="toggleMute(this)">
-                            Audio
-                        </button>
                     </a>
                 </div>`;
         }

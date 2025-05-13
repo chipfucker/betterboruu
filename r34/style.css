@@ -306,5 +306,5 @@ div.raw pre {
     display: block;
     position: absolute;
     inset-inline-end: 5px;
-    inset-block-start: 5px;
+    inset-block-end: 5px;
 }
