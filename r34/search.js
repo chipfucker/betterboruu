@@ -137,17 +137,28 @@ function displayResults(results) {
     display.innerHTML = "";
     for (const x in results) {
         if (results[x].image.split(".").pop() !== "mp4") {
-            display.innerHTML +=
-                `<div class="post" id="result-${x}"
-                    onmouseover="mouseImg(this, '${results[x].file_url}')"
-                    onmouseout="mouseImg(this, '${results[x].preview_url}')">
-                    <a href="post.html#${results[x].id}">
-                        <img src="${results[x].preview_url}"/>
-                    </a>
-                </div>`;
+            if (results[x].image.split(".").pop() === "gif") {
+                display.innerHTML +=
+                    `<div class="post" id="result-${x}"
+                        onmouseover="mouseImg(this, '${results[x].file_url}')"
+                        onmouseout="mouseImg(this, '${results[x].preview_url}')">
+                        <a href="post.html#${results[x].id}">
+                            <img src="${results[x].preview_url}"/>
+                        </a>
+                    </div>`;
+            } else {
+                display.innerHTML +=
+                    `<div class="post" id="result-${x}"
+                        onmouseover="mouseImg(this, '${results[x].file_url}')"
+                        onmouseout="mouseImg(this, '${results[x].preview_url}')">
+                        <a href="post.html#${results[x].id}">
+                            <img src="${results[x].preview_url}"/>
+                        </a>
+                    </div>`;
+            }
         } else {
             display.innerHTML +=
-                `<div class="post" id="result-${x}"
+                `<div class="post postVideo" id="result-${x}"
                     onmouseover="overVideo(this, true)" onmouseout="overVideo(this, false)">
                     <a href="post.html#${results[x].id}">
                         <img src="${results[x].preview_url}"/>
