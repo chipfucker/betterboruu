@@ -13,12 +13,33 @@
 	</head>
 	<body>
 		<div id="menuBar">
-			<input type="text" id="searchBar">
-			<button onclick="submitInput()" id="submit">
-				<svg width="24" height="24" viewBox="0 0 24 24">
-					<path fill="currentColor" d="M6.6 10.02 14 11.4a.6.6 0 0 1 0 1.18L6.6 14l-2.94 5.87a1.48 1.48 0 0 0 1.99 1.98l17.03-8.52a1.48 1.48 0 0 0 0-2.64L5.65 2.16a1.48 1.48 0 0 0-1.99 1.98l2.94 5.88Z"/>
+			<button onclick="prevPage()" id="prevPage" style="display: flex;" title="Previous page">
+				<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24">
+					<path d="M3.3 11.3a1 1 0 0 0 0 1.4l5 5a1 1 0 0 0 1.4-1.4L6.42 13H20a1 1 0 1 0 0-2H6.41l3.3-3.3a1 1
+						0 0 0-1.42-1.4l-5 5Z"/>
 				</svg>
 			</button>
+			<button onclick="nextPage()" id="nextPage" title="Next page">
+				<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24">
+					<path transform="scale(-1, 1) translate(-24, 0)" d="M3.3 11.3a1 1 0 0 0 0 1.4l5 5a1 1 0 0 0 1.4-1.4L6.42 13H20a1 1 0 1 0 0-2H6.41l3.3-3.3a1 1 0 0 0-1.42-1.4l-5 5Z"/>
+				</svg>
+			</button>
+			<input type="text" id="searchBar">
+			<button onclick="submitInput()" id="submit">
+				<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24">
+					<path d="M6.6 10.02 14 11.4a.6.6 0 0 1 0 1.18L6.6 14l-2.94 5.87a1.48 1.48 0 0
+						0 1.99 1.98l17.03-8.52a1.48 1.48 0 0 0 0-2.64L5.65 2.16a1.48 1.48 0 0 0-1.99 1.98l2.94 5.88Z"/>
+				</svg>
+			</button>
+		</div>
+
+		<div id="hideError">
+			<h1>Website's bugged right now. x_x</h1>
+			<p>It encountered an error before it could properly display (and hide) the elements that it needed to.</p>
+			<p>It couldn't even display the error info properly. How pathetic.</p>
+
+			<pre>BROKEN DISPLAYS BELOW!</pre>
+			<div style="height: 200px"></div>
 		</div>
 
 		<div id="searchDisplay">
@@ -27,6 +48,39 @@
 					<img src="debug/image/image.jpeg"/>
 				</a>
 			</div> -->
+		</div>
+
+		<div id="errDisplay" style="display: none">
+			<h1>Couldn't display info. @_@</h1>
+			<p>Check your internet connection, perhaps?</p>
+			<p>It's likely that you're on a public network, or at least one that forbids accessing mature content.
+				<br>Quit browsing porn in public, <b>weirdo!</b></p>
+			<h2>This could also be on me.</h2>
+			<p>This website will probably never not be a work-in-progress, so there's a high chance you came across the
+				website not far after I made a change that needs a bit more fixing before it functions properly.</p>
+			<p>If you with full faith believe this to be erreneous, contact me on Discord, I don't bite!</p>
+			<a href="https://discord.com/users/1184619891215573042">
+				<div class="button">
+					@chipfucker
+				</div>
+			</a>
+			<div class="warning">
+				<p>Side note, to the Bark filter onlookers: This is not me intentionally looking up anything mature.</p>
+				<p>
+					I'm working on a website that takes most boorus'&mdash;image boards that make use of tags and other
+					fields&mdash;API's and combine them into a single website for ease of use, and some of those boorus
+					are mature. The display that is brought up on error is there as a precaution for when the user tries
+					and fails to look for mature content.
+				</p>
+				<p>
+					I usually use a debug mode to prevent any attempts to fetch info from a mature domain, using local and
+					safe-for-work content, but I may have made an error enabling it, and upon opening the website,
+					attemptedly accessed pornographic links. That's my mistake, and I promise you no bypasses are attempted
+					to look at mature content.
+				</p>
+			</div>
+			<pre style="margin-top: 30px;">ERROR INFO:</pre>
+			<div id="errInfo" class="raw"></div>
 		</div>
 
 		<script src="search.js"></script>

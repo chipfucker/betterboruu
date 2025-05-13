@@ -1,4 +1,5 @@
 :root {
+    --accent-0: #040a04;
     --accent-1: #0f1a0e;
     --accent-2: #152414;
     --accent-3: #20361e;
@@ -33,6 +34,7 @@ div.warning {
 }
 
 #menuBar {
+    z-index: 2;
     width: 100%;
     display: flex;
     position: fixed;
@@ -89,6 +91,54 @@ div.warning {
     transform: translateY(2px);
 }
 
+#prevPage {
+    display: flex;
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    font-family: system-ui;
+    background-color: var(--accent-4);
+    border: solid 1px #FFF3;
+    border-radius: 10px;
+    color: white;
+    align-content: center;
+    justify-content: center;
+    transition:
+        box-shadow 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000),
+        transform 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000);
+}
+#prevPage:hover {
+    box-shadow: 0 0 5px 3px var(--accent-4);
+}
+#prevPage:active {
+    transform: translateY(2px);
+}
+
+#nextPage {
+    display: flex;
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    font-family: system-ui;
+    background-color: var(--accent-4);
+    border: solid 1px #FFF3;
+    border-radius: 10px;
+    color: white;
+    align-content: center;
+    justify-content: center;
+    transition:
+        box-shadow 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000),
+        transform 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000);
+}
+#nextPage:hover {
+    box-shadow: 0 0 5px 3px var(--accent-4);
+}
+#nextPage:active {
+    transform: translateY(2px);
+}
+
 #postDisplay {
     width: 100%;
     grid-template-areas:
@@ -105,13 +155,17 @@ div.warning {
     max-height: 75vh;
     width: 100%;
     grid-area: imageDisplay;
-    overflow: visible;
-}
-#imageDisplay > * {
-    max-height: calc(100% - 2px);
-    max-width: calc(100% - 2px);
+    overflow: hidden;
     border: solid 1px #FFF1;
     border-radius: 10px;
+    background-image: linear-gradient(to bottom, var(--accent-1), var(--accent-2));
+    background-attachment: fixed;
+    background-size: cover;
+}
+#imageDisplay > * {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
 }
 
 #buttons {
@@ -232,7 +286,7 @@ div.raw {
 div.raw pre {
     color: white;
     overflow-wrap: break-word;
-    text-wrap-mode: wrap;
+    word-wrap: break-word;
     margin: 0;
     padding: 0;
     padding-left: 2ch;
@@ -263,22 +317,29 @@ div.raw pre {
     display: flex;
     justify-content: center;
     aspect-ratio: 1 / 1;
-    transform: scale(1);
+    overflow: hidden;
+    border: solid 1px #FFF1;
+    border-radius: 10px;
     filter: none;
     z-index: 0;
+    background-image: linear-gradient(to bottom, var(--accent-0), var(--accent-1));
     transition: all 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000);
 }
 #searchDisplay > div:hover {
-    transform: scale(2);
+    background-image: linear-gradient(to bottom, var(--accent-1), var(--accent-0));
+    transform: scale(1.25);
     filter: drop-shadow(0 10px 30px #0008);
-    z-index: 100;
-    transition: all 0.2s cubic-bezier(0.390, 0.575, 0.565, 1.000);
-    transition-delay: 0.5s;
+    z-index: 1;
+}
+#searchDisplay > div:active {
+    background-image: linear-gradient(to bottom, var(--accent-1), var(--accent-0));
+    transform: scale(1.1) rotate(2deg);
+    filter: drop-shadow(0 10px 30px #0008);
+    z-index: 1;
 }
 #searchDisplay > div > a > img {
-    max-width: calc(100% - 2px);
-    max-height: calc(100% - 2px);
-    border: solid 1px #FFF1;
-    border-radius: 10px;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
     align-self: center;
 }

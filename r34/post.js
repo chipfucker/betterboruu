@@ -4,8 +4,10 @@ window.onerror = function handleError(e, url, line) {
     document.getElementById("errInfo").innerHTML =
         `<b><pre>ERROR MESSAGE:</pre></b>
         <pre>${e}</pre>
+        <br/>
         <b><pre>ERROR URL:</pre></b>
         <pre>${url}</pre>
+        <br/>
         <b><pre>ERROR LINE:</pre></b>
         <pre>${line}</pre>`;
     document.getElementById("errDisplay").style.display = "block";
@@ -13,7 +15,7 @@ window.onerror = function handleError(e, url, line) {
     return false;
 };
 
-const debug = true;
+const debug = false;
 const debugErrMsg = "Debug: Forced error";
 const debugPosts = {
     link: {
@@ -77,7 +79,7 @@ async function submitInput() {
 }
 
 async function submitPost(url) {
-    hideStuff();
+    document.getElementById("hideError").style.display = "none";
     post = await fetchData(url); // set post info to variable
     await setEmbed();
 
@@ -93,11 +95,6 @@ async function submitPost(url) {
 
 async function submitSearch(input) {
     location.href = "index.html?q=" + encodeURIComponent(input);
-}
-
-function hideStuff() {
-    document.getElementById("hideError").style.display = "none";
-    console.log("hid displays");
 }
 
 function displayInfo(post) {
@@ -251,7 +248,7 @@ function displayMedia(mediaUrl) {
         console.log("media is assumed an image");
         const img = document.createElement("img");
         img.src = mediaUrl;
-        img.alt = post.file;
+        img.alt = post.image;
         container.appendChild(img);
     } else if (videoExt.includes(extension)) {
         console.log("media is assumed a video");
@@ -261,6 +258,7 @@ function displayMedia(mediaUrl) {
         video.loop = true;
         video.muted = false;
         video.preload = "auto";
+        video.alt = post.image;
         const videoSource = document.createElement("source");
         videoSource.src = mediaUrl;
         videoSource.type = `video/mp4`;
@@ -406,11 +404,11 @@ function displayRawInfo() {
     const rawDrop = rawDiv.children[0];
     const rawInfo = rawDiv.children[1];
     if (rawDiv.display === "true") {
-        rawDrop.innerHTML = "[ DISPLAY RAW POST INFO > ]";
+        rawDrop.innerHTML = "[ \\/ SHOW RAW POST INFO \\/ ]";
         rawInfo.style.display = "none";
         rawDiv.display = "false";
     } else {
-        rawDrop.innerHTML = "[ HIDE RAW POST INFO v ]";
+        rawDrop.innerHTML = "[ /\\ HIDE RAW POST INFO /\\ ]";
         rawInfo.style.display = "block";
         rawDiv.display = "true";
     }
