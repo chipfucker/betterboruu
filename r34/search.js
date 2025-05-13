@@ -65,7 +65,7 @@ function submitInput() {
             input = input.substring(3); // get digits after 'id:'
             submitPost(input);
         } else {
-            window.location.href = "index.html?q="+encodeURIComponent(input);
+            window.location.href = "index.html?q="+encodeURIComponent(input)+"&p=0";
         }
     }
 }
@@ -87,8 +87,8 @@ function getLink() {
     query = link.get("q");
     console.log("got link query: "+(query?query:null));
     document.getElementById("searchBar").value = query;
-    console.log(link.get("p"));
-    url = apiUrl + encodeURIComponent(query);
+    page = link.get("p");
+    url = apiUrl + encodeURIComponent(query) + "&pid=" + page;
     console.log("final url: "+url);
     return url;
 }
@@ -113,6 +113,14 @@ async function fetchData(url) {
 }
 
 function displayResults(results) {
+    if (page != 0) {
+        document.getElementById("prevPage").style.display = "flex";
+    }
+    if (results.length === 50) {
+        document.getElementById("nextPage").style.display = "flex";
+    } else if (results.length === 0) {
+        document.getElementById("noResults").style.display = "block";
+    }
     const display = document.getElementById("searchDisplay");
     for (const x in results) {
         display.innerHTML +=
@@ -125,12 +133,16 @@ function displayResults(results) {
 }
 
 function prevPage() {
-    window.alert("this doesn't work yet. sorry!");
+    if (page != 0) {
+        const newPage = link.set("p", link.get("p") - 1);
+        window.location.search = newPage.toString();
+    } else {
+        window.alert("You're on the first page already!");
+    }
 }
 function nextPage() {
-    window.alert("this doesn't work yet. sorry!");
-    //const newPage = link.set("p", link.get("p") + 1);
-    //window.location.search = newPage.toString();
+    const newPage = link.set("p", link.get("p") + 1);
+    window.location.search = newPage.toString();
 }
 
 function displayError(e, msg) {
