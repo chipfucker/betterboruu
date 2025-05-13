@@ -26,7 +26,9 @@ const debugPosts = {
 const debugPost = debugPosts.file; // change depending on needs
 const debugErr = debugPosts.error;
 
-const page = 0;
+var link = "";
+var page = 0;
+var results = [];
 
 window.onload = function () {
     console.group("ONLOAD ATTEMPT");
@@ -86,6 +88,10 @@ async function submitPost(id) {
 function getLink() {
     const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&limit=50&tags=-ai_generated%20";
     link = new URLSearchParams(window.location.search);
+    console.log("got link params");
+    console.groupCollapsed("link params object");
+    console.log(link);
+    console.groupEnd();
     query = link.get("q");
     console.log("got link query: "+(query?query:null));
     document.getElementById("searchBar").value = query;
@@ -124,13 +130,14 @@ function displayResults(results) {
         document.getElementById("noResults").style.display = "block";
     }
     const display = document.getElementById("searchDisplay");
+    display.innerHTML = "";
     for (const x in results) {
         display.innerHTML +=
-            `<div class="post">
-				<a href="post.html#${results[x].id}">
+            `<a href="post.html#${results[x].id}"><div class="post">
+				
 					<img src="${results[x].preview_url}"/>
-				</a>
-			</div>`;
+				
+			</div></a>`;
     }
 }
 
