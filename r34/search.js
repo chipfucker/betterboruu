@@ -26,6 +26,8 @@ const debugPosts = {
 const debugPost = debugPosts.file; // change depending on needs
 const debugErr = debugPosts.error;
 
+const page = 0;
+
 window.onload = function () {
     console.group("ONLOAD ATTEMPT");
     if (debug) {
