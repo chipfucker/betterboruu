@@ -147,8 +147,8 @@ function displayResults(results) {
                 onmouseover="overVideo(this, true)" onmouseout="overVideo(this, false)">
 				<a href="post.html#${results[x].id}">
 					<img src="${results[x].preview_url}"/>
-                    <video preload="none" style="display: none" src="${results[x].file_url}"
-                        type="video/mp4" autoplay muted loop disablepictureinpicture>
+                    <video style="display: none" src="${results[x].file_url}"
+                        type="video/mp4" muted loop disablepictureinpicture>
 				</a>
 			</div>`;
         }
@@ -163,9 +163,11 @@ function overVideo(el, bool) {
     if (bool) {
         el.firstElementChild.firstElementChild.style.display = "none";
         el.firstElementChild.lastElementChild.style.display = "unset";
+        el.firstElementChild.lastElementChild.play();
     } else {
         el.firstElementChild.firstElementChild.style.display = "unset";
         el.firstElementChild.lastElementChild.style.display = "none";
+        el.firstElementChild.lastElementChild.pause();
     }
 }
 
