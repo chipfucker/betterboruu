@@ -113,6 +113,14 @@ async function fetchData(url) {
 }
 
 function displayResults(results) {
+    if (page != 0) {
+        document.getElementById("prevPage").style.display = "flex";
+    }
+    if (results.length === 50) {
+        document.getElementById("nextPage").style.display = "flex";
+    } else if (results.length === 0) {
+        document.getElementById("noResults").style.display = "block";
+    }
     const display = document.getElementById("searchDisplay");
     for (const x in results) {
         display.innerHTML +=
@@ -125,7 +133,12 @@ function displayResults(results) {
 }
 
 function prevPage() {
-    
+    if (page != 0) {
+        const newPage = link.set("p", link.get("p") - 1);
+        window.location.search = newPage.toString();
+    } else {
+        window.alert("You're on the first page already!");
+    }
 }
 function nextPage() {
     const newPage = link.set("p", link.get("p") + 1);

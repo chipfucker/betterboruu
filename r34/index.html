@@ -13,13 +13,13 @@
 	</head>
 	<body>
 		<div id="menuBar">
-			<button onclick="prevPage()" id="prevPage" style="display: flex;" title="Previous page">
+			<button onclick="prevPage()" id="prevPage" style="display: none" title="Previous page">
 				<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24">
 					<path d="M3.3 11.3a1 1 0 0 0 0 1.4l5 5a1 1 0 0 0 1.4-1.4L6.42 13H20a1 1 0 1 0 0-2H6.41l3.3-3.3a1 1
 						0 0 0-1.42-1.4l-5 5Z"/>
 				</svg>
 			</button>
-			<button onclick="nextPage()" id="nextPage" title="Next page">
+			<button onclick="nextPage()" id="nextPage" style="display: none" title="Next page">
 				<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24">
 					<path transform="scale(-1, 1) translate(-24, 0)" d="M3.3 11.3a1 1 0 0 0 0 1.4l5 5a1 1 0 0 0 1.4-1.4L6.42 13H20a1 1 0 1 0 0-2H6.41l3.3-3.3a1 1 0 0 0-1.42-1.4l-5 5Z"/>
 				</svg>
@@ -48,6 +48,18 @@
 					<img src="debug/image/image.jpeg"/>
 				</a>
 			</div> -->
+		</div>
+
+		<div id="noResults" style="display: none">
+			<h1>No results on this page! &gt;_&lt;"</h1>
+			<p>You've treaded too far, or perhaps you've looked up a set of tags that don't exist on any posts.</p>
+			<p>I'll add a tag input preview system soon, but in the meantime, be extra smart with your keywords.</p>
+			<p>If you with full faith believe this to be erreneous, contact me on Discord, I don't bite!</p>
+			<a href="https://discord.com/users/1184619891215573042">
+				<div class="button">
+					@chipfucker
+				</div>
+			</a>
 		</div>
 
 		<div id="errDisplay" style="display: none">
