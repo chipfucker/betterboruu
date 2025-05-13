@@ -277,18 +277,6 @@ div.raw pre {
     background-image: linear-gradient(to bottom, var(--accent-0), var(--accent-1));
     transition: all 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000);
 }
-#searchDisplay > div:hover {
-    border: solid 1px #FFF1;
-    transform: scale(1.25);
-    filter: drop-shadow(0 10px 30px #0008);
-    z-index: 1;
-}
-#searchDisplay > div:active {
-    border: solid 1px #FFF3;
-    transform: scale(1.1) rotate(2deg);
-    filter: drop-shadow(0 10px 30px #fff3);
-    z-index: 1;
-}
 #searchDisplay > div.post > a {
     display: block;
     width: 100%;
@@ -305,4 +293,16 @@ div.raw pre {
 }
 #searchDisplay > div.postGif {
     border: solid 2px #71d1d9;
+}
+#searchDisplay > div:hover {
+    border: solid 1px #FFF1;
+    transform: scale(1.25);
+    filter: drop-shadow(0 10px 30px #0008);
+    z-index: 1;
+}
+#searchDisplay > div:active {
+    border: solid 1px #FFF3;
+    transform: scale(1.1) rotate(2deg);
+    filter: drop-shadow(0 10px 30px #fff3);
+    z-index: 1;
 }
