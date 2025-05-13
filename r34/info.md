@@ -19,6 +19,7 @@
 ```
 
 #### Object reference
+##### Default parameters
 
 | Object | Description | Misc. Info |
 | - | - | - |
@@ -45,7 +46,32 @@
 | `has_notes` | *Yet to be determined* | |
 | `comment_count` | Amount of comments under post | |
 
-## XML
-### Attribute reference
+##### `?fields=tag_info` parameter
+
+| Object | Description | Misc. Info |
+| - | - | - |
+| `tag_info` | Array of objects that contain info for each tag | |
+| `count` | Amount of posts that use tag | |
+| `type` | Category of tag | `"tag"` if general, `"metadata"` if meta; others share a value with their name |
+| `tag` | Name of tag | |
+### XML
+#### Example info
+##### Unformatted
+
+```xml
+<posts type="array"><post attribute="value"></posts>
+```
+
+##### Formatted
+
+```xml
+<posts type="array">
+    <post attribute="value">
+</posts>
+```
+
+#### Attribute reference
+##### Default parameters
+
 | Attribute | Description | Misc. Info |
 | - | - | - |
