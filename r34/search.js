@@ -133,24 +133,27 @@ function displayResults(results) {
     display.innerHTML = "";
     for (const x in results) {
         if (results[x].image.split(".").pop() !== "mp4") {
-        display.innerHTML +=
-            `<div class="post" id="result-${x}"
-                onmouseover="mouseImg(this, '${results[x].file_url}')"
-                onmouseout="mouseImg(this, '${results[x].preview_url}')">
-				<a href="post.html#${results[x].id}">
-					<img src="${results[x].preview_url}"/>
-				</a>
-			</div>`;
+            display.innerHTML +=
+                `<div class="post" id="result-${x}"
+                    onmouseover="mouseImg(this, '${results[x].file_url}')"
+                    onmouseout="mouseImg(this, '${results[x].preview_url}')">
+                    <a href="post.html#${results[x].id}">
+                        <img src="${results[x].preview_url}"/>
+                    </a>
+                </div>`;
         } else {
-        display.innerHTML +=
-            `<div class="post" id="result-${x}"
-                onmouseover="overVideo(this, true)" onmouseout="overVideo(this, false)">
-				<a href="post.html#${results[x].id}">
-					<img src="${results[x].preview_url}"/>
-                    <video style="display: none" src="${results[x].file_url}"
-                        type="video/mp4" muted loop disablepictureinpicture>
-				</a>
-			</div>`;
+            display.innerHTML +=
+                `<div class="post" id="result-${x}"
+                    onmouseover="overVideo(this, true)" onmouseout="overVideo(this, false)">
+                    <a href="post.html#${results[x].id}">
+                        <img src="${results[x].preview_url}"/>
+                        <video style="display: none" src="${results[x].file_url}"
+                            type="video/mp4" muted loop disablepictureinpicture>
+                        <button class="toggleMute" style="display: none" onclick="toggleMute(this)">
+                            Audio
+                        </button>
+                    </a>
+                </div>`;
         }
     }
 }
@@ -168,6 +171,15 @@ function overVideo(el, bool) {
         el.firstElementChild.firstElementChild.style.display = "unset";
         el.firstElementChild.lastElementChild.style.display = "none";
         el.firstElementChild.lastElementChild.pause();
+    }
+}
+
+function toggleMute(el) {
+    const vid = el.previousElementSibling;
+    if (vid.muted === true) {
+        vid.muted = false;
+    } else {
+        vid.muted = true;
     }
 }
 

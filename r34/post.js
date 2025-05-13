@@ -240,8 +240,8 @@ function displayMedia(mediaUrl) {
 
     extension = mediaUrl.split(".").pop().toLowerCase();
     console.log("media extension: ."+extension);
-    const imageExt = ["jpg", "jpeg", "png", "webp", "gif"];
-    const videoExt = ["mp4", "webm", "ogg", "mov", "avi"];
+    const imageExt = ["jpg", "jpeg", "png", "gif"];
+    const videoExt = ["mp4"];
 
 
     if (imageExt.includes(extension)) {

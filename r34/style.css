@@ -298,3 +298,13 @@ div.raw pre {
     height: 100%;
     align-self: center;
 }
+#searchDisplay> div.post:has(video) {
+    border: solid 3px #4a63ed;
+}
+#searchDisplay > div.post > a > button.toggleMute {
+    z-index: 2;
+    display: block;
+    position: absolute;
+    inset-inline-end: 5px;
+    inset-block-start: 5px;
+}
