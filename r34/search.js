@@ -65,7 +65,7 @@ function submitInput() {
             input = input.substring(3); // get digits after 'id:'
             submitPost(input);
         } else {
-            window.location.href = "index.html?q="+encodeURIComponent(input);
+            window.location.href = "index.html?q="+encodeURIComponent(input)+"&p=0";
         }
     }
 }
@@ -87,8 +87,8 @@ function getLink() {
     query = link.get("q");
     console.log("got link query: "+(query?query:null));
     document.getElementById("searchBar").value = query;
-    console.log(link.get("p"));
-    url = apiUrl + encodeURIComponent(query);
+    page = link.get("p");
+    url = apiUrl + encodeURIComponent(query) + "&pid=" + page;
     console.log("final url: "+url);
     return url;
 }
@@ -125,12 +125,11 @@ function displayResults(results) {
 }
 
 function prevPage() {
-    window.alert("this doesn't work yet. sorry!");
+    
 }
 function nextPage() {
-    window.alert("this doesn't work yet. sorry!");
-    //const newPage = link.set("p", link.get("p") + 1);
-    //window.location.search = newPage.toString();
+    const newPage = link.set("p", link.get("p") + 1);
+    window.location.search = newPage.toString();
 }
 
 function displayError(e, msg) {
