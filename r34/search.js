@@ -135,7 +135,7 @@ function displayResults(results) {
         if (results[x].image.split(".").pop() !== "mp4") {
         display.innerHTML +=
             `<div class="post" id="result-${x}"
-                onmouseover="mouseImg(this, '${results[x].image_url}')"
+                onmouseover="mouseImg(this, '${results[x].file_url}')"
                 onmouseout="mouseImg(this, '${results[x].preview_url}')">
 				<a href="post.html#${results[x].id}">
 					<img src="${results[x].preview_url}"/>
@@ -147,7 +147,7 @@ function displayResults(results) {
                 onmouseover="overVideo(this, true)" onmouseout="overVideo(this, false)">
 				<a href="post.html#${results[x].id}">
 					<img src="${results[x].preview_url}"/>
-                    <video style="display: none" src="${results[x].file_url}"
+                    <video preload="none" style="display: none" src="${results[x].file_url}"
                         type="video/mp4" autoplay muted loop disablepictureinpicture>
 				</a>
 			</div>`;
