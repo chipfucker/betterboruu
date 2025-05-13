@@ -136,8 +136,9 @@ function displayResults(results) {
     const display = document.getElementById("searchDisplay");
     display.innerHTML = "";
     for (const x in results) {
-        if (results[x].image.split(".").pop() !== "mp4") {
-            if (results[x].image.split(".").pop() === "gif") {
+        const extension = results[x].image.split(".").pop();
+        if (extension !== "mp4") {
+            if (extension === "gif") {
                 display.innerHTML +=
                     `<div class="post" id="result-${x}"
                         onmouseover="mouseImg(this, '${results[x].file_url}')"
