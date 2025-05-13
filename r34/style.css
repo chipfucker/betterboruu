@@ -278,15 +278,13 @@ div.raw pre {
     transition: all 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000);
 }
 #searchDisplay > div.post:hover {
-    background-image: linear-gradient(to bottom, var(--accent-1), var(--accent-0));
     transform: scale(1.25);
     filter: drop-shadow(0 10px 30px #0008);
     z-index: 1;
 }
 #searchDisplay > div.post:active {
-    background-image: linear-gradient(to bottom, var(--accent-1), var(--accent-0));
     transform: scale(1.1) rotate(2deg);
-    filter: drop-shadow(0 10px 30px #0008);
+    filter: drop-shadow(0 10px 30px #fff3);
     z-index: 1;
 }
 #searchDisplay > div.post > a {
