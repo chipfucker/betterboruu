@@ -152,7 +152,7 @@ function displayResults(results) {
                     <a href="post.html#${results[x].id}">
                         <img src="${results[x].preview_url}"/>
                         <video style="display: none" src="${results[x].file_url}"
-                            type="video/mp4" muted loop disablepictureinpicture>
+                            type="video/mp4" preload="none" muted loop disablepictureinpicture>
                     </a>
                 </div>`;
         }
