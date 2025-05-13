@@ -136,7 +136,7 @@ function displayResults(results) {
         display.innerHTML +=
             `<div class="post" id="result-${x}"
                 onmouseover="mouseImg(this, '${results[x].image_url}')"
-                onmouseout="mouseImg(this, '${results[x].preview_url}'">
+                onmouseout="mouseImg(this, '${results[x].preview_url}')">
 				<a href="post.html#${results[x].id}">
 					<img src="${results[x].preview_url}"/>
 				</a>
