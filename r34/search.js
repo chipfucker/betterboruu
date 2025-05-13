@@ -133,7 +133,7 @@ function displayResults(results) {
     display.innerHTML = "";
     for (const x in results) {
         display.innerHTML +=
-            `<div class="post" id="result_>
+            `<div class="post" id="result-${x}">
 				<a href="post.html#${results[x].id}">
 					<img src="${results[x].preview_url}"/>
 				</a>
