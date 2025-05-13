@@ -133,11 +133,11 @@ function displayResults(results) {
     display.innerHTML = "";
     for (const x in results) {
         display.innerHTML +=
-            `<a href="post.html#${results[x].id}"><div class="post" id="result_>
-				
+            `<div class="post" id="result_>
+				<a href="post.html#${results[x].id}">
 					<img src="${results[x].preview_url}"/>
-				
-			</div></a>`;
+				</a>
+			</div>`;
     }
 }
 
