@@ -16,7 +16,7 @@ window.onerror = function handleError(e, url, line) {
     return false;
 };
 
-const debug = true;
+const debug = false;
 const debugErrMsg = "Debug: Forced error";
 const debugPosts = {
     link: "https://rule34.xxx/index.php?page=post&s=list&tags=zoologist_(terraria)",
@@ -90,17 +90,36 @@ async function submitPost(id) {
 }
 
 function getLink() {
-    const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&limit=50&tags=-ai_generated%20";
-    link = new URLSearchParams(window.location.search);
+    const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&deleted=show&json=1&limit=50&tags=-ai_generated%20";
+    const link = new URLSearchParams(window.location.search);
     console.log("got link params");
     console.groupCollapsed("link params object");
     console.log(link);
     console.groupEnd();
-    query = link.get("q");
-    console.log("got link query: "+(query?query:null));
+    var query = link.get("q");
+    query = query?query:"";
+    console.log("got link query: "+(query?query:"null"));
     document.getElementById("searchBar").value = query;
-    page = link.get("p");
-    url = apiUrl + encodeURIComponent(query) + "&pid=" + page;
+    const page = link.get("p");
+    const url = apiUrl + encodeURIComponent(query) + "&pid=" + page;
+    console.log("final url: "+url);
+    return url;
+}
+
+// UNUSED; NEED TO FIGURE OUT HOW TO ACCESS XML CONTENT
+function getCount() {
+    const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&deleted=show&limit=50&tags=-ai_generated%20";
+    const link = new URLSearchParams(window.location.search);
+    console.log("got link params");
+    console.groupCollapsed("link params object");
+    console.log(link);
+    console.groupEnd();
+    var query = link.get("q");
+    query = query?query:"";
+    console.log("got link query: "+(query?query:"null"));
+    document.getElementById("searchBar").value = query;
+    const page = link.get("p");
+    const url = apiUrl + encodeURIComponent(query) + "&pid=" + page;
     console.log("final url: "+url);
     return url;
 }
@@ -125,11 +144,18 @@ async function fetchData(url) {
 }
 
 function displayResults(results) {
+    const prevPage = document.getElementById("prevPage");
+    const nextPage = document.getElementById("nextPage");
     if (page != 0) {
-        document.getElementById("prevPage").style.display = "flex";
+        prevPage.style.display = "flex";
+        prevPage.onclick = "prevPage()";
+        prevPage.removeAttribute("disabled");
+
     }
     if (results.length === 50) {
-        document.getElementById("nextPage").style.display = "flex";
+        nextPage.style.display = "flex";
+        nextPage.onclick = "nextPage()";
+        nextPage.removeAttribute("disabled");
     } else if (results.length === 0) {
         document.getElementById("noResults").style.display = "block";
     }
@@ -192,16 +218,23 @@ function overVideo(el, bool) {
 }
 
 function prevPage() {
+    const page = link.get("p");
     if (page != 0) {
-        const newPage = link.set("p", link.get("p") - 1);
-        window.location.search = newPage.toString();
+        link.set("p", Number(page) - 1);
+        window.location.search = link.toString();
     } else {
         window.alert("You're on the first page already!");
     }
 }
 function nextPage() {
-    const newPage = link.set("p", link.get("p") + 1);
-    window.location.search = newPage.toString();
+    console.log("navigating to next page");
+    const page = link.get("p");
+    if (results.length === 50) {
+        link.set("p", Number(page) + 1);
+        window.location.search = link.toString();
+    } else {
+        window.alert("You're on the last page already!");
+    }
 }
 
 function displayError(e, msg) {

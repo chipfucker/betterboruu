@@ -67,11 +67,21 @@ div.warning {
     box-shadow: 0 3px 5px 3px #fbfbb344;
 }
 
+#pageBar {
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    position: fixed;
+    padding: 5px 5% 5px 5%;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to top, var(--accent-1), transparent);
+}
+
 button.menuButton {
     display: flex;
     padding: 5px;
     margin: 5px;
-    cursor: pointer;
     font-size: 20px;
     font-family: system-ui;
     background-color: var(--accent-4);
@@ -80,15 +90,48 @@ button.menuButton {
     color: white;
     align-content: center;
     justify-content: center;
-    transition:
-        box-shadow 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000),
-        transform 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000);
+    transition: all 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000);
 }
-button.menuButton:hover {
+button.menuButton:enabled {
+    opacity: 1;
+    cursor: pointer;
+}
+button.menuButton:enabled:hover {
     box-shadow: 0 0 5px 3px var(--accent-4);
 }
-button.menuButton:active {
+button.menuButton:enabled:active {
     transform: translateY(2px);
+}
+button.menuButton:disabled {
+    opacity: 0.25;
+}
+
+select.menuButton {
+    display: flex;
+    padding: 5px 10px;
+    margin: 5px;
+    font-size: 1em;
+    font-family: system-ui;
+    background-color: var(--accent-4);
+    border: solid 1px #FFF3;
+    border-radius: 10px;
+    color: white;
+    align-content: center;
+    justify-content: center;
+    transition: all 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000);
+}
+select.menuButton:enabled {
+    opacity: 1;
+    cursor: pointer;
+}
+select.menuButton:enabled:hover {
+    box-shadow: 0 0 5px 3px var(--accent-4);
+}
+select.menuButton:enabled:active {
+    transform: translateY(2px);
+}
+select.menuButton:disabled {
+    opacity: 0.25;
 }
 
 #postDisplay {
@@ -292,7 +335,7 @@ div.raw pre {
     border: ridge 4px #4a63ed;
 }
 #searchDisplay > div.postGif {
-    border: ridge 2px #71d1d9;
+    border: ridge 4px #71d1d9;
 }
 #searchDisplay > div:hover {
     border: solid 1px #FFF1;
