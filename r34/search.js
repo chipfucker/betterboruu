@@ -90,7 +90,7 @@ async function submitPost(id) {
 }
 
 function getLink() {
-    const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&deleted=show&json=1&limit=50&tags=-ai_generated%20";
+    const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&limit=50&tags=-ai_generated%20";
     const link = new URLSearchParams(window.location.search);
     console.log("got link params");
     console.groupCollapsed("link params object");
