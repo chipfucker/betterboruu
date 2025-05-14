@@ -46,12 +46,23 @@ div.right {
 #menuBar {
     z-index: 2;
     width: 100%;
-    display: flex;
+    /* display: flex; */
     position: fixed;
     padding: 5px 5% 5px 5%;
     top: 0;
     left: 0;
     background-image: linear-gradient(to bottom, var(--accent-1), transparent);
+}
+
+#pageBar {
+    z-index: 2;
+    width: 100%;
+    /* display: flex; */
+    position: fixed;
+    padding: 5px 5% 5px 5%;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to top, var(--accent-1), transparent);
 }
 
 #searchBar {
@@ -75,17 +86,6 @@ div.right {
 }
 #searchBar:focus {
     box-shadow: 0 3px 5px 3px #fbfbb344;
-}
-
-#pageBar {
-    z-index: 2;
-    width: 100%;
-    display: flex;
-    position: fixed;
-    padding: 5px 5% 5px 5%;
-    bottom: 0;
-    left: 0;
-    background-image: linear-gradient(to top, var(--accent-1), transparent);
 }
 
 button.menuButton {
