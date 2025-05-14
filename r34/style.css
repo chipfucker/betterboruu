@@ -90,7 +90,7 @@ div.right {
 }
 
 button.menuButton {
-    display: flex;
+    display: block;
     padding: 5px;
     margin: 5px;
     font-size: 20px;
