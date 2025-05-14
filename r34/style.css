@@ -146,6 +146,7 @@ select.menuButton:disabled {
 
 #stashButton {
     justify-self: flex-end;
+    align-self: flex-end;
 }
 
 #postDisplay {
