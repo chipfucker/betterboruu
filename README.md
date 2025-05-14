@@ -10,6 +10,15 @@ This is also my first GitHub project, let alone my first GitHub Pages project, s
 
 ## Alternative name ideas
 
+### Involving *Marlie,* my preferred name, and *booru*
+
+* Maru
+  * Ambiguous pronunciation; preferrably pronounced 'maar-oo'
+* Marbooru
+  * Could confuse website as its own booru
+* Maroo
+  * Easy to tie to the 'skidamarink' song
+
 ### Involving *chip,* the first word in all of my usernames, and *booru*
 
 * Chipbooru

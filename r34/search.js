@@ -19,7 +19,7 @@ window.onerror = function handleError(e, url, line) {
 const debug = true;
 const debugErrMsg = "Debug: Forced error";
 const debugPosts = {
-    link: "https://rule34.xxx/index.php?page=post&s=list&tags=zoologist_(terraria)",
+    link: "",
     file: "debug\/search.json",
     error: false ? debugErrMsg : false
 };
