@@ -35,12 +35,12 @@ div.warning {
 
 div.left {
     display: flex;
-    justify-content: flex-start;
+    align-content: flex-end;
 }
 
 div.right {
     display: flex;
-    justify-content: flex-end;
+    align-content: flex-end;
 }
 
 #menuBar {
@@ -90,7 +90,7 @@ div.right {
 }
 
 button.menuButton {
-    display: block;
+    display: flex;
     padding: 5px;
     margin: 5px;
     font-size: 20px;
