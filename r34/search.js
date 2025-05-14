@@ -16,7 +16,7 @@ window.onerror = function handleError(e, url, line) {
     return false;
 };
 
-const debug = true;
+const debug = false;
 const debugErrMsg = "Debug: Forced error";
 const debugPosts = {
     link: "",
