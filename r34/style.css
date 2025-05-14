@@ -144,9 +144,9 @@ select.menuButton:disabled {
     opacity: 0.25;
 }
 
-#stashButton {
-    justify-self: flex-end;
-    align-self: flex-end;
+div.rightAlign {
+    float: right;
+    justify-content: flex-end;
 }
 
 #postDisplay {
