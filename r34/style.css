@@ -33,6 +33,16 @@ div.warning {
     box-shadow: 0 3px 15px 0 #0004;
 }
 
+div.left {
+    display: flex;
+    justify-content: flex-start;
+}
+
+div.right {
+    display: flex;
+    justify-content: flex-end;
+}
+
 #menuBar {
     z-index: 2;
     width: 100%;
@@ -43,16 +53,6 @@ div.warning {
     top: 0;
     left: 0;
     background-image: linear-gradient(to bottom, var(--accent-1), transparent);
-}
-
-#menuBar, #pageBar > div.left {
-    display: flex;
-    justify-content: flex-start;
-}
-
-#menuBar, #pageBar > div.right {
-    display: flex;
-    justify-content: flex-end;
 }
 
 #searchBar {
