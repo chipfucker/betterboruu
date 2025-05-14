@@ -146,10 +146,6 @@ select.menuButton:disabled {
     opacity: 0.25;
 }
 
-#stashButton {
-    margin-left: auto;
-}
-
 #postDisplay {
     width: 100%;
     grid-template-areas:
