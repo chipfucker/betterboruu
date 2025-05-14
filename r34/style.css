@@ -359,3 +359,5 @@ div.raw pre {
     filter: drop-shadow(0 10px 30px #fff3);
     z-index: 1;
 }
+
+#stashDisplay {}
