@@ -46,8 +46,7 @@ div.right {
 #menuBar {
     z-index: 2;
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
     position: fixed;
     padding: 5px 5% 5px 5%;
     top: 0;
@@ -81,8 +80,7 @@ div.right {
 #pageBar {
     z-index: 2;
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
     position: fixed;
     padding: 5px 5% 5px 5%;
     bottom: 0;
@@ -144,6 +142,10 @@ select.menuButton:enabled:active {
 }
 select.menuButton:disabled {
     opacity: 0.25;
+}
+
+#stashButton {
+    margin-left: auto;
 }
 
 #postDisplay {
