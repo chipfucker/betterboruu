@@ -163,27 +163,7 @@ function displayResults(results) {
     display.innerHTML = "";
     for (const x in results) {
         const extension = results[x].image.split(".").pop();
-        if (extension !== "mp4") {
-            if (extension === "gif") {
-                display.innerHTML +=
-                    `<div class="post postGif" id="result-${x}"
-                        onmouseover="mouseImg(this, '${results[x].file_url}')"
-                        onmouseout="mouseImg(this, '${results[x].preview_url}')">
-                        <a href="post.html#${results[x].id}">
-                            <img src="${results[x].preview_url}"/>
-                        </a>
-                    </div>`;
-            } else {
-                display.innerHTML +=
-                    `<div class="post" id="result-${x}"
-                        onmouseover="mouseImg(this, '${results[x].file_url}')"
-                        onmouseout="mouseImg(this, '${results[x].preview_url}')">
-                        <a href="post.html#${results[x].id}">
-                            <img src="${results[x].preview_url}"/>
-                        </a>
-                    </div>`;
-            }
-        } else {
+        if (extension === "mp4") {
             display.innerHTML +=
                 `<div class="post postVideo" id="result-${x}"
                     onmouseover="overVideo(this, true)" onmouseout="overVideo(this, false)">
@@ -191,6 +171,24 @@ function displayResults(results) {
                         <img src="${results[x].preview_url}"/>
                         <video style="display: none" src="${results[x].file_url}"
                             type="video/mp4" preload="none" muted loop disablepictureinpicture>
+                    </a>
+                </div>`;
+        } else if (extension === "gif") {
+            display.innerHTML +=
+                `<div class="post postGif" id="result-${x}"
+                    onmouseover="mouseImg(this, '${results[x].file_url}')"
+                    onmouseout="mouseImg(this, '${results[x].preview_url}')">
+                    <a href="post.html#${results[x].id}">
+                        <img src="${results[x].preview_url}"/>
+                    </a>
+                </div>`;
+        } else {
+            display.innerHTML +=
+                `<div class="post" id="result-${x}"
+                    onmouseover="mouseImg(this, '${results[x].file_url}')"
+                    onmouseout="mouseImg(this, '${results[x].preview_url}')">
+                    <a href="post.html#${results[x].id}">
+                        <img src="${results[x].preview_url}"/>
                     </a>
                 </div>`;
         }
