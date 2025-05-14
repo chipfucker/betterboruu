@@ -145,7 +145,7 @@ select.menuButton:disabled {
 }
 
 #stashButton {
-    margin-left: auto;
+    justify-self: flex-end;
 }
 
 #postDisplay {
