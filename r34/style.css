@@ -145,8 +145,8 @@ select.menuButton:disabled {
 }
 
 div.rightAlign {
-    width: stretch;
-    justify-content: flex-end;
+    width: auto;
+    float: right;
 }
 
 #postDisplay {
