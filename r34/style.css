@@ -145,7 +145,7 @@ select.menuButton:disabled {
 }
 
 div.rightAlign {
-    width: auto;
+    width: stretch;
     justify-content: flex-end;
 }
 
