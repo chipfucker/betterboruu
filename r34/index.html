@@ -36,7 +36,7 @@
 						0 0 0-1.42-1.4l-5 5Z"/>
 				</svg>
 			</button>
-			<button onclick="nextPage()" class="menuButton" id="nextPage" title="Next page" disabled>
+			<button class="menuButton" id="nextPage" title="Next page" disabled>
 				<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24">
 					<path transform="scale(-1, 1) translate(-24, 0)" d="M3.3 11.3a1 1 0 0 0 0 1.4l5 5a1 1 0 0 0 1.4-1.4L6.42 13H20a1 1 0 1 0 0-2H6.41l3.3-3.3a1 1 0 0 0-1.42-1.4l-5 5Z"/>
 				</svg>
@@ -93,25 +93,14 @@
 					@chipfucker
 				</div>
 			</a>
-			<div class="warning">
-				<p>Side note, to the Bark filter onlookers: This is not me intentionally looking up anything mature.</p>
-				<p>
-					I'm working on a website that takes most boorus'&mdash;image boards that make use of tags and other
-					fields&mdash;API's and combine them into a single website for ease of use, and some of those boorus
-					are mature. The display that is brought up on error is there as a precaution for when the user tries
-					and fails to look for mature content.
-				</p>
-				<p>
-					I usually use a debug mode to prevent any attempts to fetch info from a mature domain, using local and
-					safe-for-work content, but I may have made an error enabling it, and upon opening the website,
-					attemptedly accessed pornographic links. That's my mistake, and I promise you no bypasses are attempted
-					to look at mature content.
-				</p>
-			</div>
 			<pre style="margin-top: 30px;">ERROR INFO:</pre>
 			<div id="errInfo" class="raw"></div>
 		</div>
 
 		<script src="search.js"></script>
+		<!--
+		<script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+		<script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+		-->
 	</body>
 </html>
