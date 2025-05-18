@@ -106,24 +106,6 @@ function getLink() {
     return url;
 }
 
-// UNUSED; NEED TO FIGURE OUT HOW TO ACCESS XML CONTENT
-function getCount() {
-    const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&deleted=show&limit=50&tags=-ai_generated%20";
-    const link = new URLSearchParams(window.location.search);
-    console.log("got link params");
-    console.groupCollapsed("link params object");
-    console.log(link);
-    console.groupEnd();
-    var query = link.get("q");
-    query = query?query:"";
-    console.log("got link query: "+(query?query:"null"));
-    document.getElementById("searchBar").value = query;
-    const page = link.get("p");
-    const url = apiUrl + encodeURIComponent(query) + "&pid=" + page;
-    console.log("final url: "+url);
-    return url;
-}
-
 async function fetchData(url) {
     // fetch and handle api content
     console.time("fetch time");
@@ -144,18 +126,20 @@ async function fetchData(url) {
 }
 
 function displayResults(results) {
+    const link = new URLSearchParams(window.location.search);
+    const page = link.get("p");
     const prevPage = document.getElementById("prevPage");
     const nextPage = document.getElementById("nextPage");
+    console.log("page is "+page);
     if (page != 0) {
-        prevPage.style.display = "flex";
-        prevPage.onclick = "prevPage()";
         prevPage.removeAttribute("disabled");
+        prevPage.setAttribute("onclick", "prevPage()");
 
     }
+    console.log("results.length is "+results.length);
     if (results.length === 50) {
-        nextPage.style.display = "flex";
-        nextPage.onclick = "nextPage()";
         nextPage.removeAttribute("disabled");
+        nextPage.setAttribute("onclick", "nextPage()");
     } else if (results.length === 0) {
         document.getElementById("noResults").style.display = "block";
     }
@@ -216,6 +200,8 @@ function overVideo(el, bool) {
 }
 
 function prevPage() {
+    const link = new URLSearchParams(window.location.search);
+    console.log("navigating to previous page");
     const page = link.get("p");
     if (page != 0) {
         link.set("p", Number(page) - 1);
@@ -225,6 +211,7 @@ function prevPage() {
     }
 }
 function nextPage() {
+    const link = new URLSearchParams(window.location.search);
     console.log("navigating to next page");
     const page = link.get("p");
     if (results.length === 50) {
