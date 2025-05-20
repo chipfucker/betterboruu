@@ -13,7 +13,7 @@ This is also my first GitHub project, let alone my first GitHub Pages project, s
 ### Involving *Marlie,* my preferred name, and *booru*
 
 * Maru
-  * Ambiguous pronunciation; preferrably pronounced 'maar-oo'
+  * Ambiguous pronunciation; preferrably pronounced *mɑr u*
 * Marbooru
   * Could confuse website as its own booru
 * Maroo
@@ -28,7 +28,7 @@ This is also my first GitHub project, let alone my first GitHub Pages project, s
 * Choop
   * 'Gross word'
 * Chipu 
-  * Ambiguous pronunciation; preferrably pronounced 'cheap-oo'
+  * Ambiguous pronunciation; preferrably pronounced 'ʧɪp u'
 * Ruchip
   * 'Doesn't sound like it revolves boorus at all'
 
