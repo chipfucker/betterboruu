@@ -19,12 +19,25 @@
 	</head>
 	<body>
 		<div id="menuBar">
-			<input type="text" id="searchBar" placeholder="Search...">
-			<button onclick="submitInput()" id="submit" class="menuButton">
-				<svg width="24" height="24" viewBox="0 0 24 24">
-					<path fill="currentColor" d="M6.6 10.02 14 11.4a.6.6 0 0 1 0 1.18L6.6 14l-2.94 5.87a1.48 1.48 0 0 0 1.99 1.98l17.03-8.52a1.48 1.48 0 0 0 0-2.64L5.65 2.16a1.48 1.48 0 0 0-1.99 1.98l2.94 5.88Z"/>
-				</svg>
-			</button>
+			<a href="stash.html">
+				<div class="menuButton" id="stashButton" title="View stash">
+					<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24">
+						<path d="M2 5a3 3 0 0 1 3-3h3.93a2 2 0 0 1 1.66.9L12 5h7a3 3 0 0 1 3 3v11a3 3 0 0 1-3 3H5a3 3
+							0 0 1-3-3V5Z"/>
+					</svg>
+				</div>
+			</a>
+			
+			<input type="text" id="searchBar" placeholder="Search..." oninput="searchBarUpdate()"/>
+			
+			<a href="">
+				<div class="menuButton" id="submit">
+					<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24">
+						<path d="M6.6 10.02 14 11.4a.6.6 0 0 1 0 1.18L6.6 14l-2.94 5.87a1.48 1.48 0 0
+							0 1.99 1.98l17.03-8.52a1.48 1.48 0 0 0 0-2.64L5.65 2.16a1.48 1.48 0 0 0-1.99 1.98l2.94 5.88Z"/>
+					</svg>
+				</div>
+			</a>
 		</div>
 
 		<div id="hideError">
@@ -65,8 +78,10 @@
 				<a id="openMedia" title="Open media in new tab (may be useful on Firefox for some videos!)">
 					<div class="button">
 						<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-							<path d="M13.82 21.7c.17.05.14.3-.04.3H6a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4h7.5c.28 0 .5.22.5.5V5a5 5 0 0 0 5 5h2.5c.28 0 .5.22.5.5v2.3a.4.4 0 0 1-.68.27l-.2-.2a3 3 0 0 0-4.24 0l-4 4a3 3 0 0 0 0 4.25c.3.3.6.46.94.58Z"/>
-							<path fill="currentColor" d="M21.66 8c.03 0 .05-.03.04-.06a3 3 0 0 0-.58-.82l-4.24-4.24a3 3 0 0 0-.82-.58.04.04 0 0 0-.06.04V5a3 3 0 0 0 3 3h2.66ZM18.3 14.3a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L20 17.42V23a1 1 0 1 1-2 0v-5.59l-2.3 2.3a1 1 0 0 1-1.4-1.42l4-4Z"/>
+							<path d="M18 22H6a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4h7.5c.28 0 .5.22.5.5V5a5 5 0 0 0 5
+								5h2.5c.28 0 .5.22.5.5V18a4 4 0 0 1-4 4Z"/>
+							<path d="M21.7 7.94c.01.03 0 .06-.04.06H19a3 3 0 0 1-3-3V2.34c0-.03.03-.05.06-.04a3 3 0 0
+								1 .82.58l4.24 4.24a3 3 0 0 1 .58.82Z"/>
 						</svg>
 						<span>Open media</span>
 					</div>

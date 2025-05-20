@@ -106,14 +106,20 @@ div.right {
     opacity: 1;
     cursor: pointer;
 }
-.menuButton:enabled:hover {
+.menuButton:enabled:hover,
+a:hover .menuButton {
     box-shadow: 0 0 5px 3px var(--accent-4);
 }
-.menuButton:enabled:active {
+.menuButton:enabled:active,
+a:active .menuButton  {
     transform: translateY(2px);
 }
 .menuButton:disabled {
     opacity: 0.25;
+}
+
+.menuButton span {
+    font-size: 1em;
 }
 
 select.menuButton {
@@ -144,6 +150,14 @@ select.menuButton:disabled {
     opacity: 0.25;
 }
 
+#pageCount {
+    height: 26px;
+    padding: 5px;
+    margin: 5px;
+    align-content: center;
+    
+}
+
 #postDisplay {
     width: 100%;
     grid-template-areas:
@@ -163,7 +177,7 @@ select.menuButton:disabled {
     overflow: hidden;
     border: solid 1px #FFF1;
     border-radius: 10px;
-    background-image: linear-gradient(to bottom, var(--accent-1), var(--accent-2));
+    background-image: linear-gradient(to bottom, var(--accent-0), var(--accent-1));
     background-attachment: fixed;
     background-size: cover;
 }
@@ -290,14 +304,15 @@ div.raw {
 }
 div.raw pre {
     color: white;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
+    width: calc(100%-20px);
     margin: 0;
     padding: 0;
     padding-left: 2ch;
     text-indent: -2ch;
+    word-break: break-all;
+    white-space: pre-wrap;
 }
-.raw::selection {
+.raw pre::selection {
     background-color: white;
     color: #10141f;
 }

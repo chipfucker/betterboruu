@@ -37,47 +37,20 @@ function isMobile() {
 
 window.onload = function () {
     console.group("ONLOAD ATTEMPT");
-    if (debug) {
-        console.info("!! running in debug mode");
-        if (debugErr) {
-            console.log("forced error");
-            let msg =
-                "This website is in debug mode, and an error was forced on load.\n"+
-                "If you're seeing this, you probably shouldn't be, and you should contact me if you are!";
-            displayError(debugErr, msg);
-            return;
-        }
-        submitSearch(debugPost);
-        console.info(`skipped to submitSearch(${debugPost})`);
-    } else {
-        const jsonUrl = getLink(true);
-        const xmlUrl = getLink(false);
-        submitSearch(jsonUrl, xmlUrl);
-    }
+    const jsonUrl = getLink(true);
+    const xmlUrl = getLink(false);
+    submitSearch(jsonUrl, xmlUrl);
 };
 
 document.getElementById("searchBar").addEventListener("keydown", function (e) {
     if (e.code === "Enter") {
-        submitInput();
+        document.getElementById("submit").click();
     }
 });
 
-function submitInput() {
-    console.group("SUBMIT ATTEMPT");
-    if (debug) {
-        console.info("!! running in debug mode");
-        console.info(`skipping to submitSearch(${debugPost})`);
-        submitSearch(debugPost);
-    } else {
-        var input = document.getElementById("searchBar").value; // get input
-        console.log("got input: "+(input?input:null));
-        if (/^id:\d+$/.test(input)) { // if input is 'id:' followed by digits
-            input = input.substring(3); // get digits after 'id:'
-            submitPost(input);
-        } else {
-            window.location.href = "index.html?q="+encodeURIComponent(input)+"&p=0";
-        }
-    }
+function searchBarUpdate() {
+    document.getElementById("submit").parentElement.href =
+        `index.html?q=${document.getElementById("searchBar").value}&p=0`;
 }
 
 async function submitSearch(json, xml) {
@@ -85,7 +58,7 @@ async function submitSearch(json, xml) {
     resultsJson = await fetchJsonData(json);
     resultsXml = await fetchXmlData(xml);
 
-    displayresults(resultsJson, resultsXml);
+    displayResults(resultsJson, resultsXml);
 }
 
 async function submitPost(id) {
@@ -103,7 +76,7 @@ function getLink(jsonBool) {
     console.log("got link query: "+(query?query:"null"));
     document.getElementById("searchBar").value = query;
     const page = link.get("p");
-    const url = `https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&limit=50&json=${jsonBool?1:0}&tags=-ai_generated%20${encodeURIComponent(query)}&pid=${page}`;
+    const url = `https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&limit=50&json=${jsonBool?1:0}&tags=-ai_generated%20${encodeURIComponent(query)}&pid=${page?page:0}`;
     console.log("final url: "+url);
     return url;
 }
@@ -143,7 +116,7 @@ async function fetchXmlData(url) {
     const parser = new DOMParser();
     const xmlInfo = parser.parseFromString(text, "text/xml");
     console.groupCollapsed("xml info");
-    console.log(JSON.stringify(jsonInfo, null, 1));
+    console.log(JSON.stringify(xmlInfo, null, 1));
     console.groupEnd();
     return xmlInfo;
 }
@@ -151,6 +124,7 @@ async function fetchXmlData(url) {
 function displayResults(resultsJson, resultsXml) {
     // display page buttons
     const link = new URLSearchParams(window.location.search);
+    console.group("pages");
     const page = link.get("p");
     const prevPage = document.getElementById("prevPage");
     const nextPage = document.getElementById("nextPage");
@@ -159,14 +133,24 @@ function displayResults(resultsJson, resultsXml) {
         prevPage.removeAttribute("disabled");
         prevPage.setAttribute("onclick", "prevPage()");
     }
-    const resultCount = Number(resultsXml.querySelector("posts").getAttribute("count")) - Number(resultsXml.querySelector("posts").getAttribute("offset"));
-    console.log("count is "+resultCount);
+    
+    const resultCount = Number(resultsXml.querySelector("posts").getAttribute("count"));
+    const resultOffset = Number(resultsXml.querySelector("posts").getAttribute("offset"));
+    const furtherResults = resultCount - resultOffset;
+    const totalPages = Math.ceil(resultCount / 50);
+    console.log("resultCount is "+resultCount);
+    console.log("resultOffset is "+resultOffset);
+    console.log(`${resultCount} - ${resultOffset} = ${furtherResults}`);
+    console.log("totalPages is "+totalPages);
     if (resultCount > 50) {
         nextPage.removeAttribute("disabled");
         nextPage.setAttribute("onclick", "nextPage()");
     } else if (resultCount === 0) {
         document.getElementById("noResults").style.display = "block";
     }
+    document.getElementById("pageCount").firstElementChild.innerText = `${page+1} / ${totalPages}`;
+    console.groupEnd();
+    // display images
     const display = document.getElementById("searchDisplay");
     display.innerHTML = "";
     for (const x in resultsJson) {
@@ -247,6 +231,18 @@ function nextPage() {
 }
 
 function displayError(e, msg) {
+    document.getElementById("searchDisplay").style.display = "none";
+    document.getElementById("hideError").style.display = "none";
+    document.getElementById("errInfo").innerHTML =
+        `<b><pre>MESSAGE IN TRY-CATCH:</pre></b>
+        <i><pre>${msg}</pre></i>
+        <br/>
+        <b><pre>ERROR MESSAGE:</pre></b>
+        <pre>${e}</pre>`;
+    document.getElementById("errDisplay").style.display = "block";
+}
+
+function noResults(e, msg) {
     document.getElementById("searchDisplay").style.display = "none";
     document.getElementById("hideError").style.display = "none";
     document.getElementById("errInfo").innerHTML =

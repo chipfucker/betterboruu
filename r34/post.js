@@ -94,14 +94,14 @@ async function submitPost(url) {
 }
 
 async function submitSearch(input) {
-    location.href = "index.html?q=" + encodeURIComponent(input);
+    location.href = "index.html?q=" + encodeURIComponent(input) + "&p=0";
 }
 
 function displayInfo(post) {
     document.getElementById("rawPostInfo").getElementsByTagName("pre")[1].innerHTML =
         `\n${JSON.stringify(post, null, 2)}`;
     document.getElementById("id").innerHTML = post.id;
-    document.getElementById("ownerLink").href = "index.html?q=" + encodeURIComponent(post.owner);
+    document.getElementById("ownerLink").href = "index.html?q=user:" + encodeURIComponent(post.owner) + "&p=0";
     document.getElementById("owner").innerHTML = post.owner;
 }
 
@@ -145,8 +145,8 @@ function getTags(tags) {
         metadata: document.getElementById("tagMetadata")
     };
     console.log("got list elements");
-    for (const list in ulElement) {
-        ulElement[list].innerHTML = "";
+    for (const x in ulElement) {
+        ulElement[x].innerHTML = "";
         console.log("reset list items: "+list);
     }
     console.groupCollapsed("displaying tags");
@@ -154,7 +154,7 @@ function getTags(tags) {
         const element = ulElement[tags[x].type];
         element.innerHTML +=
             `<a
-                href="index.html?q=${encodeURIComponent(tags[x].tag)}"
+                href="index.html?q=${encodeURIComponent(tags[x].tag)}&p=0"
                 title="${tags[x].count} uses"
             ><li>${tags[x].tag}</li></a>`;
         console.log(`added tag to ${tags[x].type}: ${tags[x].tag}`);
@@ -300,6 +300,8 @@ function setButtons() {
     }
 
     function setOpenPost(id) {
+        const element = document.getElementById("openPost");
+        element.href = `https://rule34.xxx/index.php?page=post&s=view&id=${id}`;
     }
 }
 
