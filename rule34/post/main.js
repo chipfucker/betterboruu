@@ -147,7 +147,7 @@ function getTags(tags) {
     console.log("got list elements");
     for (const x in ulElement) {
         ulElement[x].innerHTML = "";
-        console.log("reset list items: "+list);
+        console.log("reset list items: "+x);
     }
     console.groupCollapsed("displaying tags");
     for (const x in tags) {
@@ -214,7 +214,7 @@ async function setEmbed() {
 
     const authorUrl = document.createElement("meta");
     authorUrl.setAttribute("property", "og:author:url");
-    authorUrl.content = `https://chipfucker.github.io/betterboruu/r34/post#${post.id}`;
+    authorUrl.content = `https://chipfucker.github.io/betterboruu/rule34/post#${post.id}`;
     document.head.appendChild(authorUrl);
 
     const description = document.createElement("meta");

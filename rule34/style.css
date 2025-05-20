@@ -155,7 +155,7 @@ select.menuButton:disabled {
     padding: 5px;
     margin: 5px;
     align-content: center;
-    
+
 }
 
 #postDisplay {
@@ -255,32 +255,35 @@ div.card > .label {
     max-height: 60vh;
 }
 #tagList ul {
-    list-style-type: none;
-    margin: 10px 0;
-    padding: 0;
-}
-#tagList li {
-    display: inline-flex;
-    width: fit-content;
-    color: rgba(var(--color));
-    border: solid rgba(var(--color)) 2px;
-    border-radius: 5px;
-    background-image:
-        linear-gradient(rgba(var(--color), 0.2), rgba(var(--color), 0.2)),
-        linear-gradient(black, black);
-    padding: 2px 5px;
-    margin: 2px;
-    transition: all 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000);
-    overflow-wrap: break-word;
-}
-#tagList li:hover {
-    background-image:
-        linear-gradient(rgba(var(--color), 0.3), rgba(var(--color), 0.3)),
-        linear-gradient(black, black);
-    box-shadow: 0 0 5px 3px rgba(var(--color), 0.2);
-}
-#tagList a {
-    width: fit-content;
+    & ul {
+        list-style-type: none;
+        margin: 10px 0;
+        padding: 0;
+    }
+    & li {
+        display: inline-flex;
+        width: fit-content;
+        color: rgba(var(--color));
+        border: solid rgba(var(--color)) 2px;
+        border-radius: 5px;
+        background-image:
+            linear-gradient(rgba(var(--color), 0.2), rgba(var(--color), 0.2)),
+            linear-gradient(black, black);
+        padding: 2px 5px;
+        margin: 2px;
+        transition: all 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000);
+        overflow-wrap: break-word;
+
+        &:hover {
+            background-image:
+                linear-gradient(rgba(var(--color), 0.3), rgba(var(--color), 0.3)),
+                linear-gradient(black, black);
+            box-shadow: 0 0 5px 3px rgba(var(--color), 0.2);
+        }
+    }
+    & a {
+        width: fit-content;
+    }
 }
 #tagCopyright   { --color: 240, 160, 240; }
 #tagCharacter   { --color: 176, 224, 176; }
