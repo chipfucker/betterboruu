@@ -20,40 +20,56 @@ div.warning {
     box-shadow: 0 3px 15px 0 #0004;
 }
 
-#buttons {
-    width: 100%;
+div.buttons {
+    margin: 5%;
+    margin-bottom: 100px;
     display: flex;
-    align-content: space-around;
-    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+
+    & a {
+        text-decoration: none;
+    }
+
+    & a > div {
+        gap: 10px;
+        width: 300px;
+        height: 200px;
+        justify-content: center;
+        align-content: center;
+        border: solid 2px #FFF1;
+        background-size: cover;
+        transition: all 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000);
+        border-radius: 15px;
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(1.1);
+            border-color: #FFF2;
+            box-shadow: 0 5px 15px 0 #0008;
+        }
+
+        & > img {
+            margin: auto;
+            max-width: 90%;
+            max-height: 90%;
+        }
+    }
 }
 
 img.logo {
     width: 384px;
 }
 
-div.button {
-    width: 256px;
-    height: 128px;
-    border-style: solid;
-    border-width: 2px;
-    border-color: #FFF1;
-    transition: all 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000);
-    border-radius: 15px;
-    cursor: pointer;
+div[title="rule34.xxx"] {
+    background-image: linear-gradient(to bottom, hsl(115, 32%, 8%), hsl(115, 29%, 11%));
 }
-div.button:hover {
-    padding: 5px;
-    margin: -5px;
-    border-color: #FFF2;
-    border-radius: 17px;
-    box-shadow: 0 5px 15px 0 #0008;
+div[title="e621.net"] {
+    background-image: linear-gradient(to bottom, hsl(220, 32%, 8%), hsl(220, 29%, 11%));
 }
 
-div.rule34xxx {
-    background-image: linear-gradient(to bottom, #0f1a0e, #152414);
-    background-size: cover;
-}
-div.rule34xxx > img {
-    width: 100%;
-    height: 100%;
+div[title="kurosearch.com"] {
+    background-image: linear-gradient(to bottom, hsl(270, 32%, 8%), hsl(270, 29%, 11%));
 }
