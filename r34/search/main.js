@@ -148,7 +148,7 @@ function displayResults(resultsJson, resultsXml) {
     } else if (resultCount === 0) {
         document.getElementById("noResults").style.display = "block";
     }
-    document.getElementById("pageCount").firstElementChild.innerText = `${page+1} / ${totalPages}`;
+    document.getElementById("pageCount").firstElementChild.innerText = `${Number(page)+1} / ${totalPages}`;
     console.groupEnd();
     // display images
     const display = document.getElementById("searchDisplay");
