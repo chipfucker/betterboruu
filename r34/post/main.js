@@ -1,4 +1,4 @@
-window.onerror = function handleError(e, url, line) { 
+window.onerror = function handleError(e, url, line) {
     window.alert(`${e}\n\n${line}`);
     document.getElementById("hideError").style.display = "none";
     document.getElementById("errInfo").innerHTML =
@@ -94,14 +94,14 @@ async function submitPost(url) {
 }
 
 async function submitSearch(input) {
-    location.href = "index.html?q=" + encodeURIComponent(input) + "&p=0";
+    location.href = "../search/index.html?q=" + encodeURIComponent(input) + "&p=0";
 }
 
 function displayInfo(post) {
     document.getElementById("rawPostInfo").getElementsByTagName("pre")[1].innerHTML =
         `\n${JSON.stringify(post, null, 2)}`;
     document.getElementById("id").innerHTML = post.id;
-    document.getElementById("ownerLink").href = "index.html?q=user:" + encodeURIComponent(post.owner) + "&p=0";
+    document.getElementById("ownerLink").href = "../search/index.html?q=user:" + encodeURIComponent(post.owner) + "&p=0";
     document.getElementById("owner").innerHTML = post.owner;
 }
 
@@ -154,7 +154,7 @@ function getTags(tags) {
         const element = ulElement[tags[x].type];
         element.innerHTML +=
             `<a
-                href="index.html?q=${encodeURIComponent(tags[x].tag)}&p=0"
+                href="../search/index.html?q=${encodeURIComponent(tags[x].tag)}&p=0"
                 title="${tags[x].count} uses"
             ><li>${tags[x].tag}</li></a>`;
         console.log(`added tag to ${tags[x].type}: ${tags[x].tag}`);
@@ -203,10 +203,10 @@ function getTagOfType(tags, typeRequest) {
 
 async function setEmbed() {
     const artists = getTagOfType(post.tag_info, "artist");
-    
+
     const titleElement = document.getElementsByTagName("title")[0];
     titleElement.innerText = `#${post.id} - ${artists.comma}`;
-    
+
     const authorName = document.createElement("meta");
     authorName.setAttribute("property", "og:author:name");
     authorName.content = `#${post.id}`;

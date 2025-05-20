@@ -1,4 +1,4 @@
-window.onerror = function handleError(e, url, line) { 
+window.onerror = function handleError(e, url, line) {
     window.alert(`${e}\n\n${line}`);
     document.getElementById("searchDisplay").style.display = "none";
     document.getElementById("hideError").style.display = "none";
@@ -62,7 +62,7 @@ async function submitSearch(json, xml) {
 }
 
 async function submitPost(id) {
-    window.location.href = "post.html#"+id;
+    window.location.href = "../post/index.html#"+id;
 }
 
 function getLink(jsonBool) {
@@ -133,7 +133,7 @@ function displayResults(resultsJson, resultsXml) {
         prevPage.removeAttribute("disabled");
         prevPage.setAttribute("onclick", "prevPage()");
     }
-    
+
     const resultCount = Number(resultsXml.querySelector("posts").getAttribute("count"));
     const resultOffset = Number(resultsXml.querySelector("posts").getAttribute("offset"));
     const furtherResults = resultCount - resultOffset;
@@ -159,7 +159,7 @@ function displayResults(resultsJson, resultsXml) {
             display.innerHTML +=
                 `<div class="post postVideo" id="result-${x}"
                     onmouseover="overVideo(this, true)" onmouseout="overVideo(this, false)">
-                    <a href="post.html#${resultsJson[x].id}">
+                    <a href="../post/index.html#${resultsJson[x].id}">
                         <img src="${resultsJson[x].preview_url}"/>
                         <video style="display: none" src="${resultsJson[x].file_url}"
                             type="video/mp4" preload="none" muted loop disablepictureinpicture>
@@ -170,7 +170,7 @@ function displayResults(resultsJson, resultsXml) {
                 `<div class="post postGif" id="result-${x}"
                     onmouseover="mouseImg(this, '${resultsJson[x].file_url}')"
                     onmouseout="mouseImg(this, '${resultsJson[x].preview_url}')">
-                    <a href="post.html#${resultsJson[x].id}">
+                    <a href="../post/index.html#${resultsJson[x].id}">
                         <img src="${resultsJson[x].preview_url}"/>
                     </a>
                 </div>`;
@@ -179,7 +179,7 @@ function displayResults(resultsJson, resultsXml) {
                 `<div class="post" id="result-${x}"
                     onmouseover="mouseImg(this, '${resultsJson[x].file_url}')"
                     onmouseout="mouseImg(this, '${resultsJson[x].preview_url}')">
-                    <a href="post.html#${resultsJson[x].id}">
+                    <a href="../post/index.html#${resultsJson[x].id}">
                         <img src="${resultsJson[x].preview_url}"/>
                     </a>
                 </div>`;
