@@ -28,7 +28,7 @@ This is also my first GitHub project, let alone my first GitHub Pages project, s
   * Ambiguous subject; may be seen as something similar to an encyclopedia
 * tBooru
   * Easy to mis-stylize
-  * Could be associated with transgenderism
+  * Could be mistakenly associated with transgenderism
 * tSearch
   * Easy to mis-stylize
-  * Could be associated with transgenderism
+  * Could be mistakenly associated with transgenderism
