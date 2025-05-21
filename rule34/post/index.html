@@ -30,7 +30,7 @@
 
 			<input type="text" id="searchBar" placeholder="Search..." oninput="searchBarUpdate()"/>
 
-			<a href="">
+			<a href="../search/index.html?q=&p=0">
 				<div class="menuButton" id="submit">
 					<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24">
 						<path d="M6.6 10.02 14 11.4a.6.6 0 0 1 0 1.18L6.6 14l-2.94 5.87a1.48 1.48 0 0
@@ -58,6 +58,20 @@
 
 		<div id="postDisplay" style="display: none">
 			<div id="imageDisplay"></div>
+			<div class="card" id="family">
+				<p class="label" id="parent">Parent</p>
+				<div>
+					<!--
+					<div class="post">
+						<a href="../post/index.html#5823623">
+							<img src="https://api-cdn.rule34.xxx/samples/1399/sample_e2147ceaa961f7dc8fabbd17ccdd6c89bfbff288.jpg"/>
+						</a>
+					</div>
+					-->
+				</div>
+				<p class="label" id="children">Children</p>
+				<div></div>
+			</div>
 			<div class="card" id="tags">
 				<p class="label">Tags</p>
 				<div id="tagList">
@@ -71,7 +85,7 @@
 			<div id="moreInfo" class="card">
 				<div>
 					<span><b>ID: </b></span><span id="id"></span><br>
-					<span><b>User: </b></span><a id="ownerLink"><span id="owner"></span></a><br>
+					<span><b>User: </b></span><a id="ownerLink"><u><span id="owner"></span></u></a><br>
 				</div>
 			</div>
 			<div id="buttons">

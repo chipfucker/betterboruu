@@ -142,13 +142,17 @@ function displayResults(resultsJson, resultsXml) {
     console.log("resultOffset is "+resultOffset);
     console.log(`${resultCount} - ${resultOffset} = ${furtherResults}`);
     console.log("totalPages is "+totalPages);
-    if (resultCount > 50) {
+    if (furtherResults > 50) {
         nextPage.removeAttribute("disabled");
         nextPage.setAttribute("onclick", "nextPage()");
     } else if (resultCount === 0) {
         document.getElementById("noResults").style.display = "block";
+        document.getElementById("errDisplay").style.display = "none";
     }
-    document.getElementById("pageCount").firstElementChild.innerText = `${Number(page)+1} / ${totalPages}`;
+    if (resultCount)
+        document.getElementById("pageCount").firstElementChild.innerText = `${Number(page)+1} / ${totalPages}`;
+    else
+        document.getElementById("pageCount").firstElementChild.innerText = '( ^_^ )/"';
     console.groupEnd();
     // display images
     const display = document.getElementById("searchDisplay");

@@ -160,13 +160,70 @@ select.menuButton:disabled {
 
 #postDisplay {
     width: 100%;
+    grid-gap: 10px;
+    grid-template-columns: 1fr 4fr;
     grid-template-areas:
         "tags imageDisplay"
         "moreInfo imageDisplay"
         "buttons buttons"
         "raw raw";
-    grid-gap: 10px;
-    grid-template-columns: 1fr 4fr;
+
+    &:has(#family > div > div) {
+        grid-template-areas:
+            "family imageDisplay"
+            "tags imageDisplay"
+            "moreInfo imageDisplay"
+            "buttons buttons"
+            "raw raw";
+    }
+}
+
+#family {
+    grid-area: family;
+    display: none;
+    & > * {
+        display: none;
+    }
+    &:has(div > div) {
+        display: block;
+    }
+
+    #parent:has(+ div > div),
+    #parent + div:has(div) {
+        display: block;
+    }
+    #children:has(+ div > div),
+    #children + div:has(div)  {
+        display: block;
+    }
+
+    #parent + div > div {
+        display: flex;
+        max-height: 20vh;
+        width: 100%;
+        overflow: hidden;
+        border: solid 1px #FFF1;
+        border-radius: 10px;
+        filter: none;
+        background-image: linear-gradient(to bottom, var(--accent-0), var(--accent-1));
+        transition: all 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000);
+        &:hover {
+            filter: drop-shadow(0 10px 15px #0008);
+        }
+        &:active {
+            border: solid 1px #FFF3;
+            transform: scale(0.95) rotate(2deg);
+            filter: drop-shadow(0 10px 30px #fff3);
+        }
+        & > a {
+            display: block;
+            & > img {
+                object-fit: contain;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
 }
 
 #imageDisplay {
@@ -180,11 +237,12 @@ select.menuButton:disabled {
     background-image: linear-gradient(to bottom, var(--accent-0), var(--accent-1));
     background-attachment: fixed;
     background-size: cover;
-}
-#imageDisplay > * {
-    object-fit: contain;
-    width: 100%;
-    height: 100%;
+
+    & > * {
+        object-fit: contain;
+        width: 100%;
+        height: 100%;
+    }
 }
 
 #buttons {
@@ -194,6 +252,7 @@ select.menuButton:disabled {
     justify-content: left;
     flex-wrap: wrap;
     gap: 10px;
+
 }
 
 div.button {
@@ -211,15 +270,16 @@ div.button {
     transition:
         box-shadow 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000),
         transform 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000);
-}
-div.button:hover {
-    box-shadow: 0 0 5px 3px var(--accent-4);
-}
-div.button:active {
-    transform: translateY(2px);
-}
-div.button svg {
-    vertical-align: bottom;
+
+    &:hover {
+        box-shadow: 0 0 5px 3px var(--accent-4);
+    }
+    &:active {
+        transform: translateY(2px);
+    }
+    & svg {
+        vertical-align: bottom;
+    }
 }
 
 div.card {
@@ -229,15 +289,17 @@ div.card {
     border-radius: 10px;
     overflow: hidden;
     transition: all 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000);
-}
-div.card:hover {
-    box-shadow: 0 3px 5px 3px #20361e44;
-}
-div.card *::selection {
-    color: var(--accent-1);
-    background-color: var(--accent-5);
-}
-div.card > .label {
+
+    &:hover {
+        box-shadow: 0 3px 5px 3px #20361e44;
+    }
+
+    & *::selection {
+        color: var(--accent-1);
+        background-color: var(--accent-5);
+    }
+
+    & > .label {
     font-weight: bolder;
     text-transform: uppercase;
     font-size: larger;
@@ -246,6 +308,7 @@ div.card > .label {
     padding-bottom: 5px;
     margin-bottom: 10px;
     border-bottom: solid #FFF2 2px;
+    }
 }
 
 #tags {
@@ -304,27 +367,32 @@ div.raw {
     background-color: #10141f;
     padding: 10px;
     border: solid 1px #FFF1;
-}
-div.raw pre {
-    color: white;
-    width: calc(100%-20px);
-    margin: 0;
-    padding: 0;
-    padding-left: 2ch;
-    text-indent: -2ch;
-    word-break: break-all;
-    white-space: pre-wrap;
-}
-.raw pre::selection {
-    background-color: white;
-    color: #10141f;
+    & pre {
+        color: white;
+        width: calc(100% - 20px);
+        margin: 0;
+        padding: 0;
+        padding-left: 2ch;
+        text-indent: -2ch;
+        word-break: break-all;
+        white-space: pre-wrap;
+        &::selection {
+            background-color: white;
+            color: #10141f;
+        }
+    }
 }
 
 @media (max-width: 800px) {
     #postDisplay {
-        grid-template-areas: "imageDisplay" "buttons" "moreInfo" "tags" "raw";
         grid-template-columns: 100%;
         grid-template-rows: 1fr;
+        grid-template-areas: "imageDisplay" "buttons" "moreInfo" "tags" "raw";
+
+
+        &:has(#family > div > div) {
+            grid-template-areas: "imageDisplay" "buttons" "family" "moreInfo" "tags" "raw";
+        }
     }
 }
 
@@ -333,49 +401,39 @@ div.raw pre {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 10px;
-
+    & > div.post {
+        display: flex;
+        justify-content: center;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        border: solid 1px #FFF1;
+        border-radius: 10px;
+        filter: none;
+        z-index: 0;
+        background-image: linear-gradient(to bottom, var(--accent-0), var(--accent-1));
+        transition: all 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000);
+        &:hover {
+            border: solid 1px #FFF1;
+            transform: scale(1.25);
+            filter: drop-shadow(0 10px 30px #0008);
+            z-index: 1;
+        }
+        &:active {
+            border: solid 1px #FFF3;
+            transform: scale(1.1) rotate(2deg);
+            filter: drop-shadow(0 10px 30px #fff3);
+            z-index: 1;
+        }
+        & > a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            & > img {
+                object-fit: contain;
+                width: 100%;
+                height: 100%;
+                align-self: center;
+            }
+        }
+    }
 }
-
-#searchDisplay > div.post {
-    display: flex;
-    justify-content: center;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-    border: solid 1px #FFF1;
-    border-radius: 10px;
-    filter: none;
-    z-index: 0;
-    background-image: linear-gradient(to bottom, var(--accent-0), var(--accent-1));
-    transition: all 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000);
-}
-#searchDisplay > div.post > a {
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-#searchDisplay > div.post > a > img, video {
-    object-fit: contain;
-    width: 100%;
-    height: 100%;
-    align-self: center;
-}
-#searchDisplay > div.postVideo {
-    border: ridge 4px #4a63ed;
-}
-#searchDisplay > div.postGif {
-    border: ridge 4px #71d1d9;
-}
-#searchDisplay > div:hover {
-    border: solid 1px #FFF1;
-    transform: scale(1.25);
-    filter: drop-shadow(0 10px 30px #0008);
-    z-index: 1;
-}
-#searchDisplay > div:active {
-    border: solid 1px #FFF3;
-    transform: scale(1.1) rotate(2deg);
-    filter: drop-shadow(0 10px 30px #fff3);
-    z-index: 1;
-}
-
-#stashDisplay {}

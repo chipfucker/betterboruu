@@ -1,5 +1,6 @@
 window.onerror = function handleError(e, url, line) {
     window.alert(`${e}\n\n${line}`);
+    document.getElementById("postDisplay").style.display = "none";
     document.getElementById("hideError").style.display = "none";
     document.getElementById("errInfo").innerHTML =
         `<b><pre>ERROR MESSAGE:</pre></b>
@@ -33,49 +34,23 @@ const debugErr = debugPosts.error;
 
 window.onload = function () {
     console.group("ONLOAD ATTEMPT");
-    if (debug) {
-        console.info("!! running in debug mode");
-        if (debugErr) {
-            console.log("forced error");
-            let msg =
-                "This website is in debug mode, and an error was forced on load.\n"+
-                "If you're seeing this, you probably shouldn't be, and you should contact me if you are!";
-            displayError(debugErr, msg);
-            return;
-        }
-        submitPost(debugPost);
-        console.info(`skipped to fetchData(${debugPost})`);
-    } else {
-        const url = getLink(location.hash.substring(1));
-        submitPost(url);
-    }
+    const url = getLink(location.hash.substring(1));
+    submitPost(url);
 };
 
 document.getElementById("searchBar").addEventListener("keydown", function (e) {
     if (e.code === "Enter") {
-        submitInput();
+        document.getElementById("submit").click();
     }
 });
 
+window.addEventListener("hashchange", () => {
+    window.location.reload();
+});
 
-async function submitInput() {
-    console.group("SUBMIT ATTEMPT");
-    if (debug) {
-        console.info("!! running in debug mode");
-        console.info(`skipping to submitPost(${debugPost})`);
-        submitPost(debugPost);
-    } else {
-        var input = document.getElementById("searchBar").value; // get input
-        console.log("got input: "+(input?input:null));
-        if (/^id:\d+$/.test(input)) { // if input is 'id:' followed by digits
-            input = input.substring(3); // get digits after 'id:'
-            const url = getLink(input); // append id to end of api link
-            console.log("got api link: "+url);
-            submitPost(url);
-        } else {
-            submitSearch(input);
-        }
-    }
+function searchBarUpdate() {
+    document.getElementById("submit").parentElement.href =
+        `../search/index.html?q=${document.getElementById("searchBar").value}&p=0`;
 }
 
 async function submitPost(url) {
@@ -86,9 +61,10 @@ async function submitPost(url) {
     getTags(post.tag_info); // display extra tag info and get artist tags as one string
     artists = getTagOfType(post.tag_info, "artist"); // assign artist tags to strings
     displayMedia(post.file_url); // display media
-    /// videos don't work on firefox; fix this somehow!!!
+    displayFamily();
     displayInfo(post);
     setButtons(); // set all buttons
+    displayComments(); // show all comments under post
     showStuff(); // reveal everything
     console.groupEnd();
 }
@@ -305,6 +281,14 @@ function setButtons() {
     }
 }
 
+function displayFamily() {
+
+}
+
+function displayComments() {
+
+}
+
 function copyMedia() {
     const element = document.getElementById("copyMedia").firstElementChild;
     const copy = element.innerHTML;
@@ -401,6 +385,7 @@ function copyLawlietCommand() {
         console.debug("reset text to 'copy'");
     }, 1000);
 }
+
 function displayRawInfo() {
     const rawDiv = document.getElementById("rawPostInfo");
     const rawDrop = rawDiv.children[0];
