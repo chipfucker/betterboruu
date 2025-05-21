@@ -5,21 +5,21 @@
     --accent-3: #20361e;
     --accent-4: #32552f;
     --accent-5: #b1e7ac;
-}
-
-body {
-    background-image: linear-gradient(to bottom, var(--accent-1), var(--accent-2));
-    background-attachment: fixed;
-    background-size: cover;
-    color: white;
-    padding: 125px 5%;
-    margin: 0;
-    font-family: system-ui;
-}
-a {
-    text-decoration: none;
-    color: white;
-    width: fit-content;
+    
+    & body {
+        background-image: linear-gradient(to bottom, var(--accent-1), var(--accent-2));
+        background-attachment: fixed;
+        background-size: cover;
+        color: white;
+        padding: 125px 5%;
+        margin: 0;
+        font-family: system-ui;
+        & a {
+            text-decoration: none;
+            color: white;
+            width: fit-content;
+        }
+    }
 }
 
 div.warning {
@@ -31,16 +31,6 @@ div.warning {
     border-radius: 20px;
     font-size: medium;
     box-shadow: 0 3px 15px 0 #0004;
-}
-
-div.left {
-    display: flex;
-    align-content: flex-start;
-}
-
-div.right {
-    display: flex;
-    align-content: flex-end;
 }
 
 #menuBar {
@@ -78,14 +68,14 @@ div.right {
     color: black;
     outline: 0;
     transition:
-        box-shadow 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000),
-        transform 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000);
-}
-#searchBar:active {
-    transform: translateY(2px);
-}
-#searchBar:focus {
-    box-shadow: 0 3px 5px 3px #fbfbb344;
+        box-shadow 100ms cubic-bezier(0.390, 0.575, 0.565, 1.000),
+        transform 50ms cubic-bezier(0.390, 0.575, 0.565, 1.000);
+    &:active {
+        transform: translateY(2px);
+    }
+    &:focus {
+        box-shadow: 0 3px 5px 3px #fbfbb344;
+    }
 }
 
 .menuButton {
@@ -101,53 +91,57 @@ div.right {
     align-content: center;
     justify-content: center;
     transition: all 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000);
-}
-.menuButton:enabled {
-    opacity: 1;
-    cursor: pointer;
-}
-.menuButton:enabled:hover,
-a:hover .menuButton {
-    box-shadow: 0 0 5px 3px var(--accent-4);
-}
-.menuButton:enabled:active,
-a:active .menuButton  {
-    transform: translateY(2px);
-}
-.menuButton:disabled {
-    opacity: 0.25;
-}
+    
+    &:enabled {
+        opacity: 1;
+        cursor: pointer;
+        &:hover,
+        a:hover & {
+            box-shadow: 0 0 5px 3px var(--accent-4);
+        }
+        &:active,
+        a:active & {
+            transform: translateY(2px);
+        }
+    }
+    &:disabled {
+        opacity: 0.25;
+        a > & {
+            pointer-events: none;
+        }
+    }
 
-.menuButton span {
-    font-size: 1em;
-}
-
-select.menuButton {
-    display: flex;
-    padding: 5px 10px;
-    margin: 5px;
-    font-size: 1em;
-    font-family: system-ui;
-    background-color: var(--accent-4);
-    border: solid 1px #FFF3;
-    border-radius: 10px;
-    color: white;
-    align-content: center;
-    justify-content: center;
-    transition: all 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000);
-}
-select.menuButton:enabled {
-    opacity: 1;
-    cursor: pointer;
-}
-select.menuButton:enabled:hover {
-    box-shadow: 0 0 5px 3px var(--accent-4);
-}
-select.menuButton:enabled:active {
-    transform: translateY(2px);
-}
-select.menuButton:disabled {
-    opacity: 0.25;
+    & span {
+        font-size: 1em;
+    }
+    
+    select& {
+        display: flex;
+        padding: 5px 10px;
+        margin: 5px;
+        font-size: 1em;
+        font-family: system-ui;
+        background-color: var(--accent-4);
+        border: solid 1px #FFF3;
+        border-radius: 10px;
+        color: white;
+        align-content: center;
+        justify-content: center;
+        transition: all 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000);
+        &:enabled {
+            opacity: 1;
+            cursor: pointer;
+            &:hover {
+                box-shadow: 0 0 5px 3px var(--accent-4);
+            }
+            &:active {
+                transform: translateY(2px);
+            }
+        }
+        &:disabled {
+            opacity: 0.25;
+        }
+    }
 }
 
 #pageCount {
@@ -252,7 +246,6 @@ select.menuButton:disabled {
     justify-content: left;
     flex-wrap: wrap;
     gap: 10px;
-
 }
 
 div.button {
@@ -388,7 +381,6 @@ div.raw {
         grid-template-columns: 100%;
         grid-template-rows: 1fr;
         grid-template-areas: "imageDisplay" "buttons" "moreInfo" "tags" "raw";
-
 
         &:has(#family > div > div) {
             grid-template-areas: "imageDisplay" "buttons" "family" "moreInfo" "tags" "raw";
