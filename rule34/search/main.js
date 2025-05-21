@@ -129,7 +129,7 @@ function displayResults(resultsJson, resultsXml) {
     const prevPage = document.getElementById("prevPage");
     const nextPage = document.getElementById("nextPage");
     console.log("page is "+page);
-    if (page != 0) {
+    if (Number(page) != 0) {
         prevPage.removeAttribute("disabled");
         prevPage.setAttribute("onclick", "prevPage()");
     }
