@@ -158,16 +158,16 @@ div.warning {
     grid-template-columns: 1fr 4fr;
     grid-template-areas:
         "tags imageDisplay"
-        "moreInfo imageDisplay"
         "buttons buttons"
+        "moreInfo comments"
         "raw raw";
 
     &:has(#family > div > div) {
         grid-template-areas:
             "family imageDisplay"
             "tags imageDisplay"
-            "moreInfo imageDisplay"
             "buttons buttons"
+            "moreInfo comments"
             "raw raw";
     }
 }
@@ -308,7 +308,7 @@ div.card {
     overflow-y: scroll;
     grid-area: tags;
     min-width: min-content;
-    max-height: 60vh;
+    max-height: 75vh;
 }
 #tagList {
     & ul {
@@ -350,6 +350,20 @@ div.card {
 #moreInfo {
     grid-area: moreInfo;
     height: fit-content;
+    & tbody {
+        display: grid;
+        grid-template-columns: 1fr;
+        & tr {
+            display: grid;
+            grid-template-columns: fit-content fit-content;
+            &:nth-child(0) {
+                width: fit-content;
+            }
+            & span {
+                justify-self: start;
+            }
+        }
+    }
 }
 
 #rawPostInfo {
@@ -380,10 +394,10 @@ div.raw {
     #postDisplay {
         grid-template-columns: 100%;
         grid-template-rows: 1fr;
-        grid-template-areas: "imageDisplay" "buttons" "moreInfo" "tags" "raw";
+        grid-template-areas: "imageDisplay" "buttons" "moreInfo" "tags" "comments" "raw";
 
         &:has(#family > div > div) {
-            grid-template-areas: "imageDisplay" "buttons" "family" "moreInfo" "tags" "raw";
+            grid-template-areas: "imageDisplay" "buttons" "family" "moreInfo" "tags" "comments" "raw";
         }
     }
 }

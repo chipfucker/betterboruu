@@ -1,8 +1,20 @@
+const dom = {
+    searchBar: document.getElementById("searchBar"),
+    searchDisplay: document.getElementById("searchDisplay"),
+    errDisplay: document.getElementById("errDisplay"),
+    errInfo: document.getElementById("errInfo"),
+    hideError: document.getElementById("hideError"),
+    noResults: document.getElementById("noResults"),
+    prevPage: document.getElementById("prevPage"),
+    nextPage: document.getElementById("nextPage"),
+    pageCount: document.getElementById("pageCount").firstElementChild
+};
+
 window.onerror = function handleError(e, url, line) {
     window.alert(`${e}\n\n${line}`);
-    document.getElementById("searchDisplay").style.display = "none";
-    document.getElementById("hideError").style.display = "none";
-    document.getElementById("errInfo").innerHTML =
+    dom.searchDisplay.style.display = "none";
+    dom.hideError.style.display = "none";
+    dom.errInfo.innerHTML =
         `<b><pre>ERROR MESSAGE:</pre></b>
         <pre>${e}</pre>
         <br/>
@@ -11,20 +23,10 @@ window.onerror = function handleError(e, url, line) {
         <br/>
         <b><pre>ERROR LINE:</pre></b>
         <pre>${line}</pre>`;
-    document.getElementById("errDisplay").style.display = "block";
+    dom.errDisplay.style.display = "block";
     console.error(e);
     return false;
 };
-
-const debug = false;
-const debugErrMsg = "Debug: Forced error";
-const debugPosts = {
-    link: "",
-    file: "debug\/search.json",
-    error: false ? debugErrMsg : false
-};
-const debugPost = debugPosts.file; // change depending on needs
-const debugErr = debugPosts.error;
 
 var link = "";
 var page = 0;
@@ -249,11 +251,6 @@ function displayError(e, msg) {
 function noResults(e, msg) {
     document.getElementById("searchDisplay").style.display = "none";
     document.getElementById("hideError").style.display = "none";
-    document.getElementById("errInfo").innerHTML =
-        `<b><pre>MESSAGE IN TRY-CATCH:</pre></b>
-        <i><pre>${msg}</pre></i>
-        <br/>
-        <b><pre>ERROR MESSAGE:</pre></b>
-        <pre>${e}</pre>`;
-    document.getElementById("errDisplay").style.display = "block";
+    document.getElementById("errInfo").style.display = "none";
+    document.getElementById("noResults").style.display = "block";
 }

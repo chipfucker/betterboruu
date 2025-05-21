@@ -32,10 +32,15 @@ const debugPosts = {
 const debugPost = debugPosts.file.animated; // change depending on needs
 const debugErr = debugPosts.error;
 
+var postJson = [];
+var postXml = [];
+var artists = {};
+
 window.onload = function () {
     console.group("ONLOAD ATTEMPT");
-    const url = getLink(location.hash.substring(1));
-    submitPost(url);
+    const jsonUrl = getLink(true);
+    const xmlUrl = getLink(false);
+    submitPost(jsonUrl, xmlUrl);
 };
 
 document.getElementById("searchBar").addEventListener("keydown", function (e) {
@@ -53,16 +58,17 @@ function searchBarUpdate() {
         `../search/index.html?q=${document.getElementById("searchBar").value}&p=0`;
 }
 
-async function submitPost(url) {
+async function submitPost(json, xml) {
     document.getElementById("hideError").style.display = "none";
-    post = await fetchData(url); // set post info to variable
-    await setEmbed();
+    postJson = await fetchJsonData(json);
+    postXml = await fetchXmlData(xml);
 
-    getTags(post.tag_info); // display extra tag info and get artist tags as one string
-    artists = getTagOfType(post.tag_info, "artist"); // assign artist tags to strings
-    displayMedia(post.file_url); // display media
+    getTags(postJson.tag_info); // display extra tag info and get artist tags as one string
+    artists = getTagOfType(postJson.tag_info, "artist"); // assign artist tags to strings
+    await setEmbed(artists);
+    displayMedia(postJson.file_url); // display media
     displayFamily();
-    displayInfo(post);
+    displayInfo(postJson, postXml);
     setButtons(); // set all buttons
     displayComments(); // show all comments under post
     showStuff(); // reveal everything
@@ -73,19 +79,34 @@ async function submitSearch(input) {
     location.href = "../search/index.html?q=" + encodeURIComponent(input) + "&p=0";
 }
 
-function displayInfo(post) {
+function displayInfo(postJson, postXml) {
     document.getElementById("rawPostInfo").getElementsByTagName("pre")[1].innerHTML =
-        `\n${JSON.stringify(post, null, 2)}`;
-    document.getElementById("id").innerHTML = post.id;
-    document.getElementById("ownerLink").href = "../search/index.html?q=user:" + encodeURIComponent(post.owner) + "&p=0";
-    document.getElementById("owner").innerHTML = post.owner;
+        `\n${JSON.stringify(postJson, null, 2)}`;
+    document.getElementById("id").innerHTML = postJson.id;
+    var date = new Date(postXml.querySelector("post").getAttribute("created_at"));
+    date = date.toLocaleString('en-US', {
+        month: 'numeric',
+        day: 'numeric',
+        year: '2-digit',
+        hour: 'numeric',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+    });
+    date = date.replace(',', '');
+    document.getElementById("posted").innerHTML = date;
+    document.getElementById("ownerLink").href = "../search/index.html?q=user:" + encodeURIComponent(postJson.owner) + "&p=0";
+    document.getElementById("owner").innerHTML = postJson.owner;
+    document.getElementById("size").innerHTML = `${postJson.width}&times;${postJson.height}`;
+    document.getElementById("rating").innerHTML = postJson.rating.charAt(0).toUpperCase() + postJson.rating.slice(1);
+    document.getElementById("score").innerHTML = postJson.score;
 }
 
-function getLink(input) {
-    const apiUrl = "https://api.rule34.xxx//index.php?page=dapi&s=post&q=index&json=1&fields=tag_info&id=";
+function getLink(jsonBool) {
+    const apiUrl = `https://api.rule34.xxx//index.php?page=dapi&s=post&q=index${jsonBool?"&json=1&fields=tag_info":""}&id=`;
     let hashId = location.hash.substring(1);
     console.log("got hash value: "+(hashId?hashId:null));
-    const id = input || hashId || "5823623";
+    const id = hashId || "5823623";
     console.log("final id: "+id);
     location.hash = "#" + id;
     url = apiUrl + id;
@@ -93,23 +114,44 @@ function getLink(input) {
     return url;
 }
 
-async function fetchData(url) {
+async function fetchJsonData(url) {
     // fetch and handle api content
     console.time("fetch time");
     try {
         response = await fetch(url);
         console.timeEnd("fetch time");
         console.log("got api info from:\n"+url);
+        jsonInfo = await response.json();
     } catch (e) {
         console.timeEnd("fetch time");
         displayError(e, `Couldn't fetch from: ${url}`);
         return;
     }
-    const jsonInfo = await response.json();
     console.groupCollapsed("json info");
     console.log(JSON.stringify(jsonInfo, null, 1));
     console.groupEnd();
     return jsonInfo[0];
+}
+
+async function fetchXmlData(url) {
+    // fetch and handle api content
+    console.time("fetch time");
+    try {
+        response = await fetch(url);
+        console.timeEnd("fetch time");
+        console.log("got api info from:\n"+url);
+        text = await response.text();
+    } catch (e) {
+        console.timeEnd("fetch time");
+        displayError(e, `Couldn't fetch from: ${url}`);
+        return;
+    }
+    const parser = new DOMParser();
+    const xmlInfo = parser.parseFromString(text, "text/xml");
+    console.groupCollapsed("xml info");
+    console.log(new XMLSerializer().serializeToString(xmlInfo));
+    console.groupEnd();
+    return xmlInfo;
 }
 
 function getTags(tags) {
@@ -177,36 +219,35 @@ function getTagOfType(tags, typeRequest) {
     return featJson;
 }
 
-async function setEmbed() {
-    const artists = getTagOfType(post.tag_info, "artist");
+async function setEmbed(artists) {
 
     const titleElement = document.getElementsByTagName("title")[0];
-    titleElement.innerText = `#${post.id} - ${artists.comma}`;
+    titleElement.innerText = `#${postJson.id} - ${artists.comma}`;
 
-    const authorName = document.createElement("meta");
-    authorName.setAttribute("property", "og:author:name");
-    authorName.content = `#${post.id}`;
-    document.head.appendChild(authorName);
-
-    const authorUrl = document.createElement("meta");
-    authorUrl.setAttribute("property", "og:author:url");
-    authorUrl.content = `https://chipfucker.github.io/betterboruu/rule34/post#${post.id}`;
-    document.head.appendChild(authorUrl);
-
-    const description = document.createElement("meta");
-    description.setAttribute("property", "og:description");
-    description.content = `### Artist${artists.plural}:\n${artists.list}`;
-    document.head.appendChild(description);
-
-    const imageUrl = document.createElement("meta");
-    imageUrl.setAttribute("property", "og:image:url");
-    imageUrl.content = post.file_url;
-    document.head.appendChild(imageUrl);
-
-    const title = document.createElement("meta");
-    title.setAttribute("property", "title");
-    title.content = `#${artists.and}`;
-    document.head.appendChild(title);
+    //const authorName = document.createElement("meta");
+    //authorName.setAttribute("property", "og:author:name");
+    //authorName.content = `#${postJson.id}`;
+    //document.head.appendChild(authorName);
+    //
+    //const authorUrl = document.createElement("meta");
+    //authorUrl.setAttribute("property", "og:author:url");
+    //authorUrl.content = `https://chipfucker.github.io/betterboruu/rule34/post#${postJson.id}`;
+    //document.head.appendChild(authorUrl);
+    //
+    //const description = document.createElement("meta");
+    //description.setAttribute("property", "og:description");
+    //description.content = `### Artist${artists.plural}:\n${artists.list}`;
+    //document.head.appendChild(description);
+    //
+    //const imageUrl = document.createElement("meta");
+    //imageUrl.setAttribute("property", "og:image:url");
+    //imageUrl.content = postJson.file_url;
+    //document.head.appendChild(imageUrl);
+    //
+    //const title = document.createElement("meta");
+    //title.setAttribute("property", "title");
+    //title.content = `#${artists.and}`;
+    //document.head.appendChild(title);
 }
 
 function displayMedia(mediaUrl) {
@@ -224,7 +265,7 @@ function displayMedia(mediaUrl) {
         console.log("media is assumed an image");
         const img = document.createElement("img");
         img.src = mediaUrl;
-        img.alt = post.image;
+        img.alt = postJson.image;
         container.appendChild(img);
     } else if (videoExt.includes(extension)) {
         console.log("media is assumed a video");
@@ -234,7 +275,7 @@ function displayMedia(mediaUrl) {
         video.loop = true;
         video.muted = false;
         video.preload = "auto";
-        video.alt = post.image;
+        video.alt = postJson.image;
         const videoSource = document.createElement("source");
         videoSource.src = mediaUrl;
         videoSource.type = `video/mp4`;
@@ -252,10 +293,10 @@ function displayMedia(mediaUrl) {
 }
 
 function setButtons() {
-    setOpenMedia(post.file_url); // set open media link
-    // setDownloadLink(post.file_url); // set download media link
-    // setSpecialDownloadLink(post.file_url, post.id, artists); // set special download media link and name
-    setOpenPost(post.id); // set open original post link
+    setOpenMedia(postJson.file_url); // set open media link
+    // setDownloadLink(postJson.file_url); // set download media link
+    // setSpecialDownloadLink(postJson.file_url, postJson.id, artists); // set special download media link and name
+    setOpenPost(postJson.id); // set open original post link
 
     function setOpenMedia(url) {
         const element = document.getElementById("openMedia");
@@ -304,8 +345,8 @@ function copyMedia() {
         <span>Failed!</span>`;
 
     try {
-        navigator.clipboard.writeText(post.file_url);
-        console.debug("copied media link to clipboard: "+post.file_url);
+        navigator.clipboard.writeText(postJson.file_url);
+        console.debug("copied media link to clipboard: "+postJson.file_url);
         element.innerHTML = success;
         console.debug("set text to 'copied'");
     } catch (e) {
@@ -337,8 +378,8 @@ function copyPresetName() {
         <span>Failed!</span>`;
 
     try {
-        navigator.clipboard.writeText(`${artists.generic} r${post.id}.${extension}`);
-        console.debug("copied preset name to clipboard: "+`${artists.generic} r${post.id}.${extension}`);
+        navigator.clipboard.writeText(`${artists.generic} r${postJson.id}.${extension}`);
+        console.debug("copied preset name to clipboard: "+`${artists.generic} r${postJson.id}.${extension}`);
         element.innerHTML = success;
         console.debug("set text to 'copied'");
     } catch (e) {
