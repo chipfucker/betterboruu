@@ -37,11 +37,12 @@ function isMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
-window.onload = function () {
+window.onload = async function () {
     console.group("ONLOAD ATTEMPT");
     const jsonUrl = getLink(true);
     const xmlUrl = getLink(false);
-    submitSearch(jsonUrl, xmlUrl);
+    await submitSearch(jsonUrl, xmlUrl);
+    console.groupEnd();
 };
 
 document.getElementById("searchBar").addEventListener("keydown", function (e) {
@@ -50,9 +51,18 @@ document.getElementById("searchBar").addEventListener("keydown", function (e) {
     }
 });
 
-function searchBarUpdate() {
+async function searchBarUpdate() {
     document.getElementById("submit").parentElement.href =
-        `index.html?q=${document.getElementById("searchBar").value}&p=0`;
+        `index.html?q=${document.getElementById("searchBar").getElementsByTagName("input")[0].value}&p=0`;
+    return;
+    //const url = "https://api.rule34.xxx//autocomplete.php?q=zoolo";
+    //const response = await fetch(url);
+    //const text = await response.text();
+    //const parser = new DOMParser();
+    //const info = parser.parseFromString(text, "text/html");
+    //const innards = info.body.innerText;
+    //const json = JSON.parse(innards);
+    //console.log(json);
 }
 
 async function submitSearch(json, xml) {

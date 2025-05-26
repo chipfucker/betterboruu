@@ -36,11 +36,12 @@ var postJson = [];
 var postXml = [];
 var artists = {};
 
-window.onload = function () {
+window.onload = async function () {
     console.group("ONLOAD ATTEMPT");
     const jsonUrl = getLink(true);
     const xmlUrl = getLink(false);
-    submitPost(jsonUrl, xmlUrl);
+    await submitPost(jsonUrl, xmlUrl);
+    console.groupEnd();
 };
 
 document.getElementById("searchBar").addEventListener("keydown", function (e) {
@@ -55,7 +56,7 @@ window.addEventListener("hashchange", () => {
 
 function searchBarUpdate() {
     document.getElementById("submit").parentElement.href =
-        `../search/index.html?q=${document.getElementById("searchBar").value}&p=0`;
+        `../search/index.html?q=${document.getElementById("searchBar").firstElementChild.value}&p=0`;
 }
 
 async function submitPost(json, xml) {
@@ -70,7 +71,7 @@ async function submitPost(json, xml) {
     displayFamily();
     displayInfo(postJson, postXml);
     setButtons(); // set all buttons
-    displayComments(); // show all comments under post
+    displayComments(postJson.id); // show all comments under post
     showStuff(); // reveal everything
     console.groupEnd();
 }
@@ -174,7 +175,7 @@ function getTags(tags) {
             `<a
                 href="../search/index.html?q=${encodeURIComponent(tags[x].tag)}&p=0"
                 title="${tags[x].count} uses"
-            ><li>${tags[x].tag}</li></a>`;
+            ><li>${tags[x].tag.replaceAll("_", " ")}</li></a>`;
         console.log(`added tag to ${tags[x].type}: ${tags[x].tag}`);
     }
     console.groupEnd();
@@ -220,7 +221,6 @@ function getTagOfType(tags, typeRequest) {
 }
 
 async function setEmbed(artists) {
-
     const titleElement = document.getElementsByTagName("title")[0];
     titleElement.innerText = `#${postJson.id} - ${artists.comma}`;
 
@@ -326,8 +326,46 @@ function displayFamily() {
 
 }
 
-function displayComments() {
+async function displayComments(id) {
+    const url = "https://api.rule34.xxx//index.php?page=dapi&s=comment&q=index&post_id=" + id;
+    console.time("fetch time");
+    try {
+        response = await fetch(url);
+        console.timeEnd("fetch time");
+        console.log("got api info from:\n"+url);
+        text = await response.text();
+    } catch (e) {
+        console.timeEnd("fetch time");
+        displayError(e, `Couldn't fetch from: ${url}`);
+        return;
+    }
+    const parser = new DOMParser();
+    const xmlInfo = parser.parseFromString(text, "text/xml");
+    console.groupCollapsed("xml info");
+    console.log(new XMLSerializer().serializeToString(xmlInfo));
+    console.groupEnd();
 
+    const array = xmlInfo.querySelector("comments").children;
+    const commentCon = document.getElementById("comments").firstElementChild;
+
+    for (let x = 0; x < array.length; x++) {
+        console.log(array[x]);
+        const id = array[x].getAttribute("id");
+        const creator = array[x].getAttribute("creator");
+        const body = array[x].getAttribute("body");
+        const creatorApplicable = false;
+        commentCon.innerHTML +=
+            `<li><div class="card">
+                ${creatorApplicable?'<a href="../search/index.html?q=user:${encodeURIComponent(creator)}">':""}
+                    <span class="creator">${creator}</span>
+                ${creatorApplicable?"</a>":""}
+                <span class="id">&raquo; #${id}</span>
+                <br>
+                <blockquote>
+                    <span>${body}</span>
+                </blockquote>
+            </div></li>`;
+    }
 }
 
 function copyMedia() {

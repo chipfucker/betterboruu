@@ -10,10 +10,6 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="../style.css">
 		<link rel="icon" type="image/x-icon" href="../favicon.ico">
-
-		<style>
-			a > div { font-family: monospace !important; font-size: large !important }
-		</style>
 	</head>
 	<body>
 		<h1>Nothing here... Yet.</h1>
@@ -21,13 +17,21 @@
 		<br>
 		<a onclick="history.back()" title="history.back()">
 			<div class="button">
-				&larr; Back
+				<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+					<path d="M3.3 11.3a1 1 0 0 0 0 1.4l8 8a1 1 0 1 0 1.4-1.4L6.42 13H20a1 1 0 1 0 0-2H6.41l6.3-6.3a1 1
+						0 0 0-1.42-1.4l-8 8Z"/>
+				</svg>
+				<span>Back</span>
 			</div>
 		</a>
 		<br>
 		<a href="../search/index.html" title="../search/index.html">
 			<div class="button">
-				&olarr; Search page
+				<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+					<path fill-rule="evenodd" d="M15.62 17.03a9 9 0 1 1 1.41-1.41l4.68 4.67a1 1 0 0 1-1.42
+						1.42l-4.67-4.68ZM17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
+				</svg>
+				<span>Search page</span>
 			</div>
 		</a>
 		<script src="main.js"></script>

@@ -28,7 +28,13 @@
 				</div>
 			</a>
 
-			<input type="text" id="searchBar" placeholder="Search..." oninput="searchBarUpdate()"/>
+			<div id="searchBar">
+				<input type="text" placeholder="Search..." oninput="searchBarUpdate()"/>
+				<select size="10" style="visibility: hidden;">
+					<option>wuddup</option>
+					<option>bitchesss!!!</option>
+				</select>
+			</div>
 
 			<a href="../search/index.html?q=&p=0">
 				<div class="menuButton" id="submit">
@@ -73,7 +79,6 @@
 				<div></div>
 			</div>
 			<div class="card" id="tags">
-				<p class="label">Tags</p>
 				<div id="tagList">
 					<ul id="tagCopyright"></ul>
 					<ul id="tagCharacter"></ul>
@@ -81,20 +86,6 @@
 					<ul id="tagGeneral"></ul>
 					<ul id="tagMetadata"></ul>
 				</div>
-			</div>
-			<div id="moreInfo" class="card">
-				<span><b>ID: </b></span>
-				<span id="id"></span><br>
-				<span><b>Posted: </b></span>
-				<span id="posted"></span><br>
-				<span><b>User: </b></span>
-				<a id="ownerLink"><u><span id="owner"></span></u></a><br>
-				<span><b>Size: </b></span>
-				<span id="size"></span><br>
-				<span><b>Rating: </b></span>
-				<span id="rating"></span><br>
-				<span><b>Score: </b></span>
-				<span id="score"></span>
 			</div>
 			<div id="buttons">
 				<a id="openMedia" title="Open media in new tab (may be useful on Firefox for some videos!)">
@@ -105,18 +96,7 @@
 							<path d="M21.7 7.94c.01.03 0 .06-.04.06H19a3 3 0 0 1-3-3V2.34c0-.03.03-.05.06-.04a3 3 0 0
 								1 .82.58l4.24 4.24a3 3 0 0 1 .58.82Z"/>
 						</svg>
-						<span>Open media</span>
-					</div>
-				</a>
-				<a id="openPost" title="Open original post on rule34.xxx">
-					<div class="button">
-						<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-							<path d="M15 2a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0V4.41l-4.3 4.3a1 1 0 1
-								1-1.4-1.42L19.58 3H16a1 1 0 0 1-1-1Z"/>
-							<path d="M5 2a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-6a1 1 0 1 0-2 0v6a1 1 0 0 1-1
-								1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 1 0 0-2H5Z"/>
-						</svg>
-						<span>Original post</span>
+						<span>Open media link</span>
 					</div>
 				</a>
 				<a id="copyMedia" onclick="copyMedia()" title="Copy link to the original media">
@@ -128,6 +108,17 @@
 							<path d="M21.73 12a3 3 0 0 0-.6-.88l-4.25-4.24a3 3 0 0 0-.88-.61V9a3 3 0 0 0 3 3h2.73Z"/>
 						</svg>
 						<span>Copy media link</span>
+					</div>
+				</a>
+				<a id="openPost" title="Open original post on rule34.xxx">
+					<div class="button">
+						<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+							<path d="M15 2a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0V4.41l-4.3 4.3a1 1 0 1
+								1-1.4-1.42L19.58 3H16a1 1 0 0 1-1-1Z"/>
+							<path d="M5 2a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-6a1 1 0 1 0-2 0v6a1 1 0 0 1-1
+								1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 1 0 0-2H5Z"/>
+						</svg>
+						<span>Original post</span>
 					</div>
 				</a>
 				<a id="copyPresetName" onclick="copyPresetName()" title="Copy a preset filename that improvises with the post's info">
@@ -171,8 +162,24 @@
 				</a> -->
 			</div>
 
-			<div id="comments" class="card">
+			<div id="moreInfo" class="card">
+				<span><b>ID: </b></span>
+				<span id="id"></span><br>
+				<span><b>Posted: </b></span>
+				<span id="posted"></span><br>
+				<span><b>User: </b></span>
+				<a id="ownerLink"><span id="owner"></span></a><br>
+				<span><b>Size: </b></span>
+				<span id="size"></span><br>
+				<span><b>Rating: </b></span>
+				<span id="rating"></span><br>
+				<span><b>Score: </b></span>
+				<span id="score"></span>
+			</div>
 
+			<div id="comments" class="card">
+				<ul>
+				</ul>
 			</div>
 
 			<div id="rawPostInfo" class="raw" display="false">

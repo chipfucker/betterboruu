@@ -58,27 +58,49 @@ div.warning {
 #searchBar {
     width: 500px;
     max-width: 75%;
-    padding: 5px;
     margin: 5px;
-    border: solid 1px #FFF3;
-    border-radius: 10px;
-    background-color: #fbfbb3;
-    font-size: 20px;
-    font-family: monospace;
-    color: black;
-    outline: 0;
-    transition:
-        box-shadow 100ms cubic-bezier(0.390, 0.575, 0.565, 1.000),
-        transform 50ms cubic-bezier(0.390, 0.575, 0.565, 1.000);
-    &:active {
-        transform: translateY(2px);
+    & > input {
+        width: calc(100% - 20px);
+        padding: 5px 10px;
+        border: solid 1px #FFF3;
+        border-radius: 10px;
+        background-color: #fbfbb3;
+        font-size: 20px;
+        font-family: monospace;
+        color: black;
+        outline: 0;
+        transition:
+            box-shadow 100ms cubic-bezier(0.390, 0.575, 0.565, 1.000),
+            transform 50ms cubic-bezier(0.390, 0.575, 0.565, 1.000);
+        &:active {
+            transform: translateY(2px);
+        }
+        &:focus {
+            box-shadow: 0 3px 5px 3px #fbfbb344;
+        }
     }
-    &:focus {
+    & > select {
+        width: fit-content;
+        position: absolute;
+        top: 100%;
+        overflow-y: visible;
+        padding: 5px 10px;
+        border: solid 1px #FFF3;
+        border-radius: 10px;
+        background-color: #fbfbb3;
+        font-size: 20px;
+        font-family: monospace;
+        color: black;
         box-shadow: 0 3px 5px 3px #fbfbb344;
+        & > option {
+            border-radius: 5px;
+            outline: 0;
+        }
     }
 }
 
-.menuButton {
+a div.menuButton,
+button.menuButton {
     display: flex;
     padding: 5px;
     margin: 5px;
@@ -95,15 +117,18 @@ div.warning {
     &:enabled {
         opacity: 1;
         cursor: pointer;
-        &:hover,
-        a:hover & {
-            box-shadow: 0 0 5px 3px var(--accent-4);
-        }
-        &:active,
-        a:active & {
-            transform: translateY(2px);
-        }
     }
+
+    &:hover,
+    a:hover & {
+        box-shadow: 0 0 5px 3px var(--accent-4);
+    }
+
+    &:active,
+    a:active & {
+        transform: translateY(2px);
+    }
+
     &:disabled {
         opacity: 0.25;
         a > & {
@@ -144,6 +169,12 @@ div.warning {
     }
 }
 
+div.verticalRule {
+    width: 1px;
+    height: 80%;
+    margin: auto 0;
+    background-color: rgba(255, 255, 255, 0.1);
+}
 #pageCount {
     height: 26px;
     padding: 5px;
@@ -248,6 +279,47 @@ div.warning {
     gap: 10px;
 }
 
+#moreInfo {
+    grid-area: moreInfo;
+    height: fit-content;
+    & > a:hover > #owner {
+        text-decoration: underline;
+    }
+}
+
+#comments {
+    grid-area: comments;
+    max-height: 50vh;
+    overflow-y: scroll;
+
+    & > ul {
+        display: grid;
+        gap: 10px;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        & > li > div.card {
+            background-color: var(--accent-4);
+            & span.creator {
+                font-weight: bold;
+                a:hover > & {
+                    text-decoration: underline;
+                }
+            }
+            & > span.id {
+                color: #FFFA;
+            }
+            & > blockquote {
+                width: fit-content;
+                height: fit-content;
+                margin: 5px 0 0 5px;
+                padding-left: 10px;
+                border-left: solid 2px #FFF5
+            }
+        }
+    }
+}
+
 div.button {
     width: fit-content;
     height: fit-content;
@@ -262,10 +334,11 @@ div.button {
     color: white;
     transition:
         box-shadow 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000),
-        transform 0.05s cubic-bezier(0.390, 0.575, 0.565, 1.000);
+        transform 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000);
 
     &:hover {
         box-shadow: 0 0 5px 3px var(--accent-4);
+        transform: scale(1.05);
     }
     &:active {
         transform: translateY(2px);
@@ -282,10 +355,8 @@ div.card {
     border-radius: 10px;
     overflow: hidden;
     transition: all 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000);
-
-    &:hover {
-        box-shadow: 0 3px 5px 3px #20361e44;
-    }
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-5) var(--accent-4);
 
     & *::selection {
         color: var(--accent-1);
@@ -293,14 +364,14 @@ div.card {
     }
 
     & > .label {
-    font-weight: bolder;
-    text-transform: uppercase;
-    font-size: larger;
-    margin: 0;
-    padding: 0;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-    border-bottom: solid #FFF2 2px;
+        font-weight: bolder;
+        text-transform: uppercase;
+        font-size: larger;
+        margin: 0;
+        padding: 0;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+        border-bottom: solid #FFF2 2px;
     }
 }
 
@@ -323,7 +394,7 @@ div.card {
         border: solid rgba(var(--color)) 2px;
         border-radius: 5px;
         background-image:
-            linear-gradient(rgba(var(--color), 0.2), rgba(var(--color), 0.2)),
+            linear-gradient(to bottom, rgba(var(--color), 0.2), rgba(var(--color), 0.3)),
             linear-gradient(black, black);
         padding: 2px 5px;
         margin: 2px;
@@ -332,9 +403,12 @@ div.card {
 
         &:hover {
             background-image:
-                linear-gradient(rgba(var(--color), 0.3), rgba(var(--color), 0.3)),
+                linear-gradient(rgba(var(--color), 0.3), rgba(var(--color), 0.4)),
                 linear-gradient(black, black);
             box-shadow: 0 0 5px 3px rgba(var(--color), 0.2);
+            color: white;
+            border-color: white;
+            transform: scale(1.1);
         }
     }
     & a {
@@ -346,25 +420,6 @@ div.card {
 #tagArtist      { --color: 240, 160, 160; }
 #tagGeneral     { --color: 145, 191, 237; }
 #tagMetadata    { --color: 240, 240, 160; }
-
-#moreInfo {
-    grid-area: moreInfo;
-    height: fit-content;
-    & tbody {
-        display: grid;
-        grid-template-columns: 1fr;
-        & tr {
-            display: grid;
-            grid-template-columns: fit-content fit-content;
-            &:nth-child(0) {
-                width: fit-content;
-            }
-            & span {
-                justify-self: start;
-            }
-        }
-    }
-}
 
 #rawPostInfo {
     grid-area: raw;
