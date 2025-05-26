@@ -171,22 +171,23 @@ function displayResults(resultsJson, resultsXml) {
     display.innerHTML = "";
     for (const x in resultsJson) {
         const extension = resultsJson[x].image.split(".").pop();
-        if (extension === "mp4" && !isMobile()) {
+        if (extension === "mp4") {
             display.innerHTML +=
                 `<div class="post postVideo" id="result-${x}"
-                    onmouseover="overVideo(this, true)" onmouseout="overVideo(this, false)">
+                    onmouseover="overVideo(this, true)" onmouseout="overVideo(this, false)"
                     <a href="../post/index.html#${resultsJson[x].id}">
-                        <img src="${resultsJson[x].preview_url}"/>
-                        <video style="display: none" src="${resultsJson[x].file_url}"
-                            type="video/mp4" preload="none" muted loop disablepictureinpicture>
-                    </a>
+                        <img src="${resultsJson[x].preview_url}"/>` +
+                        ( isMobile() ? "" :
+                        `<video style="display: none" src="${resultsJson[x].file_url}"
+                            type="video/mp4" preload="none" muted loop disablepictureinpicture>` ) +
+                    `</a>
                 </div>`;
-        } else if (extension === "gif" && !isMobile()) {
+        } else if (extension === "gif") {
             display.innerHTML +=
-                `<div class="post postGif" id="result-${x}"
+                `<div class="post postGif" id="result-${x}"` +
                     onmouseover="mouseImg(this, '${resultsJson[x].file_url}')"
                     onmouseout="mouseImg(this, '${resultsJson[x].preview_url}')">
-                    <a href="../post/index.html#${resultsJson[x].id}">
+                    `<a href="../post/index.html#${resultsJson[x].id}">
                         <img src="${resultsJson[x].preview_url}"/>
                     </a>
                 </div>`;
