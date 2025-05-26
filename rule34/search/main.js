@@ -176,11 +176,10 @@ function displayResults(resultsJson, resultsXml) {
                 `<div class="post postVideo" id="result-${x}"
                     onmouseover="overVideo(this, true)" onmouseout="overVideo(this, false)"
                     <a href="../post/index.html#${resultsJson[x].id}">
-                        <img src="${resultsJson[x].preview_url}"/>` +
-                        ( isMobile() ? "" :
-                        `<video style="display: none" src="${resultsJson[x].file_url}"
-                            type="video/mp4" preload="none" muted loop disablepictureinpicture>` ) +
-                    `</a>
+                        <img src="${resultsJson[x].preview_url}"/>
+                        <video style="display: none" src="${resultsJson[x].file_url}"
+                            type="video/mp4" preload="none" muted loop disablepictureinpicture>
+                    </a>
                 </div>`;
         } else if (extension === "gif") {
             display.innerHTML +=
