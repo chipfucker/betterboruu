@@ -171,7 +171,7 @@ function displayResults(resultsJson, resultsXml) {
     display.innerHTML = "";
     for (const x in resultsJson) {
         const extension = resultsJson[x].image.split(".").pop();
-        if (extension === "mp4") {
+        if (extension === "mp4" && !isMobile()) {
             display.innerHTML +=
                 `<div class="post postVideo" id="result-${x}"
                     onmouseover="overVideo(this, true)" onmouseout="overVideo(this, false)">
@@ -181,7 +181,7 @@ function displayResults(resultsJson, resultsXml) {
                             type="video/mp4" preload="none" muted loop disablepictureinpicture>
                     </a>
                 </div>`;
-        } else if (extension === "gif") {
+        } else if (extension === "gif" && !isMobile()) {
             display.innerHTML +=
                 `<div class="post postGif" id="result-${x}"
                     onmouseover="mouseImg(this, '${resultsJson[x].file_url}')"
