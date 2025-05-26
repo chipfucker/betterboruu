@@ -184,10 +184,10 @@ function displayResults(resultsJson, resultsXml) {
                 </div>`;
         } else if (extension === "gif") {
             display.innerHTML +=
-                `<div class="post postGif" id="result-${x}"` +
+                `<div class="post postGif" id="result-${x}"
                     onmouseover="mouseImg(this, '${resultsJson[x].file_url}')"
                     onmouseout="mouseImg(this, '${resultsJson[x].preview_url}')">
-                    `<a href="../post/index.html#${resultsJson[x].id}">
+                    <a href="../post/index.html#${resultsJson[x].id}">
                         <img src="${resultsJson[x].preview_url}"/>
                     </a>
                 </div>`;
