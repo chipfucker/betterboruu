@@ -1,7 +1,7 @@
 # API Info
 > <details>
 >     <summary>
->         (Original text from ?page=help&amp;topic=dapi)
+>         Original text from ?page=help&amp;topic=dapi
 >     </summary>
 >
 > # API Basics
@@ -33,8 +33,8 @@
 > * **limit** How many tags you want to retrieve. There is a default limit of 100 per request.
 > </details>
 
-You should never receive an error unless the server is overloaded or the search dies.
-* In cases of the searcher breaking, you will receive a response success of "false" and a message stating "search down" or similar.
+You should never receive an error unless the server is overloaded or the search dies.<br>
+*In cases of the searcher breaking, you will receive a response success of "false" and a message stating "search down" or similar.*
 
 ## Beginning URL
 https://api.rule34.xxx/index.php?page=dapi&q=index ...
