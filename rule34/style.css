@@ -420,6 +420,7 @@ div.card {
 #tagArtist      { --color: 240, 160, 160; }
 #tagGeneral     { --color: 145, 191, 237; }
 #tagMetadata    { --color: 240, 240, 160; }
+#tagNull        { --color: 194, 194, 194; }
 
 #rawPostInfo {
     grid-area: raw;

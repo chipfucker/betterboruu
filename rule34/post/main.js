@@ -161,7 +161,8 @@ function getTags(tags) {
         character: document.getElementById("tagCharacter"),
         artist: document.getElementById("tagArtist"),
         tag: document.getElementById("tagGeneral"),
-        metadata: document.getElementById("tagMetadata")
+        metadata: document.getElementById("tagMetadata"),
+        null: document.getElementById("tagNull")
     };
     console.log("got list elements");
     for (const x in ulElement) {
